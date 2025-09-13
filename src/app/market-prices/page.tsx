@@ -16,7 +16,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   price: {
-    label: "Price ($)",
+    label: "Price (₹)",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
@@ -46,7 +46,7 @@ function MarketPriceChart({ data }: { data: MarketPrice["data"] }) {
             axisLine={false}
             tickMargin={8}
             domain={['dataMin - 20', 'dataMax + 20']}
-            tickFormatter={(value) => `$${value}`}
+            tickFormatter={(value) => `₹${value}`}
         />
         <ChartTooltip
           cursor={false}

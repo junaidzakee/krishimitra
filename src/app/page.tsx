@@ -69,7 +69,7 @@ export default function Dashboard() {
             <LineChart className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$250/ton</div>
+            <div className="text-2xl font-bold">₹20,750/ton</div>
             <p className="text-xs text-muted-foreground">+2.1% from last month</p>
           </CardContent>
         </Card>
