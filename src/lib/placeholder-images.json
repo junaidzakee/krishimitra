@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "disease-leaf",
+      "description": "A close up of a green leaf with some brown spots, resting on a wooden surface.",
+      "imageUrl": "https://picsum.photos/seed/leafspot/800/600",
+      "imageHint": "plant leaf"
+    }
+  ]
 }
