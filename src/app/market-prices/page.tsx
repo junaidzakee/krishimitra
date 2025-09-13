@@ -52,7 +52,13 @@ function MarketPriceChart({ data }: { data: MarketPrice["data"] }) {
           cursor={false}
           content={
             <ChartTooltipContent
-              labelFormatter={(value) => format(new Date(value), "eeee, MMM d, yyyy")}
+              labelFormatter={(value) => {
+                const date = new Date(value);
+                if (!isNaN(date.getTime())) {
+                  return format(date, "eeee, MMM d, yyyy");
+                }
+                return value;
+              }}
               indicator="dot"
             />
           }
