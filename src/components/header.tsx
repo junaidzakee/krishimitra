@@ -84,18 +84,24 @@ export function Header() {
             <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem disabled>
+            <Link href="/profile" passHref>
+              <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem disabled>
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/settings" passHref>
+              <DropdownMenuItem>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem disabled>
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/support" passHref>
+              <DropdownMenuItem>
                 <LifeBuoy className="mr-2 h-4 w-4" />
                 <span>Support</span>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
                 <DropdownMenuSubTrigger>

@@ -69,16 +69,20 @@ export function MainNav() {
         <SidebarSeparator />
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="justify-start" tooltip="Settings" disabled>
-              <Settings className="h-5 w-5" />
-              <span>Settings</span>
-            </SidebarMenuButton>
+            <Link href="/settings" passHref>
+              <SidebarMenuButton className="justify-start" tooltip="Settings" isActive={pathname.startsWith('/settings')}>
+                <Settings className="h-5 w-5" />
+                <span>Settings</span>
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton className="justify-start" tooltip="Support" disabled>
-              <LifeBuoy className="h-5 w-5" />
-              <span>Support</span>
-            </SidebarMenuButton>
+            <Link href="/support" passHref>
+              <SidebarMenuButton className="justify-start" tooltip="Support" isActive={pathname.startsWith('/support')}>
+                <LifeBuoy className="h-5 w-5" />
+                <span>Support</span>
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
