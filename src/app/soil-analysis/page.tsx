@@ -32,6 +32,9 @@ import { Loader2, Mic, Save, Volume2, Wand2 } from "lucide-react";
 import { analyzeSoilAndRecommend, SoilAnalysisOutput } from "@/ai/flows/soil-analysis-recommendation";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/hooks/use-auth";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const formSchema = z.object({
   soilType: z.string().min(1, "Soil type is required."),
@@ -48,7 +51,9 @@ type SoilAnalysisFormValues = z.infer<typeof formSchema>;
 export default function SoilAnalysisPage() {
   const [analysisResult, setAnalysisResult] = useState<SoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const form = useForm<SoilAnalysisFormValues>({
     resolver: zodResolver(formSchema),
@@ -78,6 +83,40 @@ export default function SoilAnalysisPage() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!user || !analysisResult) {
+      toast({
+        variant: 'destructive',
+        title: 'Cannot Save',
+        description: 'You must be logged in and have an analysis result to save.',
+      });
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      await addDoc(collection(db, "soilAnalyses"), {
+        userId: user.uid,
+        createdAt: serverTimestamp(),
+        inputs: form.getValues(),
+        results: analysisResult,
+      });
+      toast({
+        title: 'Analysis Saved',
+        description: 'Your soil analysis has been saved to your account.',
+      });
+    } catch (error) {
+      console.error("Error saving analysis:", error);
+      toast({
+        variant: 'destructive',
+        title: 'Save Failed',
+        description: 'Could not save your analysis. Please try again.',
+      });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -253,8 +292,8 @@ export default function SoilAnalysisPage() {
                             <Volume2 className="h-4 w-4"/>
                             <span className="sr-only">Read aloud</span>
                         </Button>
-                         <Button variant="outline" size="icon">
-                            <Save className="h-4 w-4"/>
+                         <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving}>
+                            {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4"/>}
                             <span className="sr-only">Save for Offline</span>
                         </Button>
                     </div>
