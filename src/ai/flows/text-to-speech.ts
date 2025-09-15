@@ -62,7 +62,7 @@ const textToSpeechFlow = ai.defineFlow(
       if (language.startsWith('hi')) {
         voiceName = 'Indus'; // Hindi voice
       } else if (language.startsWith('kn')) {
-        voiceName = 'Tania'; // Kannada voice, assuming one exists with this name. Replace if needed.
+        voiceName = 'Tania'; // Kannada voice
       }
     }
 

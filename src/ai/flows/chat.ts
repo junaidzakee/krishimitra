@@ -49,7 +49,7 @@ const chatFlow = ai.defineFlow(
 
     const prompt = `
       You are a helpful AI assistant for farmers.
-      The user is communicating in ${language}. Please provide a concise and helpful response in ${language}.
+      Your response MUST be in the ${language} language.
       
       User's message: "${message}"
     `;
