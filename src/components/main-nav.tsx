@@ -69,20 +69,16 @@ export function MainNav() {
         <SidebarSeparator />
         <SidebarMenu>
           <SidebarMenuItem>
-            <Link href="#" passHref>
-              <SidebarMenuButton className="justify-start" tooltip="Settings">
-                <Settings className="h-5 w-5" />
-                <span>Settings</span>
-              </SidebarMenuButton>
-            </Link>
+            <SidebarMenuButton className="justify-start" tooltip="Settings" disabled>
+              <Settings className="h-5 w-5" />
+              <span>Settings</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <Link href="#" passHref>
-              <SidebarMenuButton className="justify-start" tooltip="Support">
-                <LifeBuoy className="h-5 w-5" />
-                <span>Support</span>
-              </SidebarMenuButton>
-            </Link>
+            <SidebarMenuButton className="justify-start" tooltip="Support" disabled>
+              <LifeBuoy className="h-5 w-5" />
+              <span>Support</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
