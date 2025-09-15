@@ -44,7 +44,7 @@ export function MainNav() {
             <div className="p-2 bg-primary rounded-lg">
                 <Leaf className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="font-bold text-lg text-primary font-headline">AgriAssist</span>
+            <span className="font-bold text-lg text-primary font-headline">KrishiMitra</span>
         </Link>
       </SidebarHeader>
       <SidebarContent className="p-4">

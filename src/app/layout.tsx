@@ -11,7 +11,7 @@ import { LanguageProvider } from '@/hooks/use-language';
 import { VoiceAssistant } from '@/components/voice-assistant';
 
 export const metadata: Metadata = {
-  title: 'AgriAssist',
+  title: 'KrishiMitra',
   description: 'Smart Crop Advisory Platform',
 };
 

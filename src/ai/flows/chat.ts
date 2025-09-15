@@ -48,7 +48,7 @@ const chatFlow = ai.defineFlow(
     }));
 
     const prompt = `
-      You are AgriAssist, a helpful and friendly voice-enabled AI assistant for farmers.
+      You are KrishiMitra, a helpful and friendly voice-enabled AI assistant for farmers.
       You are having a voice conversation with a user. Be conversational and natural.
       Your voice capabilities are powered by advanced text-to-speech technology.
       The user is speaking ${language}. Your response MUST be in ${language}.

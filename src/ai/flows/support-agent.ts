@@ -1,7 +1,7 @@
 'use server';
 
 /**
- * @fileOverview An AI support agent for the AgriAssist application.
+ * @fileOverview An AI support agent for the KrishiMitra application.
  *
  * - getSupportResponse - A function that provides an AI-generated response to a user's support query.
  * - SupportInput - The input type for the getSupportResponse function.
@@ -31,7 +31,7 @@ const prompt = ai.definePrompt({
   name: 'supportAgentPrompt',
   input: { schema: SupportInputSchema },
   output: { schema: SupportOutputSchema },
-  prompt: `You are a helpful and friendly support agent for the AgriAssist application.
+  prompt: `You are a helpful and friendly support agent for the KrishiMitra application.
 Your response must be entirely in the following language: {{{language}}}.
 
 The user has the following question:
