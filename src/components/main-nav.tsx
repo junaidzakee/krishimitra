@@ -20,6 +20,7 @@ import {
   LayoutGrid,
   Settings,
   LifeBuoy,
+  History,
 } from "lucide-react";
 
 const links = [
@@ -28,6 +29,7 @@ const links = [
   { href: "/disease-detection", label: "Disease Detection", icon: Leaf },
   { href: "/weather", label: "Weather", icon: CloudSun },
   { href: "/market-prices", label: "Market Prices", icon: BarChart },
+  { href: "/history", label: "History", icon: History },
 ];
 
 export function MainNav() {
