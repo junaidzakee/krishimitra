@@ -13,6 +13,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const chartConfig = {
   price: {
@@ -77,7 +78,21 @@ function MarketPriceChart({ data }: { data: MarketPrice["data"] }) {
 }
 
 export default function MarketPricesPage() {
-  const marketPrices = getMarketPrices();
+    const [marketPrices, setMarketPrices] = React.useState<MarketPrice[]>([]);
+
+    React.useEffect(() => {
+        setMarketPrices(getMarketPrices());
+    }, []);
+
+    if (marketPrices.length === 0) {
+        return (
+            <div className="space-y-8">
+                <Skeleton className="h-10 w-1/3" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-96 w-full" />
+            </div>
+        );
+    }
 
   return (
     <div className="space-y-8">

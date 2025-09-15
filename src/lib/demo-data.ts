@@ -1,17 +1,27 @@
 import type { WeatherForecast, MarketPrice } from '@/types';
-import { subDays } from 'date-fns';
+import { subDays, startOfHour } from 'date-fns';
 
 const weatherConditions = ['Sunny', 'Partly Cloudy', 'Cloudy', 'Rainy', 'Thunderstorm'];
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+// We need a fixed date to avoid hydration errors
+const getFixedDate = () => {
+    // This will be consistent across server and client
+    const now = new Date();
+    // Set minutes, seconds, and milliseconds to 0 to make it more stable
+    now.setMinutes(0, 0, 0);
+    return now;
+}
+
 export const getDemoWeather = (): WeatherForecast => {
-  const today = new Date();
+  const today = getFixedDate();
   
   const hourly = Array.from({ length: 24 }, (_, i) => {
-    const hour = (today.getHours() + i) % 24;
+    const date = new Date(today.getTime() + i * 60 * 60 * 1000);
+    const hour = date.getHours();
     return {
       time: `${hour}:00`,
-      temperature: 20 + Math.floor(Math.random() * 10) - i/4,
+      temperature: 20 + Math.floor(Math.sin(i / 2) * 5) + Math.floor(Math.random() * 2), // More predictable
       condition: weatherConditions[Math.floor(Math.random() * weatherConditions.length)],
     };
   });
@@ -42,12 +52,12 @@ export const getDemoWeather = (): WeatherForecast => {
 
 export const getCurrentWeather = () => getDemoWeather().current;
 
-const generatePriceData = (basePrice: number, numDays: number): { date: Date; price: number }[] => {
+const generatePriceData = (basePrice: number, numDays: number): { date: string; price: number }[] => {
   const today = new Date();
   return Array.from({ length: numDays }, (_, i) => ({
-    date: subDays(today, numDays - 1 - i),
+    date: subDays(today, numDays - 1 - i).toISOString(),
     price: parseFloat((basePrice + (Math.random() - 0.5) * (basePrice * 0.2)).toFixed(2)),
-  })).sort((a, b) => a.date.getTime() - b.date.getTime());
+  })).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 };
 
 export const getMarketPrices = (): MarketPrice[] => [

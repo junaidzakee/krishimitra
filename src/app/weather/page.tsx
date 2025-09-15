@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 
-function getWeatherIcon(condition: string, size = "md") {
+function getWeatherIcon(condition: string, size: "sm" | "md" | "lg" = "md") {
   const sizes = { sm: "h-6 w-6", md: "h-10 w-10", lg: "h-16 w-16" };
   const className = `${sizes[size]} text-muted-foreground`;
 
@@ -33,15 +33,18 @@ function getWeatherIcon(condition: string, size = "md") {
 }
 
 export default function WeatherPage() {
-  const [weather] = useState<WeatherForecast>(getDemoWeather());
+  const [weatherData, setWeatherData] = useState<WeatherForecast | null>(null);
   const [advice, setAdvice] = useState<WeatherAdviceOutput | null>(null);
   const [loadingAdvice, setLoadingAdvice] = useState(true);
 
   useEffect(() => {
+    const data = getDemoWeather();
+    setWeatherData(data);
+
     const fetchAdvice = async () => {
       try {
         setLoadingAdvice(true);
-        const result = await getWeatherAdvice({ weather });
+        const result = await getWeatherAdvice({ weather: data });
         setAdvice(result);
       } catch (error) {
         console.error("Failed to get weather advice:", error);
@@ -50,7 +53,7 @@ export default function WeatherPage() {
       }
     };
     fetchAdvice();
-  }, [weather]);
+  }, []);
 
   const adviceCards = [
     {
@@ -75,34 +78,44 @@ export default function WeatherPage() {
     },
   ];
 
+  if (!weatherData) {
+    return (
+      <div className="space-y-8">
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-64 w-full" />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl font-headline">
-            Current Weather in {weather.current.location}
+            Current Weather in {weatherData.current.location}
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-6">
-            {getWeatherIcon(weather.current.condition, "lg")}
+            {getWeatherIcon(weatherData.current.condition, "lg")}
             <div>
-              <div className="text-6xl font-bold">{weather.current.temperature}°C</div>
-              <div className="text-lg text-muted-foreground">{weather.current.condition}</div>
+              <div className="text-6xl font-bold">{weatherData.current.temperature}°C</div>
+              <div className="text-lg text-muted-foreground">{weatherData.current.condition}</div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-center md:text-left">
             <div className="flex items-center gap-2">
               <Droplets className="h-5 w-5 text-primary" />
               <div>
-                <p className="font-semibold">{weather.current.humidity}%</p>
+                <p className="font-semibold">{weatherData.current.humidity}%</p>
                 <p className="text-sm text-muted-foreground">Humidity</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Wind className="h-5 w-5 text-primary" />
               <div>
-                <p className="font-semibold">{weather.current.windSpeed} km/h</p>
+                <p className="font-semibold">{weatherData.current.windSpeed} km/h</p>
                 <p className="text-sm text-muted-foreground">Wind</p>
               </div>
             </div>
@@ -146,7 +159,7 @@ export default function WeatherPage() {
         <h2 className="text-xl font-bold mb-4 font-headline">Hourly Forecast</h2>
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
-            {weather.hourly.map((hour) => (
+            {weatherData.hourly.map((hour) => (
               <Card key={hour.time} className="flex-shrink-0 w-[120px]">
                 <CardContent className="flex flex-col items-center justify-center p-4 gap-2">
                   <div className="font-semibold">{hour.time}</div>
@@ -163,7 +176,7 @@ export default function WeatherPage() {
       <div>
         <h2 className="text-xl font-bold mb-4 font-headline">7-Day Forecast</h2>
         <div className="space-y-2">
-          {weather.daily.map((day) => (
+          {weatherData.daily.map((day) => (
             <Card key={day.day}>
               <CardContent className="flex items-center justify-between p-3">
                 <p className="font-semibold w-1/4">{day.day}</p>

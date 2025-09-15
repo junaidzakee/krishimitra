@@ -22,7 +22,7 @@ export type WeatherForecast = {
 export type MarketPrice = {
   crop: string;
   data: {
-    date: Date;
+    date: string; // Changed from Date to string to avoid serialization issues
     price: number;
   }[];
 };
