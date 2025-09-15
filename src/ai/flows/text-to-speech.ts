@@ -70,9 +70,9 @@ const textToSpeechFlow = ai.defineFlow(
     let voiceName = 'Algenib'; // Default English voice
     if (language) {
       if (language.startsWith('hi')) {
-        voiceName = 'Indus'; // Hindi voice
+        voiceName = 'Achernar'; // Hindi voice
       } else if (language.startsWith('kn')) {
-        voiceName = 'Tania'; // Kannada voice
+        voiceName = 'Gacrux'; // Kannada voice
       }
     }
 
