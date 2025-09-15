@@ -104,7 +104,7 @@ export default function HistoryPage() {
       <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8 mt-8">
         <Leaf className="h-16 w-16 text-muted-foreground/50" />
         <h3 className="mt-4 text-lg font-semibold">No History Found</h3>
-        <p className="mt-2 text-sm text-muted-foreground">You haven&apos;t saved any soil analyses yet.</p>
+        <p className="mt-2 text-sm text-muted-foreground">You haven't saved any soil analyses yet.</p>
       </div>
     );
   }
