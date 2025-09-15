@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import {
@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, UploadCloud, Wand2, AlertTriangle, Save, Volume2 } from "lucide-react";
+import { Loader2, UploadCloud, Wand2, AlertTriangle, Save, Volume2, Play, Pause } from "lucide-react";
 import { detectDisease, DetectDiseaseOutput } from "@/ai/flows/ai-disease-detection";
 import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
@@ -27,8 +27,11 @@ export default function DiseaseDetectionPage() {
   const [result, setResult] = useState<DetectDiseaseOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
   const { voiceOutputEnabled } = useVoice();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
@@ -44,8 +47,22 @@ export default function DiseaseDetectionPage() {
       setFile(selectedFile);
       setPreview(URL.createObjectURL(selectedFile));
       setResult(null);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      setIsSpeaking(false);
+      setIsPaused(false);
     }
   }, [toast]);
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -73,7 +90,7 @@ export default function DiseaseDetectionPage() {
         const photoDataUri = reader.result as string;
         const analysisResult = await detectDisease({ photoDataUri });
         setResult(analysisResult);
-      } catch (error) {
+      } catch (error) => {
         console.error("Error detecting disease:", error);
         toast({
           variant: "destructive",
@@ -96,7 +113,21 @@ export default function DiseaseDetectionPage() {
 
   const handleSpeak = async () => {
     if (!result || !voiceOutputEnabled) return;
-    setIsSpeaking(true);
+
+    if (audioRef.current) {
+      if (isSpeaking) {
+        audioRef.current.pause();
+        setIsSpeaking(false);
+        setIsPaused(true);
+      } else {
+        audioRef.current.play();
+        setIsSpeaking(true);
+        setIsPaused(false);
+      }
+      return;
+    }
+
+    setIsAudioLoading(true);
     try {
       const textToRead = `
         Analysis complete.
@@ -106,8 +137,15 @@ export default function DiseaseDetectionPage() {
       `;
       const { audioDataUri } = await textToSpeech({ text: textToRead });
       const audio = new Audio(audioDataUri);
+      audioRef.current = audio;
       audio.play();
-      audio.onended = () => setIsSpeaking(false);
+      setIsSpeaking(true);
+      setIsPaused(false);
+      audio.onended = () => {
+        setIsSpeaking(false);
+        setIsPaused(false);
+        audioRef.current = null; 
+      };
     } catch (error) {
       console.error("Error generating speech:", error);
       toast({
@@ -115,7 +153,8 @@ export default function DiseaseDetectionPage() {
         title: "Speech Error",
         description: "Could not generate audio. Please try again.",
       });
-      setIsSpeaking(false);
+    } finally {
+      setIsAudioLoading(false);
     }
   };
 
@@ -185,8 +224,8 @@ export default function DiseaseDetectionPage() {
                         <CardTitle className="text-2xl font-headline">Analysis Result</CardTitle>
                     </div>
                      <div className="flex gap-2">
-                        <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isSpeaking || !voiceOutputEnabled}>
-                          {isSpeaking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Volume2 className="h-4 w-4"/>}
+                        <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isAudioLoading || !voiceOutputEnabled}>
+                          {isAudioLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSpeaking ? <Pause className="h-4 w-4" /> : (isPaused ? <Play className="h-4 w-4" /> : <Volume2 className="h-4 w-4"/>))}
                           <span className="sr-only">Read aloud</span>
                         </Button>
                          <Button variant="outline" size="icon">

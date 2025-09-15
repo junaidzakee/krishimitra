@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,14 +28,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Mic, Save, Volume2, Wand2 } from "lucide-react";
+import { Loader2, Mic, Pause, Play, Save, Volume2, Wand2 } from "lucide-react";
 import { analyzeSoilAndRecommend, SoilAnalysisOutput } from "@/ai/flows/soil-analysis-recommendation";
 import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
 import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 
@@ -56,9 +56,12 @@ export default function SoilAnalysisPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
   const { voiceInputEnabled, voiceOutputEnabled } = useVoice();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
     resolver: zodResolver(formSchema),
@@ -72,25 +75,30 @@ export default function SoilAnalysisPage() {
       cropType: "Wheat",
     },
   });
+  
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
 
   const { listening, transcript, startListening, stopListening } = useSpeechRecognition({
     onResult: (result) => {
-      const numericResult = parseFloat(result);
-      if (!isNaN(numericResult)) {
-        form.setValue("organicMatterContent", numericResult);
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Voice Input Error",
-          description: "Could not recognize a valid number. Please try again.",
-        });
-      }
+      form.setValue("cropType", result.replace('.', ''));
     }
   });
 
   const onSubmit = async (data: SoilAnalysisFormValues) => {
     setIsLoading(true);
     setAnalysisResult(null);
+    if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+    }
+    setIsSpeaking(false);
+    setIsPaused(false);
     try {
       const result = await analyzeSoilAndRecommend(data);
       setAnalysisResult(result);
@@ -126,8 +134,7 @@ export default function SoilAnalysisPage() {
 
     setIsSaving(true);
     try {
-      const docRef = doc(db, "soilAnalyses", `${user.uid}_${Date.now()}`);
-      await setDoc(docRef, {
+      await addDoc(collection(db, "soilAnalyses"), {
         userId: user.uid,
         createdAt: new Date(),
         inputs: form.getValues(),
@@ -151,7 +158,21 @@ export default function SoilAnalysisPage() {
 
   const handleSpeak = async () => {
     if (!analysisResult || !voiceOutputEnabled) return;
-    setIsSpeaking(true);
+
+    if (audioRef.current) {
+      if (isSpeaking) {
+        audioRef.current.pause();
+        setIsSpeaking(false);
+        setIsPaused(true);
+      } else {
+        audioRef.current.play();
+        setIsSpeaking(true);
+        setIsPaused(false);
+      }
+      return;
+    }
+    
+    setIsAudioLoading(true);
     try {
       const textToRead = `
         Analysis for ${form.getValues("cropType")}.
@@ -161,8 +182,15 @@ export default function SoilAnalysisPage() {
       `;
       const { audioDataUri } = await textToSpeech({ text: textToRead });
       const audio = new Audio(audioDataUri);
+      audioRef.current = audio;
       audio.play();
-      audio.onended = () => setIsSpeaking(false);
+      setIsSpeaking(true);
+      setIsPaused(false);
+      audio.onended = () => {
+        setIsSpeaking(false);
+        setIsPaused(false);
+        audioRef.current = null;
+      };
     } catch (error) {
       console.error("Error generating speech:", error);
       toast({
@@ -170,7 +198,8 @@ export default function SoilAnalysisPage() {
         title: "Speech Error",
         description: "Could not generate audio. Please try again.",
       });
-      setIsSpeaking(false);
+    } finally {
+      setIsAudioLoading(false);
     }
   };
 
@@ -284,9 +313,6 @@ export default function SoilAnalysisPage() {
                         <FormControl>
                             <Input type="number" step="0.1" {...field} className="pr-10" />
                         </FormControl>
-                        <Button type="button" size="icon" variant="ghost" onClick={handleMicClick} disabled={!voiceInputEnabled} className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground">
-                            {listening ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
-                        </Button>
                        </div>
                       <FormMessage />
                     </FormItem>
@@ -298,9 +324,14 @@ export default function SoilAnalysisPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Crop Type</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Wheat, Rice" {...field} />
-                    </FormControl>
+                    <div className="relative">
+                        <FormControl>
+                            <Input placeholder="e.g., Wheat, Rice" {...field} className="pr-10" />
+                        </FormControl>
+                         <Button type="button" size="icon" variant="ghost" onClick={handleMicClick} disabled={!voiceInputEnabled} className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground">
+                            {listening ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
+                        </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -350,8 +381,8 @@ export default function SoilAnalysisPage() {
                         <CardDescription>Based on your provided soil parameters.</CardDescription>
                     </div>
                     <div className="flex gap-2">
-                        <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isSpeaking || !voiceOutputEnabled}>
-                            {isSpeaking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Volume2 className="h-4 w-4"/>}
+                        <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isAudioLoading || !voiceOutputEnabled}>
+                            {isAudioLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSpeaking ? <Pause className="h-4 w-4" /> : (isPaused ? <Play className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />))}
                             <span className="sr-only">Read aloud</span>
                         </Button>
                          <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving}>
