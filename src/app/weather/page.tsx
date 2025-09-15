@@ -15,7 +15,7 @@ import {
   Wind,
   Droplets,
   Sprout,
-  Spray,
+  SprayCan,
   CalendarDays,
   Thermometer,
 } from "lucide-react";
@@ -65,7 +65,7 @@ export default function WeatherPage() {
     },
     {
       title: "Pest & Disease Prevention",
-      icon: <Spray className="h-6 w-6 text-primary" />,
+      icon: <SprayCan className="h-6 w-6 text-primary" />,
       content: advice?.pestAndDisease,
     },
     {
