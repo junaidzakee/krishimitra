@@ -20,6 +20,7 @@ import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useVoice } from "@/hooks/use-voice";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function DiseaseDetectionPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -31,6 +32,7 @@ export default function DiseaseDetectionPage() {
   const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
   const { voiceOutputEnabled } = useVoice();
+  const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -39,8 +41,8 @@ export default function DiseaseDetectionPage() {
       if (!selectedFile.type.startsWith("image/")) {
         toast({
           variant: "destructive",
-          title: "Invalid File Type",
-          description: "Please upload an image file.",
+          title: t('diseaseDetection.toast.invalidFileType.title'),
+          description: t('diseaseDetection.toast.invalidFileType.description'),
         });
         return;
       }
@@ -54,7 +56,7 @@ export default function DiseaseDetectionPage() {
       setIsSpeaking(false);
       setIsPaused(false);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     return () => {
@@ -74,8 +76,8 @@ export default function DiseaseDetectionPage() {
     if (!file) {
       toast({
         variant: "destructive",
-        title: "No Image Selected",
-        description: "Please upload an image to analyze.",
+        title: t('diseaseDetection.toast.noImage.title'),
+        description: t('diseaseDetection.toast.noImage.description'),
       });
       return;
     }
@@ -94,8 +96,8 @@ export default function DiseaseDetectionPage() {
         console.error("Error detecting disease:", error);
         toast({
           variant: "destructive",
-          title: "Analysis Failed",
-          description: "Could not analyze the image. Please try again.",
+          title: t('diseaseDetection.toast.analysisFailed.title'),
+          description: t('diseaseDetection.toast.analysisFailed.description'),
         });
       } finally {
         setIsLoading(false);
@@ -104,8 +106,8 @@ export default function DiseaseDetectionPage() {
     reader.onerror = () => {
       toast({
         variant: "destructive",
-        title: "File Read Error",
-        description: "Could not read the selected file.",
+        title: t('diseaseDetection.toast.fileReadError.title'),
+        description: t('diseaseDetection.toast.fileReadError.description'),
       });
       setIsLoading(false);
     };
@@ -130,10 +132,10 @@ export default function DiseaseDetectionPage() {
     setIsAudioLoading(true);
     try {
       const textToRead = `
-        Analysis complete.
-        Detected Disease: ${result.disease || "None Detected"}.
-        Confidence Level: ${Math.round(result.confidence * 100)} percent.
-        ${result.expertNeeded ? "An expert consultation is recommended." : ""}
+        ${t('diseaseDetection.speech.complete')}
+        ${t('diseaseDetection.speech.disease')}: ${result.disease || t('diseaseDetection.speech.noneDetected')}.
+        ${t('diseaseDetection.speech.confidence')}: ${Math.round(result.confidence * 100)} ${t('diseaseDetection.speech.percent')}.
+        ${result.expertNeeded ? t('diseaseDetection.speech.expertRecommended') : ""}
       `;
       const { audioDataUri } = await textToSpeech({ text: textToRead });
       const audio = new Audio(audioDataUri);
@@ -150,8 +152,8 @@ export default function DiseaseDetectionPage() {
       console.error("Error generating speech:", error);
       toast({
         variant: "destructive",
-        title: "Speech Error",
-        description: "Could not generate audio. Please try again.",
+        title: t('diseaseDetection.toast.speechError.title'),
+        description: t('diseaseDetection.toast.speechError.description'),
       });
     } finally {
       setIsAudioLoading(false);
@@ -164,9 +166,9 @@ export default function DiseaseDetectionPage() {
     <div className="grid gap-8 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Upload Plant Image</CardTitle>
+          <CardTitle>{t('diseaseDetection.upload.title')}</CardTitle>
           <CardDescription>
-            Upload an image of a plant leaf to detect potential diseases.
+            {t('diseaseDetection.upload.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -185,9 +187,9 @@ export default function DiseaseDetectionPage() {
               <div className="text-center">
                 <UploadCloud className="w-12 h-12 mx-auto text-muted-foreground" />
                 <p className="mt-4 text-muted-foreground">
-                  {isDragActive ? "Drop the image here" : "Drag & drop an image, or click to select"}
+                  {isDragActive ? t('diseaseDetection.upload.dropActive') : t('diseaseDetection.upload.dropInactive')}
                 </p>
-                <p className="text-xs text-muted-foreground/80 mt-1">PNG, JPG, or WEBP</p>
+                <p className="text-xs text-muted-foreground/80 mt-1">{t('diseaseDetection.upload.fileTypes')}</p>
               </div>
             )}
           </div>
@@ -199,7 +201,7 @@ export default function DiseaseDetectionPage() {
             ) : (
               <Wand2 className="mr-2 h-4 w-4" />
             )}
-            Analyze Image
+            {t('diseaseDetection.upload.button')}
           </Button>
         </CardFooter>
       </Card>
@@ -221,16 +223,16 @@ export default function DiseaseDetectionPage() {
              <CardHeader>
                  <div className="flex justify-between items-start">
                     <div>
-                        <CardTitle className="text-2xl font-headline">Analysis Result</CardTitle>
+                        <CardTitle className="text-2xl font-headline">{t('diseaseDetection.results.title')}</CardTitle>
                     </div>
                      <div className="flex gap-2">
                         <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isAudioLoading || !voiceOutputEnabled}>
                           {isAudioLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSpeaking ? <Pause className="h-4 w-4" /> : (isPaused ? <Play className="h-4 w-4" /> : <Volume2 className="h-4 w-4"/>))}
-                          <span className="sr-only">Read aloud</span>
+                          <span className="sr-only">{t('diseaseDetection.results.readAloud')}</span>
                         </Button>
                          <Button variant="outline" size="icon">
                             <Save className="h-4 w-4"/>
-                            <span className="sr-only">Save for Offline</span>
+                            <span className="sr-only">{t('diseaseDetection.results.saveOffline')}</span>
                         </Button>
                     </div>
                 </div>
@@ -240,11 +242,11 @@ export default function DiseaseDetectionPage() {
                 <Image src={preview!} alt="Analyzed plant" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Detected Disease</p>
-                <h3 className="text-2xl font-semibold">{result.disease || "None Detected"}</h3>
+                <p className="text-sm font-medium text-muted-foreground">{t('diseaseDetection.results.detectedDisease')}</p>
+                <h3 className="text-2xl font-semibold">{result.disease || t('diseaseDetection.results.noneDetected')}</h3>
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Confidence Level</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('diseaseDetection.results.confidence')}</p>
                 <div className="flex items-center gap-2">
                   <Progress value={result.confidence * 100} className="w-full" />
                   <span className="font-mono text-sm text-muted-foreground">
@@ -255,9 +257,9 @@ export default function DiseaseDetectionPage() {
               {result.expertNeeded && (
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
-                  <AlertTitle>Expert Consultation Recommended</AlertTitle>
+                  <AlertTitle>{t('diseaseDetection.results.expertNeeded.title')}</AlertTitle>
                   <AlertDescription>
-                    The AI confidence is moderate. For an accurate diagnosis, consider consulting a plant pathology expert.
+                    {t('diseaseDetection.results.expertNeeded.description')}
                   </AlertDescription>
                 </Alert>
               )}
@@ -266,8 +268,8 @@ export default function DiseaseDetectionPage() {
         ) : (
           <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed text-center p-8 w-full">
             {leafImage && <Image src={leafImage.imageUrl} width={200} height={150} alt={leafImage.description} data-ai-hint={leafImage.imageHint} className="opacity-20" />}
-            <h3 className="mt-4 text-lg font-semibold">Awaiting Image Analysis</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Your disease detection results will appear here.</p>
+            <h3 className="mt-4 text-lg font-semibold">{t('diseaseDetection.placeholder.title')}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{t('diseaseDetection.placeholder.description')}</p>
           </div>
         )}
       </div>

@@ -21,6 +21,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { Leaf } from 'lucide-react';
 import type { SoilAnalysisOutput } from '@/ai/flows/soil-analysis-recommendation';
+import { useLanguage } from '@/hooks/use-language';
 
 interface SoilAnalysisRecord {
   id: string;
@@ -44,6 +45,7 @@ export default function HistoryPage() {
   const { user, loading: authLoading } = useAuth();
   const [history, setHistory] = useState<SoilAnalysisRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!user) {
@@ -93,8 +95,8 @@ export default function HistoryPage() {
   if (!user) {
     return (
       <div className="text-center">
-        <h2 className="text-2xl font-bold">Please sign in</h2>
-        <p className="text-muted-foreground">You need to be logged in to view your history.</p>
+        <h2 className="text-2xl font-bold">{t('history.signIn.title')}</h2>
+        <p className="text-muted-foreground">{t('history.signIn.description')}</p>
       </div>
     );
   }
@@ -103,8 +105,8 @@ export default function HistoryPage() {
     return (
       <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8 mt-8">
         <Leaf className="h-16 w-16 text-muted-foreground/50" />
-        <h3 className="mt-4 text-lg font-semibold">No History Found</h3>
-        <p className="mt-2 text-sm text-muted-foreground">You haven't saved any soil analyses yet.</p>
+        <h3 className="mt-4 text-lg font-semibold">{t('history.noHistory.title')}</h3>
+        <p className="mt-2 text-sm text-muted-foreground">{t('history.noHistory.description')}</p>
       </div>
     );
   }
@@ -112,46 +114,46 @@ export default function HistoryPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Analysis History</h1>
-        <p className="text-muted-foreground">Your previously saved soil analysis results.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('history.title')}</h1>
+        <p className="text-muted-foreground">{t('history.description')}</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {history.map((record) => (
           <Card key={record.id}>
             <CardHeader>
-              <CardTitle>Analysis for {record.inputs.cropType}</CardTitle>
+              <CardTitle>{t('history.card.title', { cropType: record.inputs.cropType })}</CardTitle>
               <CardDescription>
-                Saved on {format(new Date(record.createdAt.seconds * 1000), "PPP")}
+                {t('history.card.savedOn', { date: format(new Date(record.createdAt.seconds * 1000), "PPP") })}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="results">
-                  <AccordionTrigger>View Results</AccordionTrigger>
+                  <AccordionTrigger>{t('history.card.viewResults')}</AccordionTrigger>
                   <AccordionContent className="space-y-4 pt-2">
                     <div>
-                      <h4 className="font-semibold">Soil Analysis</h4>
+                      <h4 className="font-semibold">{t('history.card.soilAnalysis')}</h4>
                       <p className="text-sm text-muted-foreground">{record.results.soilAnalysis}</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold">Fertilizer Recommendation</h4>
+                      <h4 className="font-semibold">{t('history.card.fertilizer')}</h4>
                       <p className="text-sm text-muted-foreground">{record.results.fertilizerRecommendation}</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold">Treatment Recommendation</h4>
+                      <h4 className="font-semibold">{t('history.card.treatment')}</h4>
                       <p className="text-sm text-muted-foreground">{record.results.treatmentRecommendation}</p>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="inputs">
-                  <AccordionTrigger>View Inputs</AccordionTrigger>
+                  <AccordionTrigger>{t('history.card.viewInputs')}</AccordionTrigger>
                   <AccordionContent className="space-y-2 pt-2 text-sm">
-                    <p><span className="font-semibold">Soil Type:</span> {record.inputs.soilType}</p>
-                    <p><span className="font-semibold">Nitrogen:</span> {record.inputs.nitrogenLevel} ppm</p>
-                    <p><span className="font-semibold">Phosphorus:</span> {record.inputs.phosphorusLevel} ppm</p>
-                    <p><span className="font-semibold">Potassium:</span> {record.inputs.potassiumLevel} ppm</p>
-                    <p><span className="font-semibold">pH:</span> {record.inputs.pHLevel}</p>
-                    <p><span className="font-semibold">Organic Matter:</span> {record.inputs.organicMatterContent}%</p>
+                    <p><span className="font-semibold">{t('history.card.soilType')}:</span> {record.inputs.soilType}</p>
+                    <p><span className="font-semibold">{t('history.card.nitrogen')}:</span> {record.inputs.nitrogenLevel} ppm</p>
+                    <p><span className="font-semibold">{t('history.card.phosphorus')}:</span> {record.inputs.phosphorusLevel} ppm</p>
+                    <p><span className="font-semibold">{t('history.card.potassium')}:</span> {record.inputs.potassiumLevel} ppm</p>
+                    <p><span className="font-semibold">{t('history.card.ph')}:</span> {record.inputs.pHLevel}</p>
+                    <p><span className="font-semibold">{t('history.card.organicMatter')}:</span> {record.inputs.organicMatterContent}%</p>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

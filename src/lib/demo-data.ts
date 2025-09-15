@@ -60,21 +60,21 @@ const generatePriceData = (basePrice: number, numDays: number): { date: string; 
   })).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 };
 
-export const getMarketPrices = (): MarketPrice[] => [
+export const getMarketPrices = (t: (key: string) => string): MarketPrice[] => [
   {
-    crop: 'Wheat',
+    crop: t('crops.wheat'),
     data: generatePriceData(250, 30),
   },
   {
-    crop: 'Rice',
+    crop: t('crops.rice'),
     data: generatePriceData(400, 30),
   },
   {
-    crop: 'Corn',
+    crop: t('crops.corn'),
     data: generatePriceData(180, 30),
   },
     {
-    crop: 'Soybean',
+    crop: t('crops.soybean'),
     data: generatePriceData(550, 30),
   },
 ];

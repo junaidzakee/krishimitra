@@ -10,29 +10,29 @@ import { useVoice } from '@/hooks/use-voice';
 import { Separator } from '@/components/ui/separator';
 
 export default function SettingsPage() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const { voiceInputEnabled, setVoiceInputEnabled, voiceOutputEnabled, setVoiceOutputEnabled } = useVoice();
 
   return (
     <div className="space-y-8 max-w-2xl mx-auto">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Settings</h1>
-        <p className="text-muted-foreground">Customize your application experience.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('settings.title')}</h1>
+        <p className="text-muted-foreground">{t('settings.description')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Language</CardTitle>
-          <CardDescription>Choose the language for the application interface and AI assistant.</CardDescription>
+          <CardTitle>{t('settings.language.title')}</CardTitle>
+          <CardDescription>{t('settings.language.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-4">
             <Label htmlFor="language-select" className="flex-shrink-0">
-              Preferred Language
+              {t('settings.language.label')}
             </Label>
             <Select value={language} onValueChange={setLanguage}>
               <SelectTrigger id="language-select" className="w-[200px]">
-                <SelectValue placeholder="Select language" />
+                <SelectValue placeholder={t('settings.language.placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 {languages.map((lang) => (
@@ -48,14 +48,14 @@ export default function SettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Voice Assistant</CardTitle>
-          <CardDescription>Manage voice settings for the AI assistant.</CardDescription>
+          <CardTitle>{t('settings.voice.title')}</CardTitle>
+          <CardDescription>{t('settings.voice.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between space-x-2">
             <div>
-              <Label htmlFor="voice-input">Enable Voice Input</Label>
-              <p className="text-sm text-muted-foreground">Use your microphone to talk to the assistant.</p>
+              <Label htmlFor="voice-input">{t('settings.voice.input.label')}</Label>
+              <p className="text-sm text-muted-foreground">{t('settings.voice.input.description')}</p>
             </div>
             <Switch
               id="voice-input"
@@ -66,8 +66,8 @@ export default function SettingsPage() {
           <Separator />
           <div className="flex items-center justify-between space-x-2">
             <div>
-              <Label htmlFor="voice-output">Enable Voice Output</Label>
-              <p className="text-sm text-muted-foreground">Hear the assistant's responses spoken aloud.</p>
+              <Label htmlFor="voice-output">{t('settings.voice.output.label')}</Label>
+              <p className="text-sm text-muted-foreground">{t('settings.voice.output.description')}</p>
             </div>
             <Switch
               id="voice-output"

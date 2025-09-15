@@ -22,18 +22,20 @@ import {
   LifeBuoy,
   History,
 } from "lucide-react";
-
-const links = [
-  { href: "/", label: "Dashboard", icon: LayoutGrid },
-  { href: "/soil-analysis", label: "Soil Analysis", icon: TestTube2 },
-  { href: "/disease-detection", label: "Disease Detection", icon: Leaf },
-  { href: "/weather", label: "Weather", icon: CloudSun },
-  { href: "/market-prices", label: "Market Prices", icon: BarChart },
-  { href: "/history", label: "History", icon: History },
-];
+import { useLanguage } from "@/hooks/use-language";
 
 export function MainNav() {
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const links = [
+    { href: "/", label: t('sidebar.dashboard'), icon: LayoutGrid },
+    { href: "/soil-analysis", label: t('sidebar.soilAnalysis'), icon: TestTube2 },
+    { href: "/disease-detection", label: t('sidebar.diseaseDetection'), icon: Leaf },
+    { href: "/weather", label: t('sidebar.weather'), icon: CloudSun },
+    { href: "/market-prices", label: t('sidebar.marketPrices'), icon: BarChart },
+    { href: "/history", label: t('sidebar.history'), icon: History },
+  ];
 
   return (
     <>
@@ -70,17 +72,17 @@ export function MainNav() {
         <SidebarMenu>
           <SidebarMenuItem>
             <Link href="/settings" passHref>
-              <SidebarMenuButton className="justify-start" tooltip="Settings" isActive={pathname.startsWith('/settings')}>
+              <SidebarMenuButton className="justify-start" tooltip={t('sidebar.settings')} isActive={pathname.startsWith('/settings')}>
                 <Settings className="h-5 w-5" />
-                <span>Settings</span>
+                <span>{t('sidebar.settings')}</span>
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link href="/support" passHref>
-              <SidebarMenuButton className="justify-start" tooltip="Support" isActive={pathname.startsWith('/support')}>
+              <SidebarMenuButton className="justify-start" tooltip={t('sidebar.support')} isActive={pathname.startsWith('/support')}>
                 <LifeBuoy className="h-5 w-5" />
-                <span>Support</span>
+                <span>{t('sidebar.support')}</span>
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>

@@ -10,11 +10,13 @@ import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
   const currentWeather = getCurrentWeather();
   const { user, loading } = useAuth();
   const router = useRouter();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -25,26 +27,26 @@ export default function Dashboard() {
 
   const features = [
     {
-      title: "Soil Analysis",
-      description: "Get fertilizer and treatment advice based on soil parameters.",
+      title: t('dashboard.features.soilAnalysis.title'),
+      description: t('dashboard.features.soilAnalysis.description'),
       icon: <TestTube2 className="w-8 h-8 text-primary" />,
       link: "/soil-analysis",
     },
     {
-      title: "Disease Detection",
-      description: "Upload a plant image to detect diseases using AI.",
+      title: t('dashboard.features.diseaseDetection.title'),
+      description: t('dashboard.features.diseaseDetection.description'),
       icon: <Leaf className="w-8 h-8 text-primary" />,
       link: "/disease-detection",
     },
     {
-      title: "Weather Forecast",
-      description: "View local weather information and alerts.",
+      title: t('dashboard.features.weather.title'),
+      description: t('dashboard.features.weather.description'),
       icon: <CloudSun className="w-8 h-8 text-primary" />,
       link: "/weather",
     },
     {
-      title: "Market Prices",
-      description: "Visualize historical market prices for key crops.",
+      title: t('dashboard.features.marketPrices.title'),
+      description: t('dashboard.features.marketPrices.description'),
       icon: <LineChart className="w-8 h-8 text-primary" />,
       link: "/market-prices",
     },
@@ -70,14 +72,14 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Welcome to AgriAssist</h1>
-        <p className="text-muted-foreground">Your smart crop advisory platform.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('dashboard.welcome')}</h1>
+        <p className="text-muted-foreground">{t('dashboard.description')}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Current Weather</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.stats.currentWeather.title')}</CardTitle>
             <CloudSun className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -85,41 +87,40 @@ export default function Dashboard() {
             <p className="text-xs text-muted-foreground">{currentWeather.condition}</p>
           </CardContent>
         </Card>
-        {/* Placeholder cards for other quick stats */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Nitrogen Level</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.stats.nitrogen.title')}</CardTitle>
             <TestTube2 className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">12 ppm</div>
-            <p className="text-xs text-muted-foreground">From last soil test</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.stats.nitrogen.description')}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Wheat Price</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.stats.wheatPrice.title')}</CardTitle>
             <LineChart className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">₹20,750/ton</div>
-            <p className="text-xs text-muted-foreground">+2.1% from last month</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.stats.wheatPrice.description')}</p>
           </CardContent>
         </Card>
          <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.stats.activeAlerts.title')}</CardTitle>
             <Leaf className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1</div>
-            <p className="text-xs text-muted-foreground">Potential rust detection</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.stats.activeAlerts.description')}</p>
           </CardContent>
         </Card>
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold tracking-tight font-headline">Features</h2>
+        <h2 className="text-2xl font-bold tracking-tight font-headline">{t('dashboard.features.title')}</h2>
         <div className="grid gap-6 mt-4 md:grid-cols-2">
           {features.map((feature) => (
             <Card key={feature.title} className="hover:shadow-lg transition-shadow duration-300">
@@ -135,7 +136,7 @@ export default function Dashboard() {
               <CardContent>
                 <Link href={feature.link} passHref>
                   <Button variant="outline" className="w-full">
-                    Go to {feature.title} <ArrowRight className="ml-2 h-4 w-4" />
+                    {t('dashboard.features.goTo')} {feature.title} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
               </CardContent>

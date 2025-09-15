@@ -1,0 +1,417 @@
+
+{
+  "sidebar": {
+    "dashboard": "tableau de bord",
+    "soilAnalysis": "analyse du sol",
+    "diseaseDetection": "détection des maladies",
+    "weather": "météo",
+    "marketPrices": "prix du marché",
+    "history": "historique",
+    "settings": "paramètres",
+    "support": "support"
+  },
+  "header": {
+    "signIn": "se connecter",
+    "signUp": "s'inscrire",
+    "myAccount": "mon compte",
+    "profile": "profil",
+    "settings": "paramètres",
+    "support": "support",
+    "language": "langue",
+    "voiceInput": "entrée vocale",
+    "voiceOutput": "sortie vocale",
+    "logOut": "se déconnecter"
+  },
+  "breadcrumbs": {
+    "dashboard": "tableau de bord",
+    "soilanalysis": "analyse du sol",
+    "diseasedetection": "détection des maladies",
+    "weather": "météo",
+    "marketprices": "prix du marché",
+    "history": "historique",
+    "profile": "profil",
+    "settings": "paramètres",
+    "support": "support",
+    "signin": "se connecter",
+    "signup": "s'inscrire"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue sur AgriAssist",
+    "description": "votre plateforme de conseil agricole intelligent.",
+    "stats": {
+      "currentWeather": {
+        "title": "météo actuelle"
+      },
+      "nitrogen": {
+        "title": "niveau d'azote",
+        "description": "du dernier test de sol"
+      },
+      "wheatPrice": {
+        "title": "prix du blé",
+        "description": "+2.1% par rapport au mois dernier"
+      },
+      "activeAlerts": {
+        "title": "alertes actives",
+        "description": "détection potentielle de rouille"
+      }
+    },
+    "features": {
+      "title": "fonctionnalités",
+      "goTo": "aller à",
+      "soilAnalysis": {
+        "title": "analyse du sol",
+        "description": "obtenez des conseils sur les engrais et les traitements en fonction des paramètres du sol."
+      },
+      "diseaseDetection": {
+        "title": "détection des maladies",
+        "description": "téléchargez une image de plante pour détecter les maladies à l'aide de l'IA."
+      },
+      "weather": {
+        "title": "prévisions météorologiques",
+        "description": "consultez les informations météorologiques locales et les alertes."
+      },
+      "marketPrices": {
+        "title": "prix du marché",
+        "description": "visualisez les prix historiques du marché pour les principales cultures."
+      }
+    }
+  },
+  "signIn": {
+    "title": "se connecter",
+    "description": "entrez vos identifiants pour accéder à votre compte.",
+    "form": {
+      "email": {
+        "label": "e-mail",
+        "placeholder": "nom@example.com"
+      },
+      "password": {
+        "label": "mot de passe"
+      },
+      "submit": "se connecter"
+    },
+    "signUpPrompt": {
+      "text": "vous n'avez pas de compte ?",
+      "link": "s'inscrire"
+    },
+    "toast": {
+      "success": {
+        "title": "connexion réussie",
+        "description": "bon retour !"
+      },
+      "failure": {
+        "title": "la connexion a échoué"
+      }
+    }
+  },
+  "signUp": {
+    "title": "créer un compte",
+    "description": "entrez votre e-mail et votre mot de passe pour commencer.",
+    "form": {
+      "email": {
+        "label": "e-mail",
+        "placeholder": "nom@example.com"
+      },
+      "password": {
+        "label": "mot de passe"
+      },
+      "confirmPassword": {
+        "label": "confirmer le mot de passe"
+      },
+      "submit": "créer un compte"
+    },
+    "signInPrompt": {
+      "text": "vous avez déjà un compte ?",
+      "link": "se connecter"
+    },
+    "toast": {
+      "success": {
+        "title": "inscription réussie",
+        "description": "votre compte a été créé."
+      },
+      "failure": {
+        "title": "l'inscription a échoué"
+      }
+    }
+  },
+  "soilAnalysis": {
+    "form": {
+      "title": "paramètres du sol",
+      "description": "entrez les données de votre sol pour obtenir des recommandations basées sur l'IA.",
+      "soilType": {
+        "label": "type de sol",
+        "placeholder": "sélectionnez un type de sol",
+        "options": {
+          "sandy": "sablonneux",
+          "silty": "limoneux",
+          "clay": "argileux",
+          "loamy": "limoneux",
+          "peaty": "tourbeux"
+        }
+      },
+      "nitrogen": { "label": "azote (ppm)" },
+      "phosphorus": { "label": "phosphore (ppm)" },
+      "potassium": { "label": "potassium (ppm)" },
+      "ph": { "label": "niveau de pH" },
+      "organicMatter": { "label": "matière organique (%)" },
+      "cropType": {
+        "label": "type de culture",
+        "placeholder": "ex: blé, riz"
+      },
+      "submit": "analyser le sol"
+    },
+    "results": {
+      "title": "analyse pour {{cropType}}",
+      "description": "basé sur les paramètres de sol que vous avez fournis.",
+      "readAloud": "lire à haute voix",
+      "saveOffline": "enregistrer pour une utilisation hors ligne",
+      "soilAnalysis": "analyse du sol",
+      "fertilizer": "recommandation d'engrais",
+      "treatment": "recommandation de traitement"
+    },
+    "placeholder": {
+      "title": "en attente d'analyse",
+      "description": "vos recommandations de sol apparaîtront ici."
+    },
+    "speech": {
+      "analysisFor": "analyse pour {{cropType}}.",
+      "soilAnalysis": "analyse du sol",
+      "fertilizer": "recommandation d'engrais",
+      "treatment": "recommandation de traitement"
+    },
+    "toast": {
+      "analysisFailed": {
+        "title": "l'analyse a échoué",
+        "description": "impossible d'obtenir des recommandations. veuillez réessayer plus tard."
+      },
+      "authRequired": {
+        "title": "authentification requise",
+        "description": "vous devez être connecté pour enregistrer les résultats."
+      },
+      "noResult": {
+        "title": "aucun résultat à enregistrer",
+        "description": "veuillez d'abord analyser le sol avant d'enregistrer."
+      },
+      "saveSuccess": {
+        "title": "analyse enregistrée",
+        "description": "votre analyse de sol a été enregistrée dans votre historique."
+      },
+      "saveFailed": {
+        "title": "l'enregistrement a échoué",
+        "description": "impossible d'enregistrer votre analyse. veuillez réessayer."
+      },
+      "speechError": {
+        "title": "erreur de parole",
+        "description": "impossible de générer l'audio. veuillez réessayer."
+      }
+    }
+  },
+  "diseaseDetection": {
+    "upload": {
+      "title": "télécharger une image de plante",
+      "description": "téléchargez une image d'une feuille de plante pour détecter les maladies potentielles.",
+      "dropActive": "déposez l'image ici",
+      "dropInactive": "faites glisser et déposez une image, ou cliquez pour sélectionner",
+      "fileTypes": "PNG, JPG ou WEBP",
+      "button": "analyser l'image"
+    },
+    "results": {
+      "title": "résultat de l'analyse",
+      "readAloud": "lire à haute voix",
+      "saveOffline": "enregistrer pour une utilisation hors ligne",
+      "detectedDisease": "maladie détectée",
+      "noneDetected": "aucune détectée",
+      "confidence": "niveau de confiance",
+      "expertNeeded": {
+        "title": "consultation d'un expert recommandée",
+        "description": "la confiance de l'IA est modérée. pour un diagnostic précis, envisagez de consulter un expert en pathologie végétale."
+      }
+    },
+    "placeholder": {
+      "title": "en attente d'analyse d'image",
+      "description": "vos résultats de détection de maladies apparaîtront ici."
+    },
+    "speech": {
+      "complete": "analyse terminée.",
+      "disease": "maladie détectée",
+      "noneDetected": "aucune détectée",
+      "confidence": "niveau de confiance",
+      "percent": "pourcentage",
+      "expertRecommended": "une consultation d'expert est recommandée."
+    },
+    "toast": {
+      "invalidFileType": {
+        "title": "type de fichier non valide",
+        "description": "veuillez télécharger un fichier image."
+      },
+      "noImage": {
+        "title": "aucune image sélectionnée",
+        "description": "veuillez télécharger une image à analyser."
+      },
+      "analysisFailed": {
+        "title": "l'analyse a échoué",
+        "description": "impossible d'analyser l'image. veuillez réessayer."
+      },
+      "fileReadError": {
+        "title": "erreur de lecture du fichier",
+        "description": "impossible de lire le fichier sélectionné."
+      },
+      "speechError": {
+        "title": "erreur de parole",
+        "description": "impossible de générer l'audio. veuillez réessayer."
+      }
+    }
+  },
+  "weather": {
+    "current": {
+      "title": "météo actuelle à {{location}}",
+      "humidity": "humidité",
+      "wind": "vent"
+    },
+    "advisory": {
+      "title": "conseils agricoles basés sur l'IA",
+      "planting": { "title": "plantation et récolte" },
+      "irrigation": { "title": "calendrier d'irrigation" },
+      "pest": { "title": "prévention des ravageurs et des maladies" },
+      "planning": { "title": "planification du travail quotidien" }
+    },
+    "hourly": { "title": "prévisions horaires" },
+    "daily": { "title": "prévisions sur 7 jours" }
+  },
+  "marketPrices": {
+    "title": "prix du marché",
+    "description": "données de prix historiques pour les principales cultures.",
+    "chart": {
+      "title": "tendance des prix de {{crop}}",
+      "description": "prix par tonne des 30 derniers jours."
+    }
+  },
+  "crops": {
+    "wheat": "blé",
+    "rice": "riz",
+    "corn": "maïs",
+    "soybean": "soja"
+  },
+  "history": {
+    "title": "historique des analyses",
+    "description": "vos résultats d'analyse de sol précédemment enregistrés.",
+    "signIn": {
+      "title": "veuillez vous connecter",
+      "description": "vous devez être connecté pour voir votre historique."
+    },
+    "noHistory": {
+      "title": "aucun historique trouvé",
+      "description": "vous n'avez encore enregistré aucune analyse de sol."
+    },
+    "card": {
+      "title": "analyse pour {{cropType}}",
+      "savedOn": "enregistré le {{date}}",
+      "viewResults": "voir les résultats",
+      "soilAnalysis": "analyse du sol",
+      "fertilizer": "recommandation d'engrais",
+      "treatment": "recommandation de traitement",
+      "viewInputs": "voir les entrées",
+      "soilType": "type de sol",
+      "nitrogen": "azote",
+      "phosphorus": "phosphore",
+      "potassium": "potassium",
+      "ph": "pH",
+      "organicMatter": "matière organique"
+    }
+  },
+  "profile": {
+    "title": "votre profil",
+    "description": "gérez vos informations personnelles.",
+    "signInPrompt": "veuillez vous connecter pour voir votre profil.",
+    "card": {
+      "description": "mettez à jour votre photo et vos informations personnelles ici."
+    },
+    "form": {
+      "name": { "label": "nom complet" },
+      "email": { "label": "adresse e-mail" },
+      "location": {
+        "label": "emplacement",
+        "placeholder": "ex: Bengaluru, Inde"
+      },
+      "submit": "enregistrer les modifications"
+    },
+    "toast": {
+      "title": "profil mis à jour",
+      "description": "vos informations ont été enregistrées."
+    }
+  },
+  "settings": {
+    "title": "paramètres",
+    "description": "personnalisez votre expérience d'application.",
+    "language": {
+      "title": "langue",
+      "description": "choisissez la langue de l'interface de l'application et de l'assistant IA.",
+      "label": "langue préférée",
+      "placeholder": "sélectionnez la langue"
+    },
+    "voice": {
+      "title": "assistant vocal",
+      "description": "gérez les paramètres vocaux de l'assistant IA.",
+      "input": {
+        "label": "activer l'entrée vocale",
+        "description": "utilisez votre microphone pour parler à l'assistant."
+      },
+      "output": {
+        "label": "activer la sortie vocale",
+        "description": "entendez les réponses de l'assistant à haute voix."
+      }
+    }
+  },
+  "support": {
+    "title": "centre d'aide",
+    "description": "trouvez des réponses aux questions courantes et contactez notre équipe.",
+    "faq": {
+      "title": "questions fréquemment posées",
+      "q1": {
+        "question": "comment utiliser la fonction d'analyse du sol ?",
+        "answer": "accédez à la page d'analyse du sol, entrez les paramètres de votre sol tels que les niveaux d'azote, de phosphore, de potassium, le pH, etc., ainsi que la culture que vous avez l'intention de cultiver. cliquez sur 'analyser le sol' pour obtenir des recommandations d'engrais et de traitement basées sur l'IA."
+      },
+      "q2": {
+        "question": "quelle est la précision de la détection des maladies ?",
+        "answer": "la détection des maladies par IA est un outil puissant pour l'identification précoce, mais elle doit être utilisée comme un guide préliminaire. le score de confiance indique la certitude de l'IA. pour un diagnostic définitif, surtout lorsque la confiance est faible, nous recommandons toujours de consulter un expert agricole local."
+      },
+      "q3": {
+        "question": "puis-je utiliser l'application dans ma langue locale ?",
+        "answer": "oui ! vous pouvez changer la langue en accédant aux paramètres et en sélectionnant parmi les options disponibles. l'assistant IA communiquera également dans la langue sélectionnée."
+      },
+      "q4": {
+        "question": "comment utiliser l'assistant vocal ?",
+        "answer": "tout d'abord, activez l'entrée vocale et la sortie vocale à partir de la page des paramètres. ensuite, cliquez sur l'icône du robot en bas à droite de l'écran. utilisez le bouton du microphone dans la fenêtre de discussion pour prononcer vos commandes."
+      }
+    },
+    "contact": {
+      "title": "contactez-nous",
+      "description": "vous ne trouvez pas de réponse ? envoyez-nous un message.",
+      "form": {
+        "name": {
+          "label": "nom",
+          "placeholder": "votre nom"
+        },
+        "email": {
+          "label": "e-mail",
+          "placeholder": "votre@email.com"
+        },
+        "message": {
+          "label": "message",
+          "placeholder": "comment pouvons-nous vous aider ?"
+        },
+        "submit": "envoyer le message"
+      },
+      "toast": {
+        "title": "message envoyé",
+        "description": "notre équipe d'assistance vous répondra sous peu."
+      }
+    }
+  },
+  "voiceAssistant": {
+    "greeting": "Bonjour ! comment puis-je vous aider aujourd'hui ?",
+    "error": "désolé, j'ai rencontré une erreur. veuillez réessayer.",
+    "open": "ouvrir l'assistant IA",
+    "title": "assistant IA",
+    "placeholder": "demandez-moi n'importe quoi..."
+  }
+}

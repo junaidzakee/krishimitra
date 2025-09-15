@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
@@ -12,34 +13,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-
-const faqs = [
-  {
-    question: "How do I use the Soil Analysis feature?",
-    answer: "Navigate to the Soil Analysis page, enter your soil's parameters like Nitrogen, Phosphorus, Potassium levels, pH, etc., and the crop you intend to grow. Click 'Analyze Soil' to get AI-powered fertilizer and treatment recommendations."
-  },
-  {
-    question: "How accurate is the Disease Detection?",
-    answer: "The AI Disease Detection is a powerful tool for early identification, but it should be used as a preliminary guide. The confidence score indicates the AI's certainty. For a definitive diagnosis, especially when the confidence is low, we always recommend consulting a local agricultural expert."
-  },
-  {
-    question: "Can I use the app in my local language?",
-    answer: "Yes! You can change the language by clicking your profile icon in the top right, hovering over 'Language', and selecting from the available options. The AI assistant will also communicate in the selected language."
-  },
-  {
-    question: "How do I use the voice assistant?",
-    answer: "First, enable 'Voice Input' and 'Voice Output' from the settings in your profile menu. Then, click the robot icon at the bottom-right of the screen. Use the microphone button in the chat window to speak your commands."
-  }
-];
+import { useLanguage } from "@/hooks/use-language";
 
 export default function SupportPage() {
   const { toast } = useToast();
+  const { t } = useLanguage();
+
+  const faqs = [
+    {
+      question: t('support.faq.q1.question'),
+      answer: t('support.faq.q1.answer')
+    },
+    {
+      question: t('support.faq.q2.question'),
+      answer: t('support.faq.q2.answer')
+    },
+    {
+      question: t('support.faq.q3.question'),
+      answer: t('support.faq.q3.answer')
+    },
+    {
+      question: t('support.faq.q4.question'),
+      answer: t('support.faq.q4.answer')
+    }
+  ];
 
   const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     toast({
-      title: "Message Sent",
-      description: "Our support team will get back to you shortly.",
+      title: t('support.contact.toast.title'),
+      description: t('support.contact.toast.description'),
     });
     (event.target as HTMLFormElement).reset();
   };
@@ -47,12 +50,12 @@ export default function SupportPage() {
   return (
     <div className="grid gap-12 md:grid-cols-5">
       <div className="md:col-span-3">
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Support Center</h1>
-        <p className="text-muted-foreground mb-8">Find answers to common questions and get in touch with our team.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('support.title')}</h1>
+        <p className="text-muted-foreground mb-8">{t('support.description')}</p>
         
         <Card>
           <CardHeader>
-            <CardTitle>Frequently Asked Questions</CardTitle>
+            <CardTitle>{t('support.faq.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <Accordion type="single" collapsible className="w-full">
@@ -69,24 +72,24 @@ export default function SupportPage() {
       <div className="md:col-span-2">
         <Card>
           <CardHeader>
-            <CardTitle>Contact Us</CardTitle>
-            <CardDescription>Can't find an answer? Send us a message.</CardDescription>
+            <CardTitle>{t('support.contact.title')}</CardTitle>
+            <CardDescription>{t('support.contact.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your Name" required />
+                <Label htmlFor="name">{t('support.contact.form.name.label')}</Label>
+                <Input id="name" placeholder={t('support.contact.form.name.placeholder')} required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your@email.com" required />
+                <Label htmlFor="email">{t('support.contact.form.email.label')}</Label>
+                <Input id="email" type="email" placeholder={t('support.contact.form.email.placeholder')} required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="How can we help you?" required />
+                <Label htmlFor="message">{t('support.contact.form.message.label')}</Label>
+                <Textarea id="message" placeholder={t('support.contact.form.message.placeholder')} required />
               </div>
-              <Button type="submit" className="w-full">Send Message</Button>
+              <Button type="submit" className="w-full">{t('support.contact.form.submit')}</Button>
             </form>
           </CardContent>
         </Card>

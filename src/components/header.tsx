@@ -9,7 +9,6 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -33,10 +32,12 @@ import { Skeleton } from "./ui/skeleton";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage, languages } from "@/hooks/use-language";
 
-function getBreadcrumb(pathname: string) {
+function getBreadcrumb(pathname: string, t: (key: string) => string) {
     const segments = pathname.split('/').filter(Boolean);
-    const breadcrumb = segments.length > 0 ? segments[0] : 'dashboard';
-    return breadcrumb.charAt(0).toUpperCase() + breadcrumb.slice(1).replace('-', ' ');
+    if (segments.length === 0) return t('breadcrumbs.dashboard');
+
+    const breadcrumbKey = segments[0].replace('-', '');
+    return t(`breadcrumbs.${breadcrumbKey}`);
 }
 
 export function Header() {
@@ -48,7 +49,7 @@ export function Header() {
     voiceOutputEnabled, 
     setVoiceOutputEnabled 
   } = useVoice();
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up';
 
   const renderAuthSection = () => {
@@ -62,10 +63,10 @@ export function Header() {
         return (
             <div className="flex items-center gap-2">
                 <Button variant="outline" asChild>
-                    <Link href="/sign-in">Sign In</Link>
+                    <Link href="/sign-in">{t('header.signIn')}</Link>
                 </Button>
                 <Button asChild>
-                    <Link href="/sign-up">Sign Up</Link>
+                    <Link href="/sign-up">{t('header.signUp')}</Link>
                 </Button>
             </div>
         )
@@ -82,31 +83,31 @@ export function Header() {
             </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{t('header.myAccount')}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link href="/profile" passHref>
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+                <span>{t('header.profile')}</span>
               </DropdownMenuItem>
             </Link>
             <Link href="/settings" passHref>
               <DropdownMenuItem>
                 <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
+                <span>{t('header.settings')}</span>
               </DropdownMenuItem>
             </Link>
             <Link href="/support" passHref>
               <DropdownMenuItem>
                 <LifeBuoy className="mr-2 h-4 w-4" />
-                <span>Support</span>
+                <span>{t('header.support')}</span>
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                 <Languages className="mr-2 h-4 w-4" />
-                <span>Language</span>
+                <span>{t('header.language')}</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
@@ -123,19 +124,19 @@ export function Header() {
               onCheckedChange={setVoiceInputEnabled}
             >
               <Mic className="mr-2 h-4 w-4" />
-              <span>Voice Input</span>
+              <span>{t('header.voiceInput')}</span>
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
               checked={voiceOutputEnabled}
               onCheckedChange={setVoiceOutputEnabled}
             >
               <Volume2 className="mr-2 h-4 w-4" />
-              <span>Voice Output</span>
+              <span>{t('header.voiceOutput')}</span>
             </DropdownMenuCheckboxItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
+                <span>{t('header.logOut')}</span>
             </DropdownMenuItem>
             </DropdownMenuContent>
       </DropdownMenu>
@@ -149,7 +150,7 @@ export function Header() {
       </div>
 
       <div className="flex-1">
-        <h1 className="text-lg font-semibold">{getBreadcrumb(pathname)}</h1>
+        <h1 className="text-lg font-semibold">{getBreadcrumb(pathname, t)}</h1>
       </div>
 
       {renderAuthSection()}

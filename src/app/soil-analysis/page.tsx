@@ -37,6 +37,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
+import { useLanguage } from "@/hooks/use-language";
 
 const formSchema = z.object({
   soilType: z.string().min(1, "Soil type is required."),
@@ -60,6 +61,7 @@ export default function SoilAnalysisPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { voiceOutputEnabled } = useVoice();
+  const { t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
@@ -99,8 +101,8 @@ export default function SoilAnalysisPage() {
       console.error("Error analyzing soil:", error);
       toast({
         variant: "destructive",
-        title: "Analysis Failed",
-        description: "Could not get recommendations. Please try again later.",
+        title: t('soilAnalysis.toast.analysisFailed.title'),
+        description: t('soilAnalysis.toast.analysisFailed.description'),
       });
     } finally {
       setIsLoading(false);
@@ -111,16 +113,16 @@ export default function SoilAnalysisPage() {
     if (!user) {
       toast({
         variant: 'destructive',
-        title: 'Authentication Required',
-        description: 'You must be signed in to save results.',
+        title: t('soilAnalysis.toast.authRequired.title'),
+        description: t('soilAnalysis.toast.authRequired.description'),
       });
       return;
     }
     if (!analysisResult) {
       toast({
         variant: 'destructive',
-        title: 'No Result to Save',
-        description: 'Please analyze the soil first before saving.',
+        title: t('soilAnalysis.toast.noResult.title'),
+        description: t('soilAnalysis.toast.noResult.description'),
       });
       return;
     }
@@ -134,15 +136,15 @@ export default function SoilAnalysisPage() {
         results: analysisResult,
       });
       toast({
-        title: 'Analysis Saved',
-        description: 'Your soil analysis has been saved to your history.',
+        title: t('soilAnalysis.toast.saveSuccess.title'),
+        description: t('soilAnalysis.toast.saveSuccess.description'),
       });
     } catch (error) {
       console.error("Error saving analysis:", error);
       toast({
         variant: 'destructive',
-        title: 'Save Failed',
-        description: 'Could not save your analysis. Please try again.',
+        title: t('soilAnalysis.toast.saveFailed.title'),
+        description: t('soilAnalysis.toast.saveFailed.description'),
       });
     } finally {
       setIsSaving(false);
@@ -168,10 +170,10 @@ export default function SoilAnalysisPage() {
     setIsAudioLoading(true);
     try {
       const textToRead = `
-        Analysis for ${form.getValues("cropType")}.
-        Soil Analysis: ${analysisResult.soilAnalysis}.
-        Fertilizer Recommendation: ${analysisResult.fertilizerRecommendation}.
-        Treatment Recommendation: ${analysisResult.treatmentRecommendation}.
+        ${t('soilAnalysis.speech.analysisFor', { cropType: form.getValues("cropType") })}
+        ${t('soilAnalysis.speech.soilAnalysis')}: ${analysisResult.soilAnalysis}.
+        ${t('soilAnalysis.speech.fertilizer')}: ${analysisResult.fertilizerRecommendation}.
+        ${t('soilAnalysis.speech.treatment')}: ${analysisResult.treatmentRecommendation}.
       `;
       const { audioDataUri } = await textToSpeech({ text: textToRead });
       const audio = new Audio(audioDataUri);
@@ -188,8 +190,8 @@ export default function SoilAnalysisPage() {
       console.error("Error generating speech:", error);
       toast({
         variant: "destructive",
-        title: "Speech Error",
-        description: "Could not generate audio. Please try again.",
+        title: t('soilAnalysis.toast.speechError.title'),
+        description: t('soilAnalysis.toast.speechError.description'),
       });
     } finally {
       setIsAudioLoading(false);
@@ -200,9 +202,9 @@ export default function SoilAnalysisPage() {
     <div className="grid gap-8 md:grid-cols-3">
       <Card className="md:col-span-1">
         <CardHeader>
-          <CardTitle>Soil Parameters</CardTitle>
+          <CardTitle>{t('soilAnalysis.form.title')}</CardTitle>
           <CardDescription>
-            Enter your soil data to get AI-powered recommendations.
+            {t('soilAnalysis.form.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -213,19 +215,19 @@ export default function SoilAnalysisPage() {
                 name="soilType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Soil Type</FormLabel>
+                    <FormLabel>{t('soilAnalysis.form.soilType.label')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a soil type" />
+                          <SelectValue placeholder={t('soilAnalysis.form.soilType.placeholder')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="sandy">Sandy</SelectItem>
-                        <SelectItem value="silty">Silty</SelectItem>
-                        <SelectItem value="clay">Clay</SelectItem>
-                        <SelectItem value="loamy">Loamy</SelectItem>
-                        <SelectItem value="peaty">Peaty</SelectItem>
+                        <SelectItem value="sandy">{t('soilAnalysis.form.soilType.options.sandy')}</SelectItem>
+                        <SelectItem value="silty">{t('soilAnalysis.form.soilType.options.silty')}</SelectItem>
+                        <SelectItem value="clay">{t('soilAnalysis.form.soilType.options.clay')}</SelectItem>
+                        <SelectItem value="loamy">{t('soilAnalysis.form.soilType.options.loamy')}</SelectItem>
+                        <SelectItem value="peaty">{t('soilAnalysis.form.soilType.options.peaty')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -238,7 +240,7 @@ export default function SoilAnalysisPage() {
                   name="nitrogenLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nitrogen (ppm)</FormLabel>
+                      <FormLabel>{t('soilAnalysis.form.nitrogen.label')}</FormLabel>
                       <FormControl>
                           <Input type="number" {...field} />
                       </FormControl>
@@ -251,7 +253,7 @@ export default function SoilAnalysisPage() {
                   name="phosphorusLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phosphorus (ppm)</FormLabel>
+                      <FormLabel>{t('soilAnalysis.form.phosphorus.label')}</FormLabel>
                       <FormControl>
                           <Input type="number" {...field} />
                       </FormControl>
@@ -266,7 +268,7 @@ export default function SoilAnalysisPage() {
                   name="potassiumLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Potassium (ppm)</FormLabel>
+                      <FormLabel>{t('soilAnalysis.form.potassium.label')}</FormLabel>
                       <FormControl>
                           <Input type="number" {...field} />
                       </FormControl>
@@ -279,7 +281,7 @@ export default function SoilAnalysisPage() {
                   name="pHLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>pH Level</FormLabel>
+                      <FormLabel>{t('soilAnalysis.form.ph.label')}</FormLabel>
                        <FormControl>
                           <Input type="number" step="0.1" {...field} />
                        </FormControl>
@@ -293,7 +295,7 @@ export default function SoilAnalysisPage() {
                   name="organicMatterContent"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Organic Matter (%)</FormLabel>
+                      <FormLabel>{t('soilAnalysis.form.organicMatter.label')}</FormLabel>
                        <FormControl>
                           <Input type="number" step="0.1" {...field} />
                        </FormControl>
@@ -306,9 +308,9 @@ export default function SoilAnalysisPage() {
                 name="cropType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Crop Type</FormLabel>
+                    <FormLabel>{t('soilAnalysis.form.cropType.label')}</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., Wheat, Rice" {...field} />
+                        <Input placeholder={t('soilAnalysis.form.cropType.placeholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -320,7 +322,7 @@ export default function SoilAnalysisPage() {
                 ) : (
                   <Wand2 className="mr-2 h-4 w-4" />
                 )}
-                Analyze Soil
+                {t('soilAnalysis.form.submit')}
               </Button>
             </form>
           </Form>
@@ -355,35 +357,35 @@ export default function SoilAnalysisPage() {
             <CardHeader>
                 <div className="flex justify-between items-start">
                     <div>
-                        <CardTitle className="text-2xl font-headline">Analysis for {form.getValues("cropType")}</CardTitle>
-                        <CardDescription>Based on your provided soil parameters.</CardDescription>
+                        <CardTitle className="text-2xl font-headline">{t('soilAnalysis.results.title', { cropType: form.getValues("cropType") })}</CardTitle>
+                        <CardDescription>{t('soilAnalysis.results.description')}</CardDescription>
                     </div>
                     <div className="flex gap-2">
                         <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isAudioLoading || !voiceOutputEnabled}>
                             {isAudioLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSpeaking ? <Pause className="h-4 w-4" /> : (isPaused ? <Play className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />))}
-                            <span className="sr-only">Read aloud</span>
+                            <span className="sr-only">{t('soilAnalysis.results.readAloud')}</span>
                         </Button>
                          <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving}>
                             {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4"/>}
-                            <span className="sr-only">Save for Offline</span>
+                            <span className="sr-only">{t('soilAnalysis.results.saveOffline')}</span>
                         </Button>
                     </div>
                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div>
-                    <h3 className="font-semibold text-lg">Soil Analysis</h3>
+                    <h3 className="font-semibold text-lg">{t('soilAnalysis.results.soilAnalysis')}</h3>
                     <Separator className="my-2" />
                     <p className="text-muted-foreground">{analysisResult.soilAnalysis}</p>
 
                 </div>
                  <div>
-                    <h3 className="font-semibold text-lg">Fertilizer Recommendation</h3>
+                    <h3 className="font-semibold text-lg">{t('soilAnalysis.results.fertilizer')}</h3>
                     <Separator className="my-2" />
                     <p className="text-muted-foreground">{analysisResult.fertilizerRecommendation}</p>
                 </div>
                  <div>
-                    <h3 className="font-semibold text-lg">Treatment Recommendation</h3>
+                    <h3 className="font-semibold text-lg">{t('soilAnalysis.results.treatment')}</h3>
                     <Separator className="my-2" />
                     <p className="text-muted-foreground">{analysisResult.treatmentRecommendation}</p>
                 </div>
@@ -393,8 +395,8 @@ export default function SoilAnalysisPage() {
        {!isLoading && !analysisResult && (
             <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8">
                 <div className="h-16 w-16 text-muted-foreground/50" />
-                <h3 className="mt-4 text-lg font-semibold">Awaiting Analysis</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Your soil recommendations will appear here.</p>
+                <h3 className="mt-4 text-lg font-semibold">{t('soilAnalysis.placeholder.title')}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{t('soilAnalysis.placeholder.description')}</p>
             </div>
        )}
       </div>

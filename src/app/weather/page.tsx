@@ -20,6 +20,7 @@ import {
   Thermometer,
 } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
+import { useLanguage } from '@/hooks/use-language';
 
 function getWeatherIcon(condition: string, size: "sm" | "md" | "lg" = "md") {
   const sizes = { sm: "h-6 w-6", md: "h-10 w-10", lg: "h-16 w-16" };
@@ -36,6 +37,7 @@ export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState<WeatherForecast | null>(null);
   const [advice, setAdvice] = useState<WeatherAdviceOutput | null>(null);
   const [loadingAdvice, setLoadingAdvice] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const data = getDemoWeather();
@@ -55,28 +57,28 @@ export default function WeatherPage() {
     fetchAdvice();
   }, []);
 
-  const adviceCards = [
+  const adviceCards = advice ? [
     {
-      title: "Planting & Harvesting",
+      title: t('weather.advisory.planting.title'),
       icon: <Sprout className="h-6 w-6 text-primary" />,
-      content: advice?.plantingAndHarvesting,
+      content: advice.plantingAndHarvesting,
     },
     {
-      title: "Irrigation Scheduling",
+      title: t('weather.advisory.irrigation.title'),
       icon: <Droplets className="h-6 w-6 text-primary" />,
-      content: advice?.irrigation,
+      content: advice.irrigation,
     },
     {
-      title: "Pest & Disease Prevention",
+      title: t('weather.advisory.pest.title'),
       icon: <SprayCan className="h-6 w-6 text-primary" />,
-      content: advice?.pestAndDisease,
+      content: advice.pestAndDisease,
     },
     {
-      title: "Daily Work Planning",
+      title: t('weather.advisory.planning.title'),
       icon: <CalendarDays className="h-6 w-6 text-primary" />,
-      content: advice?.dailyWorkPlanning,
+      content: advice.dailyWorkPlanning,
     },
-  ];
+  ] : [];
 
   if (!weatherData) {
     return (
@@ -93,7 +95,7 @@ export default function WeatherPage() {
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl font-headline">
-            Current Weather in {weatherData.current.location}
+            {t('weather.current.title', { location: weatherData.current.location })}
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -109,14 +111,14 @@ export default function WeatherPage() {
               <Droplets className="h-5 w-5 text-primary" />
               <div>
                 <p className="font-semibold">{weatherData.current.humidity}%</p>
-                <p className="text-sm text-muted-foreground">Humidity</p>
+                <p className="text-sm text-muted-foreground">{t('weather.current.humidity')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Wind className="h-5 w-5 text-primary" />
               <div>
                 <p className="font-semibold">{weatherData.current.windSpeed} km/h</p>
-                <p className="text-sm text-muted-foreground">Wind</p>
+                <p className="text-sm text-muted-foreground">{t('weather.current.wind')}</p>
               </div>
             </div>
           </div>
@@ -124,7 +126,7 @@ export default function WeatherPage() {
       </Card>
 
       <div>
-        <h2 className="text-xl font-bold mb-4 font-headline">AI-Powered Agricultural Advisory</h2>
+        <h2 className="text-xl font-bold mb-4 font-headline">{t('weather.advisory.title')}</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {loadingAdvice ? (
             [...Array(4)].map((_, i) => (
@@ -156,7 +158,7 @@ export default function WeatherPage() {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold mb-4 font-headline">Hourly Forecast</h2>
+        <h2 className="text-xl font-bold mb-4 font-headline">{t('weather.hourly.title')}</h2>
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
             {weatherData.hourly.map((hour) => (
@@ -174,7 +176,7 @@ export default function WeatherPage() {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold mb-4 font-headline">7-Day Forecast</h2>
+        <h2 className="text-xl font-bold mb-4 font-headline">{t('weather.daily.title')}</h2>
         <div className="space-y-2">
           {weatherData.daily.map((day) => (
             <Card key={day.day}>

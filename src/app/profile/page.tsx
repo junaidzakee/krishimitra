@@ -8,16 +8,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function ProfilePage() {
   const { user, loading } = useAuth();
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     toast({
-      title: "Profile Updated",
-      description: "Your information has been saved.",
+      title: t('profile.toast.title'),
+      description: t('profile.toast.description'),
     });
   };
   
@@ -26,14 +28,14 @@ export default function ProfilePage() {
   }
   
   if (!user) {
-    return <div className="text-center">Please sign in to view your profile.</div>;
+    return <div className="text-center">{t('profile.signInPrompt')}</div>;
   }
 
   return (
     <div className="space-y-8 max-w-2xl mx-auto">
        <div>
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Your Profile</h1>
-        <p className="text-muted-foreground">Manage your personal information.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('profile.title')}</h1>
+        <p className="text-muted-foreground">{t('profile.description')}</p>
       </div>
       <Card>
         <CardHeader>
@@ -44,26 +46,26 @@ export default function ProfilePage() {
             </Avatar>
             <div>
               <CardTitle className="text-2xl">{user.displayName || user.email}</CardTitle>
-              <CardDescription>Update your photo and personal details here.</CardDescription>
+              <CardDescription>{t('profile.card.description')}</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
+              <Label htmlFor="fullName">{t('profile.form.name.label')}</Label>
               <Input id="fullName" defaultValue={user.displayName || ""} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="email">{t('profile.form.email.label')}</Label>
               <Input id="email" type="email" value={user.email || ""} disabled />
             </div>
              <div className="space-y-2">
-              <Label htmlFor="location">Location</Label>
-              <Input id="location" placeholder="e.g., Bengaluru, India" />
+              <Label htmlFor="location">{t('profile.form.location.label')}</Label>
+              <Input id="location" placeholder={t('profile.form.location.placeholder')} />
             </div>
             <div className="flex justify-end">
-              <Button type="submit">Save Changes</Button>
+              <Button type="submit">{t('profile.form.submit')}</Button>
             </div>
           </form>
         </CardContent>

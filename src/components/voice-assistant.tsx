@@ -26,7 +26,7 @@ export function VoiceAssistant() {
   const [isResponding, setIsResponding] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const { voiceInputEnabled, voiceOutputEnabled } = useVoice();
-  const { language, languageName } = useLanguage();
+  const { language, languageName, t } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -45,11 +45,11 @@ export function VoiceAssistant() {
   useEffect(() => {
     if (isOpen) {
         setMessages([
-            { role: 'model', content: [{ text: 'Hello! How can I help you today?' }] }
+            { role: 'model', content: [{ text: t('voiceAssistant.greeting') }] }
         ]);
         inputRef.current?.focus();
     }
-  }, [isOpen]);
+  }, [isOpen, t]);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -97,7 +97,7 @@ export function VoiceAssistant() {
       await speak(result.message);
     } catch (error) {
       console.error("Chat error:", error);
-      const errorMessage: Message = { role: 'model', content: [{ text: "Sorry, I encountered an error. Please try again." }] };
+      const errorMessage: Message = { role: 'model', content: [{ text: t('voiceAssistant.error') }] };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsResponding(false);
@@ -117,7 +117,7 @@ export function VoiceAssistant() {
       <Button
         className="fixed bottom-4 right-4 rounded-full h-16 w-16 shadow-lg z-50"
         onClick={() => setIsOpen(true)}
-        aria-label="Open AI Assistant"
+        aria-label={t('voiceAssistant.open')}
       >
         <Bot className="h-8 w-8" />
       </Button>
@@ -130,7 +130,7 @@ export function VoiceAssistant() {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Bot className="h-6 w-6" />
-            AI Assistant
+            {t('voiceAssistant.title')}
           </CardTitle>
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
             <X className="h-4 w-4" />
@@ -188,7 +188,7 @@ export function VoiceAssistant() {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me anything..."
+              placeholder={t('voiceAssistant.placeholder')}
               className="pr-20"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {

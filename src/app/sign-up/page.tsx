@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useAuth } from '@/hooks/use-auth';
+import { useLanguage } from '@/hooks/use-language';
 
 
 const formSchema = z.object({
@@ -46,6 +47,7 @@ export default function SignUpPage() {
   const { toast } = useToast();
   const router = useRouter();
   const { user, loading } = useAuth();
+  const { t } = useLanguage();
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(formSchema),
@@ -71,14 +73,14 @@ export default function SignUpPage() {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       toast({
-        title: 'Sign Up Successful',
-        description: "Your account has been created.",
+        title: t('signUp.toast.success.title'),
+        description: t('signUp.toast.success.description'),
       });
       router.push('/');
     } catch (error: any) {
       toast({
         variant: 'destructive',
-        title: 'Sign Up Failed',
+        title: t('signUp.toast.failure.title'),
         description: error.message,
       });
     } finally {
@@ -90,9 +92,9 @@ export default function SignUpPage() {
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)]">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Create an Account</CardTitle>
+          <CardTitle>{t('signUp.title')}</CardTitle>
           <CardDescription>
-            Enter your email and password to get started.
+            {t('signUp.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,9 +105,9 @@ export default function SignUpPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t('signUp.form.email.label')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="name@example.com" {...field} />
+                      <Input placeholder={t('signUp.form.email.placeholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -116,7 +118,7 @@ export default function SignUpPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t('signUp.form.password.label')}</FormLabel>
                     <FormControl>
                       <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
@@ -129,7 +131,7 @@ export default function SignUpPage() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>{t('signUp.form.confirmPassword.label')}</FormLabel>
                     <FormControl>
                       <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
@@ -139,14 +141,14 @@ export default function SignUpPage() {
               />
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create Account
+                {t('signUp.form.submit')}
               </Button>
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            Already have an account?{' '}
+            {t('signUp.signInPrompt.text')}{' '}
             <Link href="/sign-in" className="underline">
-              Sign in
+              {t('signUp.signInPrompt.link')}
             </Link>
           </div>
         </CardContent>

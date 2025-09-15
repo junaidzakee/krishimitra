@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useAuth } from '@/hooks/use-auth';
+import { useLanguage } from '@/hooks/use-language';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address.'),
@@ -41,6 +42,7 @@ export default function SignInPage() {
   const { toast } = useToast();
   const router = useRouter();
   const { user, loading } = useAuth();
+  const { t } = useLanguage();
   
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(formSchema),
@@ -65,14 +67,14 @@ export default function SignInPage() {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({
-        title: 'Sign In Successful',
-        description: "Welcome back!",
+        title: t('signIn.toast.success.title'),
+        description: t('signIn.toast.success.description'),
       });
       router.push('/');
     } catch (error: any) {
       toast({
         variant: 'destructive',
-        title: 'Sign In Failed',
+        title: t('signIn.toast.failure.title'),
         description: error.message,
       });
     } finally {
@@ -84,9 +86,9 @@ export default function SignInPage() {
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)]">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Sign In</CardTitle>
+          <CardTitle>{t('signIn.title')}</CardTitle>
           <CardDescription>
-            Enter your credentials to access your account.
+            {t('signIn.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -97,9 +99,9 @@ export default function SignInPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t('signIn.form.email.label')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="name@example.com" {...field} />
+                      <Input placeholder={t('signIn.form.email.placeholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,7 +112,7 @@ export default function SignInPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t('signIn.form.password.label')}</FormLabel>
                     <FormControl>
                       <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
@@ -120,14 +122,14 @@ export default function SignInPage() {
               />
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Sign In
+                {t('signIn.form.submit')}
               </Button>
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{' '}
+            {t('signIn.signUpPrompt.text')}{' '}
             <Link href="/sign-up" className="underline">
-              Sign up
+              {t('signIn.signUpPrompt.link')}
             </Link>
           </div>
         </CardContent>

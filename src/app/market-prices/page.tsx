@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/hooks/use-language";
 
 const chartConfig = {
   price: {
@@ -79,10 +80,11 @@ function MarketPriceChart({ data }: { data: MarketPrice["data"] }) {
 
 export default function MarketPricesPage() {
     const [marketPrices, setMarketPrices] = React.useState<MarketPrice[]>([]);
+    const { t } = useLanguage();
 
     React.useEffect(() => {
-        setMarketPrices(getMarketPrices());
-    }, []);
+        setMarketPrices(getMarketPrices(t));
+    }, [t]);
 
     if (marketPrices.length === 0) {
         return (
@@ -97,8 +99,8 @@ export default function MarketPricesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight font-headline">Market Prices</h1>
-        <p className="text-muted-foreground">Historical price data for major crops.</p>
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('marketPrices.title')}</h1>
+        <p className="text-muted-foreground">{t('marketPrices.description')}</p>
       </div>
       <Tabs defaultValue={marketPrices[0].crop} className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
@@ -112,8 +114,8 @@ export default function MarketPricesPage() {
           <TabsContent key={cropData.crop} value={cropData.crop}>
             <Card>
               <CardHeader>
-                <CardTitle>{cropData.crop} Price Trend</CardTitle>
-                <CardDescription>Last 30 days price per ton.</CardDescription>
+                <CardTitle>{t('marketPrices.chart.title', { crop: cropData.crop })}</CardTitle>
+                <CardDescription>{t('marketPrices.chart.description')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <MarketPriceChart data={cropData.data} />
