@@ -10,7 +10,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import wav from 'wav';
 
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to be converted to speech.'),
@@ -27,28 +26,39 @@ export async function textToSpeech(input: TextToSpeechInput): Promise<TextToSpee
   return textToSpeechFlow(input);
 }
 
-async function toWav(
-  pcmData: Buffer,
-  channels = 1,
-  rate = 24000,
-  sampleWidth = 2
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const writer = new wav.Writer({
-      channels,
-      sampleRate: rate,
-      bitDepth: sampleWidth * 8,
-    });
+function pcmToWav(pcmData: Buffer, channels = 1, sampleRate = 24000, sampleWidth = 2): string {
+  const byteRate = sampleRate * channels * sampleWidth;
+  const blockAlign = channels * sampleWidth;
+  const dataSize = pcmData.length;
+  const fileSize = dataSize + 44;
 
-    const bufs: any[] = [];
-    writer.on('error', reject);
-    writer.on('data', (d) => bufs.push(d));
-    writer.on('end', () => resolve(Buffer.concat(bufs).toString('base64')));
+  const buffer = Buffer.alloc(fileSize);
 
-    writer.write(pcmData);
-    writer.end();
-  });
+  // RIFF header
+  buffer.write('RIFF', 0);
+  buffer.writeUInt32LE(fileSize - 8, 4);
+  buffer.write('WAVE', 8);
+
+  // fmt sub-chunk
+  buffer.write('fmt ', 12);
+  buffer.writeUInt32LE(16, 16); // Sub-chunk size
+  buffer.writeUInt16LE(1, 20); // Audio format (1 for PCM)
+  buffer.writeUInt16LE(channels, 22);
+  buffer.writeUInt32LE(sampleRate, 24);
+  buffer.writeUInt32LE(byteRate, 28);
+  buffer.writeUInt16LE(blockAlign, 32);
+  buffer.writeUInt16LE(sampleWidth * 8, 34);
+
+  // data sub-chunk
+  buffer.write('data', 36);
+  buffer.writeUInt32LE(dataSize, 40);
+
+  // PCM data
+  pcmData.copy(buffer, 44);
+
+  return buffer.toString('base64');
 }
+
 
 const textToSpeechFlow = ai.defineFlow(
   {
@@ -88,7 +98,7 @@ const textToSpeechFlow = ai.defineFlow(
       'base64'
     );
     
-    const wavBase64 = await toWav(audioBuffer);
+    const wavBase64 = pcmToWav(audioBuffer);
 
     return {
       audioDataUri: `data:audio/wav;base64,${wavBase64}`,
