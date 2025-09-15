@@ -87,11 +87,19 @@ export default function SoilAnalysisPage() {
   };
 
   const handleSave = async () => {
-    if (!user || !analysisResult) {
+    if (!user) {
       toast({
         variant: 'destructive',
-        title: 'Cannot Save',
-        description: 'You must be logged in and have an analysis result to save.',
+        title: 'Authentication Required',
+        description: 'You must be signed in to save results.',
+      });
+      return;
+    }
+    if (!analysisResult) {
+      toast({
+        variant: 'destructive',
+        title: 'No Result to Save',
+        description: 'Please analyze the soil first before saving.',
       });
       return;
     }
@@ -106,7 +114,7 @@ export default function SoilAnalysisPage() {
       });
       toast({
         title: 'Analysis Saved',
-        description: 'Your soil analysis has been saved to your account.',
+        description: 'Your soil analysis has been saved to your history.',
       });
     } catch (error) {
       console.error("Error saving analysis:", error);
