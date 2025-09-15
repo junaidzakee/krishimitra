@@ -21,9 +21,12 @@ const DetectDiseaseInputSchema = z.object({
 export type DetectDiseaseInput = z.infer<typeof DetectDiseaseInputSchema>;
 
 const DetectDiseaseOutputSchema = z.object({
-  disease: z.string().describe('The identified disease, or null if none detected.'),
+  disease: z.string().describe('The identified disease, or "Healthy" if no disease is detected.'),
   confidence: z.number().describe('The confidence level of the disease detection (0-1).'),
-  expertNeeded: z.boolean().describe('Whether an expert opinion is recommended.'),
+  isHealthy: z.boolean().describe('Whether the plant appears to be healthy.'),
+  diseaseInfo: z.string().describe('A brief description of the identified disease.'),
+  fertilizerRecommendation: z.string().describe('Recommended fertilizers or soil amendments to help the plant recover or stay healthy.'),
+  preventionTips: z.string().describe('Brief, necessary precautions to manage or prevent the disease.'),
 });
 export type DetectDiseaseOutput = z.infer<typeof DetectDiseaseOutputSchema>;
 
@@ -35,14 +38,19 @@ const prompt = ai.definePrompt({
   name: 'detectDiseasePrompt',
   input: {schema: DetectDiseaseInputSchema},
   output: {schema: DetectDiseaseOutputSchema},
-  prompt: `You are an AI assistant that analyzes images of plant leaves to detect diseases.
+  prompt: `You are an AI agricultural assistant that analyzes images of plant leaves to detect diseases.
 
   Analyze the following image and identify any potential diseases.
 
   Image: {{media url=photoDataUri}}
 
-  Respond with the identified disease, a confidence level (0-1), and whether an expert opinion is recommended.
-  If no disease is detected, set disease to null, confidence to 0, and expertNeeded to false.
+  - If a disease is detected, identify it, provide a confidence score, and set isHealthy to false.
+  - If the plant appears healthy, set the disease to "Healthy", confidence to 1, and isHealthy to true.
+  - Provide a brief description of the disease (or a note about general plant health if healthy).
+  - Recommend fertilizers or soil amendments to help the plant.
+  - Provide short, actionable prevention tips or precautions.
+
+  Keep all text descriptions and recommendations concise and to the point.
 `,
 });
 

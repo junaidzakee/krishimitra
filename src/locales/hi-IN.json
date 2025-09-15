@@ -1,5 +1,6 @@
 
 {
+  "code": "hi-IN",
   "sidebar": {
     "dashboard": "डैशबोर्ड",
     "soilAnalysis": "मृदा विश्लेषण",
@@ -218,9 +219,11 @@
       "title": "विश्लेषण परिणाम",
       "readAloud": "जोर से पढ़ें",
       "saveOffline": "ऑफ़लाइन के लिए सहेजें",
-      "detectedDisease": "पता चला रोग",
-      "noneDetected": "कोई नहीं मिला",
+      "detectedDisease": "निदान",
       "confidence": "आत्मविश्वास स्तर",
+      "diseaseInfo": "रोग के बारे में",
+      "fertilizer": "उर्वरक और मिट्टी",
+      "prevention": "रोकथाम और देखभाल",
       "expertNeeded": {
         "title": "विशेषज्ञ परामर्श की सिफारिश की गई है",
         "description": "एआई का आत्मविश्वास मध्यम है। एक सटीक निदान के लिए, एक संयंत्र विकृति विज्ञान विशेषज्ञ से परामर्श करने पर विचार करें।"
@@ -233,10 +236,11 @@
     "speech": {
       "complete": "विश्लेषण पूरा हुआ।",
       "disease": "पता चला रोग",
-      "noneDetected": "कोई नहीं मिला",
       "confidence": "आत्मविश्वास स्तर",
       "percent": "प्रतिशत",
-      "expertRecommended": "एक विशेषज्ञ परामर्श की सिफारिश की जाती है।"
+      "diseaseInfo": "रोग के बारे में",
+      "fertilizer": "उर्वरक की सिफारिश",
+      "prevention": "रोकथाम युक्तियाँ"
     },
     "toast": {
       "invalidFileType": {

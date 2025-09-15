@@ -1,5 +1,6 @@
 
 {
+  "code": "en-US",
   "sidebar": {
     "dashboard": "Dashboard",
     "soilAnalysis": "Soil Analysis",
@@ -218,12 +219,14 @@
       "title": "Analysis Result",
       "readAloud": "Read aloud",
       "saveOffline": "Save for Offline",
-      "detectedDisease": "Detected Disease",
-      "noneDetected": "None Detected",
+      "detectedDisease": "Diagnosis",
       "confidence": "Confidence Level",
+      "diseaseInfo": "About the Disease",
+      "fertilizer": "Fertilizer & Soil",
+      "prevention": "Prevention & Care",
       "expertNeeded": {
         "title": "Expert Consultation Recommended",
-        "description": "The AI confidence is moderate. For an accurate diagnosis, consider consulting a plant pathology expert."
+        "description": "Confidence is moderate. For an accurate diagnosis, consider consulting a plant pathology expert."
       }
     },
     "placeholder": {
@@ -233,10 +236,11 @@
     "speech": {
       "complete": "Analysis complete.",
       "disease": "Detected Disease",
-      "noneDetected": "None Detected",
       "confidence": "Confidence Level",
       "percent": "percent",
-      "expertRecommended": "An expert consultation is recommended."
+      "diseaseInfo": "About the disease",
+      "fertilizer": "Fertilizer recommendation",
+      "prevention": "Prevention tips"
     },
     "toast": {
       "invalidFileType": {

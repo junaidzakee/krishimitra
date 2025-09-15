@@ -14,13 +14,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, UploadCloud, Wand2, AlertTriangle, Save, Volume2, Play, Pause } from "lucide-react";
+import { Loader2, UploadCloud, Wand2, AlertTriangle, Save, Volume2, Play, Pause, Info, TestTube2, ShieldCheck } from "lucide-react";
 import { detectDisease, DetectDiseaseOutput } from "@/ai/flows/ai-disease-detection";
 import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage } from "@/hooks/use-language";
+import { Separator } from "@/components/ui/separator";
 
 export default function DiseaseDetectionPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -133,11 +134,13 @@ export default function DiseaseDetectionPage() {
     try {
       const textToRead = `
         ${t('diseaseDetection.speech.complete')}
-        ${t('diseaseDetection.speech.disease')}: ${result.disease || t('diseaseDetection.speech.noneDetected')}.
+        ${t('diseaseDetection.speech.disease')}: ${result.disease}.
         ${t('diseaseDetection.speech.confidence')}: ${Math.round(result.confidence * 100)} ${t('diseaseDetection.speech.percent')}.
-        ${result.expertNeeded ? t('diseaseDetection.speech.expertRecommended') : ""}
+        ${t('diseaseDetection.speech.diseaseInfo')}: ${result.diseaseInfo}.
+        ${t('diseaseDetection.speech.fertilizer')}: ${result.fertilizerRecommendation}.
+        ${t('diseaseDetection.speech.prevention')}: ${result.preventionTips}.
       `;
-      const { audioDataUri } = await textToSpeech({ text: textToRead });
+      const { audioDataUri } = await textToSpeech({ text: textToRead, language: t('code') });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();
@@ -212,7 +215,7 @@ export default function DiseaseDetectionPage() {
                 <CardHeader>
                     <div className="animate-pulse bg-muted rounded-md h-48 w-full"></div>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-6">
                     <div className="animate-pulse bg-muted rounded-md h-6 w-1/3"></div>
                     <div className="animate-pulse bg-muted rounded-md h-4 w-1/2"></div>
                     <div className="animate-pulse bg-muted rounded-md h-4 w-full"></div>
@@ -237,13 +240,13 @@ export default function DiseaseDetectionPage() {
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div className="relative w-full aspect-video rounded-lg overflow-hidden border">
                 <Image src={preview!} alt="Analyzed plant" fill style={{ objectFit: 'cover' }} />
               </div>
-              <div>
+              <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">{t('diseaseDetection.results.detectedDisease')}</p>
-                <h3 className="text-2xl font-semibold">{result.disease || t('diseaseDetection.results.noneDetected')}</h3>
+                <h3 className="text-2xl font-semibold">{result.disease}</h3>
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">{t('diseaseDetection.results.confidence')}</p>
@@ -254,7 +257,34 @@ export default function DiseaseDetectionPage() {
                   </span>
                 </div>
               </div>
-              {result.expertNeeded && (
+              
+              <Separator />
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 pt-1"><Info className="h-5 w-5 text-primary" /></div>
+                  <div>
+                    <h4 className="font-semibold">{t('diseaseDetection.results.diseaseInfo')}</h4>
+                    <p className="text-sm text-muted-foreground">{result.diseaseInfo}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 pt-1"><TestTube2 className="h-5 w-5 text-primary" /></div>
+                  <div>
+                    <h4 className="font-semibold">{t('diseaseDetection.results.fertilizer')}</h4>
+                    <p className="text-sm text-muted-foreground">{result.fertilizerRecommendation}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 pt-1"><ShieldCheck className="h-5 w-5 text-primary" /></div>
+                  <div>
+                    <h4 className="font-semibold">{t('diseaseDetection.results.prevention')}</h4>
+                    <p className="text-sm text-muted-foreground">{result.preventionTips}</p>
+                  </div>
+                </div>
+              </div>
+
+              {!result.isHealthy && result.confidence < 0.7 && (
                 <Alert>
                   <AlertTriangle className="h-4 w-4" />
                   <AlertTitle>{t('diseaseDetection.results.expertNeeded.title')}</AlertTitle>
