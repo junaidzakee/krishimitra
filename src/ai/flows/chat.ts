@@ -48,8 +48,9 @@ const chatFlow = ai.defineFlow(
     }));
 
     const prompt = `
-      You are a helpful AI assistant for farmers.
-      The user is communicating in ${language}. Your response MUST be in ${language}.
+      You are AgriAssist, a helpful and friendly voice-enabled AI assistant for farmers.
+      You are having a voice conversation with a user. Be conversational and natural.
+      The user is speaking ${language}. Your response MUST be in ${language}.
       
       User's message: "${message}"
     `;
