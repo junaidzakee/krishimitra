@@ -32,6 +32,13 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
     };
 
     recognition.onerror = (event: any) => {
+      // "aborted" is a non-critical error that can occur when the user
+      // stops the recognition process manually. We can ignore it.
+      if (event.error === 'aborted') {
+        setListening(false);
+        return;
+      }
+      
       console.error('Speech recognition error:', event.error);
       if (onError) {
         onError(event.error);
