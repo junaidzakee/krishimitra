@@ -9,7 +9,6 @@ interface SpeechRecognitionOptions {
 
 export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOptions) => {
   const [listening, setListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
 
     recognition.onresult = (event: any) => {
       const currentTranscript = event.results[0][0].transcript;
-      setTranscript(currentTranscript);
       onResult(currentTranscript);
       setListening(false);
     };
@@ -48,13 +46,14 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
     recognitionRef.current = recognition;
 
     return () => {
-      recognition.stop();
+        if (recognitionRef.current) {
+            recognitionRef.current.stop();
+        }
     };
   }, [onResult, onError]);
 
   const startListening = () => {
     if (recognitionRef.current && !listening) {
-      setTranscript('');
       recognitionRef.current.start();
       setListening(true);
     }
@@ -69,7 +68,7 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
 
   return {
     listening,
-    transcript,
+    transcript: '', // Transcript is now handled by the callback
     startListening,
     stopListening,
   };

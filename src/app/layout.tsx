@@ -7,6 +7,7 @@ import { Header } from '@/components/header';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/hooks/use-auth';
 import { VoiceProvider } from '@/hooks/use-voice';
+import { VoiceAssistant } from '@/components/voice-assistant';
 
 export const metadata: Metadata = {
   title: 'AgriAssist',
@@ -45,6 +46,7 @@ export default function RootLayout({
                   <main className="flex-1 p-4 md:p-8 overflow-y-auto">
                     {children}
                   </main>
+                  <VoiceAssistant />
                 </SidebarInset>
               </div>
             </SidebarProvider>

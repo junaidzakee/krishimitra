@@ -86,7 +86,20 @@ export default function SoilAnalysisPage() {
 
   const { listening, transcript, startListening, stopListening } = useSpeechRecognition({
     onResult: (result) => {
-      form.setValue("cropType", result.replace('.', ''));
+        const activeElement = document.activeElement as HTMLInputElement;
+        if (activeElement && activeElement.name) {
+            const fieldName = activeElement.name as keyof SoilAnalysisFormValues;
+            const value = result.replace('.', '');
+            
+            if (fieldName === 'cropType') {
+                form.setValue(fieldName, value);
+            } else if (['nitrogenLevel', 'phosphorusLevel', 'potassiumLevel', 'pHLevel', 'organicMatterContent'].includes(fieldName)) {
+                const numericValue = parseFloat(value);
+                if (!isNaN(numericValue)) {
+                    form.setValue(fieldName, numericValue);
+                }
+            }
+        }
     }
   });
 
@@ -210,6 +223,22 @@ export default function SoilAnalysisPage() {
       startListening();
     }
   };
+  
+  const renderMicButton = (fieldName: keyof SoilAnalysisFormValues) => (
+    <Button 
+        type="button" 
+        size="icon" 
+        variant="ghost" 
+        onMouseDown={startListening}
+        onMouseUp={stopListening}
+        onTouchStart={startListening}
+        onTouchEnd={stopListening}
+        disabled={!voiceInputEnabled} 
+        className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground"
+    >
+        {listening && document.activeElement?.id === fieldName ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
+    </Button>
+  );
 
   return (
     <div className="grid gap-8 md:grid-cols-3">
@@ -254,9 +283,12 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Nitrogen (ppm)</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} />
-                      </FormControl>
+                      <div className="relative">
+                        <FormControl>
+                            <Input type="number" {...field} id="nitrogenLevel" className="pr-10" />
+                        </FormControl>
+                        {renderMicButton("nitrogenLevel")}
+                       </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -267,9 +299,12 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Phosphorus (ppm)</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} />
-                      </FormControl>
+                      <div className="relative">
+                        <FormControl>
+                            <Input type="number" {...field} id="phosphorusLevel" className="pr-10" />
+                        </FormControl>
+                        {renderMicButton("phosphorusLevel")}
+                       </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -282,9 +317,12 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Potassium (ppm)</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} />
-                      </FormControl>
+                      <div className="relative">
+                        <FormControl>
+                            <Input type="number" {...field} id="potassiumLevel" className="pr-10" />
+                        </FormControl>
+                        {renderMicButton("potassiumLevel")}
+                       </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -295,9 +333,12 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>pH Level</FormLabel>
-                      <FormControl>
-                        <Input type="number" step="0.1" {...field} />
-                      </FormControl>
+                       <div className="relative">
+                        <FormControl>
+                            <Input type="number" step="0.1" {...field} id="pHLevel" className="pr-10" />
+                        </FormControl>
+                        {renderMicButton("pHLevel")}
+                       </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -311,8 +352,9 @@ export default function SoilAnalysisPage() {
                       <FormLabel>Organic Matter (%)</FormLabel>
                        <div className="relative">
                         <FormControl>
-                            <Input type="number" step="0.1" {...field} className="pr-10" />
+                            <Input type="number" step="0.1" {...field} id="organicMatterContent" className="pr-10" />
                         </FormControl>
+                        {renderMicButton("organicMatterContent")}
                        </div>
                       <FormMessage />
                     </FormItem>
@@ -326,11 +368,9 @@ export default function SoilAnalysisPage() {
                     <FormLabel>Crop Type</FormLabel>
                     <div className="relative">
                         <FormControl>
-                            <Input placeholder="e.g., Wheat, Rice" {...field} className="pr-10" />
+                            <Input placeholder="e.g., Wheat, Rice" {...field} id="cropType" className="pr-10" />
                         </FormControl>
-                         <Button type="button" size="icon" variant="ghost" onClick={handleMicClick} disabled={!voiceInputEnabled} className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground">
-                            {listening ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
-                        </Button>
+                        {renderMicButton("cropType")}
                     </div>
                     <FormMessage />
                   </FormItem>
