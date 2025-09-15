@@ -91,7 +91,7 @@ export default function DiseaseDetectionPage() {
     reader.onload = async () => {
       try {
         const photoDataUri = reader.result as string;
-        const analysisResult = await detectDisease({ photoDataUri });
+        const analysisResult = await detectDisease({ photoDataUri, language });
         setResult(analysisResult);
       } catch (error) {
         console.error("Error detecting disease:", error);
@@ -306,5 +306,3 @@ export default function DiseaseDetectionPage() {
     </div>
   );
 }
-
-    
