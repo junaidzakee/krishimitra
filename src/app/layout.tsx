@@ -7,6 +7,7 @@ import { Header } from '@/components/header';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/hooks/use-auth';
 import { VoiceProvider } from '@/hooks/use-voice';
+import { LanguageProvider } from '@/hooks/use-language';
 import { VoiceAssistant } from '@/components/voice-assistant';
 
 export const metadata: Metadata = {
@@ -35,22 +36,24 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
-          <VoiceProvider>
-            <SidebarProvider>
-              <div className="flex min-h-screen">
-                <Sidebar>
-                  <MainNav />
-                </Sidebar>
-                <SidebarInset className="flex flex-col flex-1">
-                  <Header />
-                  <main className="flex-1 p-4 md:p-8 overflow-y-auto">
-                    {children}
-                  </main>
-                  <VoiceAssistant />
-                </SidebarInset>
-              </div>
-            </SidebarProvider>
-          </VoiceProvider>
+          <LanguageProvider>
+            <VoiceProvider>
+              <SidebarProvider>
+                <div className="flex min-h-screen">
+                  <Sidebar>
+                    <MainNav />
+                  </Sidebar>
+                  <SidebarInset className="flex flex-col flex-1">
+                    <Header />
+                    <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+                      {children}
+                    </main>
+                    <VoiceAssistant />
+                  </SidebarInset>
+                </div>
+              </SidebarProvider>
+            </VoiceProvider>
+          </LanguageProvider>
         </AuthProvider>
         <Toaster />
       </body>

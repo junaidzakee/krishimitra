@@ -5,9 +5,10 @@ import { useState, useEffect, useRef } from 'react';
 interface SpeechRecognitionOptions {
   onResult: (transcript: string) => void;
   onError?: (error: any) => void;
+  language?: string;
 }
 
-export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOptions) => {
+export const useSpeechRecognition = ({ onResult, onError, language = 'en-US' }: SpeechRecognitionOptions) => {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<any>(null);
 
@@ -23,7 +24,7 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    recognition.lang = language;
 
     recognition.onresult = (event: any) => {
       const currentTranscript = event.results[0][0].transcript;
@@ -32,9 +33,7 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
     };
 
     recognition.onerror = (event: any) => {
-      // "aborted" is a non-critical error that can occur when the user
-      // stops the recognition process manually. We can ignore it.
-      if (event.error === 'aborted') {
+      if (event.error === 'aborted' || event.error === 'no-speech') {
         setListening(false);
         return;
       }
@@ -57,12 +56,17 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
             recognitionRef.current.stop();
         }
     };
-  }, [onResult, onError]);
+  }, [onResult, onError, language]);
 
   const startListening = () => {
     if (recognitionRef.current && !listening) {
-      recognitionRef.current.start();
-      setListening(true);
+      try {
+        recognitionRef.current.start();
+        setListening(true);
+      } catch (e) {
+        console.error("Could not start recognition", e);
+        setListening(false);
+      }
     }
   };
 
@@ -75,7 +79,7 @@ export const useSpeechRecognition = ({ onResult, onError }: SpeechRecognitionOpt
 
   return {
     listening,
-    transcript: '', // Transcript is now handled by the callback
+    transcript: '',
     startListening,
     stopListening,
   };

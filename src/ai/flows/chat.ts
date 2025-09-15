@@ -20,6 +20,7 @@ const ChatInputSchema = z.object({
     })
   ),
   message: z.string().describe('The latest message from the user.'),
+  language: z.string().describe('The language for the response (e.g., "English", "Hindi").'),
 });
 export type ChatInput = z.infer<typeof ChatInputSchema>;
 
@@ -39,16 +40,22 @@ const chatFlow = ai.defineFlow(
     outputSchema: ChatOutputSchema,
   },
   async (input) => {
-    const { history, message } = input;
+    const { history, message, language } = input;
     
-    // Ensure the history is in the correct format for the model
     const modelHistory: MessageData[] = history.map(h => ({
         role: h.role,
         content: h.content,
     }));
 
+    const prompt = `
+      You are a helpful AI assistant for farmers.
+      The user is communicating in ${language}. Please provide a concise and helpful response in ${language}.
+      
+      User's message: "${message}"
+    `;
+    
     const llmResponse = await ai.generate({
-      prompt: message,
+      prompt: prompt,
       history: modelHistory,
     });
     

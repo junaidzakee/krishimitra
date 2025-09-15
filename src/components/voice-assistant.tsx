@@ -5,6 +5,7 @@ import { Bot, Loader2, Mic, Send, Volume2, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { useVoice } from '@/hooks/use-voice';
+import { useLanguage } from '@/hooks/use-language';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
 import { chat } from '@/ai/flows/chat';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
@@ -25,6 +26,7 @@ export function VoiceAssistant() {
   const [isResponding, setIsResponding] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const { voiceInputEnabled, voiceOutputEnabled } = useVoice();
+  const { language, languageName } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -37,6 +39,7 @@ export function VoiceAssistant() {
   
   const { listening, startListening, stopListening } = useSpeechRecognition({
       onResult: handleSpeechResult,
+      language: language,
   });
 
   useEffect(() => {
@@ -58,7 +61,7 @@ export function VoiceAssistant() {
     if (!voiceOutputEnabled) return;
     try {
       setIsSpeaking(true);
-      const { audioDataUri } = await textToSpeech({ text });
+      const { audioDataUri } = await textToSpeech({ text, language });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();
@@ -86,7 +89,7 @@ export function VoiceAssistant() {
         role: m.role,
         content: m.content,
       }));
-      const result = await chat({ message: text, history });
+      const result = await chat({ message: text, history, language: languageName });
 
       const modelMessage: Message = { role: 'model', content: [{ text: result.message }] };
       setMessages(prev => [...prev, modelMessage]);

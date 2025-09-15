@@ -11,6 +11,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -29,6 +31,7 @@ import Link from 'next/link';
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "./ui/skeleton";
 import { useVoice } from "@/hooks/use-voice";
+import { useLanguage, languages } from "@/hooks/use-language";
 
 function getBreadcrumb(pathname: string) {
     const segments = pathname.split('/').filter(Boolean);
@@ -45,6 +48,7 @@ export function Header() {
     voiceOutputEnabled, 
     setVoiceOutputEnabled 
   } = useVoice();
+  const { language, setLanguage } = useLanguage();
   const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up';
 
   const renderAuthSection = () => {
@@ -99,9 +103,13 @@ export function Header() {
                 <span>Language</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>हिंदी (Hindi)</DropdownMenuItem>
-                <DropdownMenuItem>ಕನ್ನಡ (Kannada)</DropdownMenuItem>
+                  <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
+                    {languages.map(lang => (
+                      <DropdownMenuRadioItem key={lang.code} value={lang.code}>
+                        {lang.name}
+                      </DropdownMenuRadioItem>
+                    ))}
+                  </DropdownMenuRadioGroup>
                 </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuCheckboxItem
