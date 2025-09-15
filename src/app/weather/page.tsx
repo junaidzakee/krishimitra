@@ -181,12 +181,16 @@ export default function WeatherPage() {
           {weatherData.daily.map((day) => (
             <Card key={day.day}>
               <CardContent className="flex items-center justify-between p-3">
-                <p className="font-semibold w-1/4">{day.day}</p>
-                <div className="w-1/4 flex justify-center">{getWeatherIcon(day.condition, "sm")}</div>
-                <p className="text-muted-foreground w-1/4 text-center">{day.condition}</p>
-                <p className="font-semibold w-1/4 text-right">
-                  {day.high}° / {day.low}°
-                </p>
+                <p className="font-semibold flex-1">{day.day}</p>
+                <div className="flex items-center gap-4 flex-1 justify-end">
+                  <div className="flex items-center gap-2">
+                    {getWeatherIcon(day.condition, "sm")}
+                    <p className="text-muted-foreground w-24 text-left">{day.condition}</p>
+                  </div>
+                  <p className="font-semibold w-20 text-right">
+                    {day.high}° / {day.low}°
+                  </p>
+                </div>
               </CardContent>
             </Card>
           ))}
