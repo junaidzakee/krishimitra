@@ -28,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Mic, Pause, Play, Save, Volume2, Wand2 } from "lucide-react";
+import { Loader2, Pause, Play, Save, Volume2, Wand2 } from "lucide-react";
 import { analyzeSoilAndRecommend, SoilAnalysisOutput } from "@/ai/flows/soil-analysis-recommendation";
 import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
@@ -37,7 +37,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
-import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 
 const formSchema = z.object({
   soilType: z.string().min(1, "Soil type is required."),
@@ -60,7 +59,7 @@ export default function SoilAnalysisPage() {
   const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
-  const { voiceInputEnabled, voiceOutputEnabled } = useVoice();
+  const { voiceOutputEnabled } = useVoice();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
@@ -83,25 +82,6 @@ export default function SoilAnalysisPage() {
       }
     };
   }, []);
-
-  const { listening, transcript, startListening, stopListening } = useSpeechRecognition({
-    onResult: (result) => {
-        const activeElement = document.activeElement as HTMLInputElement;
-        if (activeElement && activeElement.name) {
-            const fieldName = activeElement.name as keyof SoilAnalysisFormValues;
-            const value = result.replace('.', '');
-            
-            if (fieldName === 'cropType') {
-                form.setValue(fieldName, value);
-            } else if (['nitrogenLevel', 'phosphorusLevel', 'potassiumLevel', 'pHLevel', 'organicMatterContent'].includes(fieldName)) {
-                const numericValue = parseFloat(value);
-                if (!isNaN(numericValue)) {
-                    form.setValue(fieldName, numericValue);
-                }
-            }
-        }
-    }
-  });
 
   const onSubmit = async (data: SoilAnalysisFormValues) => {
     setIsLoading(true);
@@ -216,30 +196,6 @@ export default function SoilAnalysisPage() {
     }
   };
 
-  const handleMicClick = () => {
-    if (listening) {
-      stopListening();
-    } else {
-      startListening();
-    }
-  };
-  
-  const renderMicButton = (fieldName: keyof SoilAnalysisFormValues) => (
-    <Button 
-        type="button" 
-        size="icon" 
-        variant="ghost" 
-        onMouseDown={startListening}
-        onMouseUp={stopListening}
-        onTouchStart={startListening}
-        onTouchEnd={stopListening}
-        disabled={!voiceInputEnabled} 
-        className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground"
-    >
-        {listening && document.activeElement?.id === fieldName ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
-    </Button>
-  );
-
   return (
     <div className="grid gap-8 md:grid-cols-3">
       <Card className="md:col-span-1">
@@ -283,12 +239,9 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Nitrogen (ppm)</FormLabel>
-                      <div className="relative">
-                        <FormControl>
-                            <Input type="number" {...field} id="nitrogenLevel" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("nitrogenLevel")}
-                       </div>
+                      <FormControl>
+                          <Input type="number" {...field} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -299,12 +252,9 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Phosphorus (ppm)</FormLabel>
-                      <div className="relative">
-                        <FormControl>
-                            <Input type="number" {...field} id="phosphorusLevel" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("phosphorusLevel")}
-                       </div>
+                      <FormControl>
+                          <Input type="number" {...field} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -317,12 +267,9 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Potassium (ppm)</FormLabel>
-                      <div className="relative">
-                        <FormControl>
-                            <Input type="number" {...field} id="potassiumLevel" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("potassiumLevel")}
-                       </div>
+                      <FormControl>
+                          <Input type="number" {...field} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -333,12 +280,9 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>pH Level</FormLabel>
-                       <div className="relative">
-                        <FormControl>
-                            <Input type="number" step="0.1" {...field} id="pHLevel" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("pHLevel")}
-                       </div>
+                       <FormControl>
+                          <Input type="number" step="0.1" {...field} />
+                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -350,12 +294,9 @@ export default function SoilAnalysisPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Organic Matter (%)</FormLabel>
-                       <div className="relative">
-                        <FormControl>
-                            <Input type="number" step="0.1" {...field} id="organicMatterContent" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("organicMatterContent")}
-                       </div>
+                       <FormControl>
+                          <Input type="number" step="0.1" {...field} />
+                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -366,12 +307,9 @@ export default function SoilAnalysisPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Crop Type</FormLabel>
-                    <div className="relative">
-                        <FormControl>
-                            <Input placeholder="e.g., Wheat, Rice" {...field} id="cropType" className="pr-10" />
-                        </FormControl>
-                        {renderMicButton("cropType")}
-                    </div>
+                    <FormControl>
+                        <Input placeholder="e.g., Wheat, Rice" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -437,6 +375,7 @@ export default function SoilAnalysisPage() {
                     <h3 className="font-semibold text-lg">Soil Analysis</h3>
                     <Separator className="my-2" />
                     <p className="text-muted-foreground">{analysisResult.soilAnalysis}</p>
+
                 </div>
                  <div>
                     <h3 className="font-semibold text-lg">Fertilizer Recommendation</h3>
