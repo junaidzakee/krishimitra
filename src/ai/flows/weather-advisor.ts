@@ -12,7 +12,7 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import type { WeatherForecast } from '@/types';
 
-export const WeatherAdviceInputSchema = z.object({
+const WeatherAdviceInputSchema = z.object({
   weather: z.object({
     current: z.object({
       temperature: z.number(),
