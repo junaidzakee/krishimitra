@@ -1,417 +1,417 @@
 
 {
   "sidebar": {
-    "dashboard": "tableau de bord",
-    "soilAnalysis": "analyse du sol",
-    "diseaseDetection": "détection des maladies",
-    "weather": "météo",
-    "marketPrices": "prix du marché",
-    "history": "historique",
-    "settings": "paramètres",
-    "support": "support"
+    "dashboard": "डैशबोर्ड",
+    "soilAnalysis": "मृदा विश्लेषण",
+    "diseaseDetection": "रोग की पहचान",
+    "weather": "मौसम",
+    "marketPrices": "बाजार मूल्य",
+    "history": "इतिहास",
+    "settings": "सेटिंग्स",
+    "support": "सहायता"
   },
   "header": {
-    "signIn": "se connecter",
-    "signUp": "s'inscrire",
-    "myAccount": "mon compte",
-    "profile": "profil",
-    "settings": "paramètres",
-    "support": "support",
-    "language": "langue",
-    "voiceInput": "entrée vocale",
-    "voiceOutput": "sortie vocale",
-    "logOut": "se déconnecter"
+    "signIn": "साइन इन करें",
+    "signUp": "साइन अप करें",
+    "myAccount": "मेरा खाता",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स",
+    "support": "सहायता",
+    "language": "भाषा",
+    "voiceInput": "वॉइस इनपुट",
+    "voiceOutput": "वॉइस आउटपुट",
+    "logOut": "लॉग आउट करें"
   },
   "breadcrumbs": {
-    "dashboard": "tableau de bord",
-    "soilanalysis": "analyse du sol",
-    "diseasedetection": "détection des maladies",
-    "weather": "météo",
-    "marketprices": "prix du marché",
-    "history": "historique",
-    "profile": "profil",
-    "settings": "paramètres",
-    "support": "support",
-    "signin": "se connecter",
-    "signup": "s'inscrire"
+    "dashboard": "डैशबोर्ड",
+    "soilanalysis": "मृदा विश्लेषण",
+    "diseasedetection": "रोग की पहचान",
+    "weather": "मौसम",
+    "marketprices": "बाजार मूल्य",
+    "history": "इतिहास",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स",
+    "support": "सहायता",
+    "signin": "साइन इन करें",
+    "signup": "साइन अप करें"
   },
   "dashboard": {
-    "welcome": "Bienvenue sur AgriAssist",
-    "description": "votre plateforme de conseil agricole intelligent.",
+    "welcome": "एग्रीअसिस्ट में आपका स्वागत है",
+    "description": "आपका स्मार्ट फसल सलाहकार मंच।",
     "stats": {
       "currentWeather": {
-        "title": "météo actuelle"
+        "title": "वर्तमान मौसम"
       },
       "nitrogen": {
-        "title": "niveau d'azote",
-        "description": "du dernier test de sol"
+        "title": "नाइट्रोजन स्तर",
+        "description": "अंतिम मृदा परीक्षण से"
       },
       "wheatPrice": {
-        "title": "prix du blé",
-        "description": "+2.1% par rapport au mois dernier"
+        "title": "गेहूं का मूल्य",
+        "description": "पिछले महीने से +2.1%"
       },
       "activeAlerts": {
-        "title": "alertes actives",
-        "description": "détection potentielle de rouille"
+        "title": "सक्रिय अलर्ट",
+        "description": "संभावित रस्ट का पता लगाना"
       }
     },
     "features": {
-      "title": "fonctionnalités",
-      "goTo": "aller à",
+      "title": "विशेषताएँ",
+      "goTo": "पर जाएँ",
       "soilAnalysis": {
-        "title": "analyse du sol",
-        "description": "obtenez des conseils sur les engrais et les traitements en fonction des paramètres du sol."
+        "title": "मृदा विश्लेषण",
+        "description": "मृदा मापदंडों के आधार पर उर्वरक और उपचार की सलाह प्राप्त करें।"
       },
       "diseaseDetection": {
-        "title": "détection des maladies",
-        "description": "téléchargez une image de plante pour détecter les maladies à l'aide de l'IA."
+        "title": "रोग की पहचान",
+        "description": "एआई का उपयोग करके रोगों का पता लगाने के लिए पौधे की एक छवि अपलोड करें।"
       },
       "weather": {
-        "title": "prévisions météorologiques",
-        "description": "consultez les informations météorologiques locales et les alertes."
+        "title": "मौसम पूर्वानुमान",
+        "description": "स्थानीय मौसम की जानकारी और अलर्ट देखें।"
       },
       "marketPrices": {
-        "title": "prix du marché",
-        "description": "visualisez les prix historiques du marché pour les principales cultures."
+        "title": "बाजार मूल्य",
+        "description": "प्रमुख फसलों के लिए ऐतिहासिक बाजार मूल्यों की कल्पना करें।"
       }
     }
   },
   "signIn": {
-    "title": "se connecter",
-    "description": "entrez vos identifiants pour accéder à votre compte.",
+    "title": "साइन इन करें",
+    "description": "अपने खाते तक पहुंचने के लिए अपनी साख दर्ज करें।",
     "form": {
       "email": {
-        "label": "e-mail",
-        "placeholder": "nom@example.com"
+        "label": "ईमेल",
+        "placeholder": "नाम@example.com"
       },
       "password": {
-        "label": "mot de passe"
+        "label": "पासवर्ड"
       },
-      "submit": "se connecter"
+      "submit": "साइन इन करें"
     },
     "signUpPrompt": {
-      "text": "vous n'avez pas de compte ?",
-      "link": "s'inscrire"
+      "text": "क्या आपका खाता नहीं है?",
+      "link": "साइन अप करें"
     },
     "toast": {
       "success": {
-        "title": "connexion réussie",
-        "description": "bon retour !"
+        "title": "साइन इन सफल",
+        "description": "वापसी पर स्वागत है!"
       },
       "failure": {
-        "title": "la connexion a échoué"
+        "title": "साइन इन विफल"
       }
     }
   },
   "signUp": {
-    "title": "créer un compte",
-    "description": "entrez votre e-mail et votre mot de passe pour commencer.",
+    "title": "एक खाता बनाएँ",
+    "description": "शुरू करने के लिए अपना ईमेल और पासवर्ड दर्ज करें।",
     "form": {
       "email": {
-        "label": "e-mail",
-        "placeholder": "nom@example.com"
+        "label": "ईमेल",
+        "placeholder": "नाम@example.com"
       },
       "password": {
-        "label": "mot de passe"
+        "label": "पासवर्ड"
       },
       "confirmPassword": {
-        "label": "confirmer le mot de passe"
+        "label": "पासवर्ड की पुष्टि करें"
       },
-      "submit": "créer un compte"
+      "submit": "खाता बनाएं"
     },
     "signInPrompt": {
-      "text": "vous avez déjà un compte ?",
-      "link": "se connecter"
+      "text": "क्या आपके पास पहले से एक खाता मौजूद है?",
+      "link": "साइन इन करें"
     },
     "toast": {
       "success": {
-        "title": "inscription réussie",
-        "description": "votre compte a été créé."
+        "title": "साइन अप सफल",
+        "description": "आपका खाता बना दिया गया है।"
       },
       "failure": {
-        "title": "l'inscription a échoué"
+        "title": "साइन अप विफल"
       }
     }
   },
   "soilAnalysis": {
     "form": {
-      "title": "paramètres du sol",
-      "description": "entrez les données de votre sol pour obtenir des recommandations basées sur l'IA.",
+      "title": "मृदा पैरामीटर",
+      "description": "एआई-संचालित सिफारिशें प्राप्त करने के लिए अपना मृदा डेटा दर्ज करें।",
       "soilType": {
-        "label": "type de sol",
-        "placeholder": "sélectionnez un type de sol",
+        "label": "मृदा का प्रकार",
+        "placeholder": "एक मृदा प्रकार चुनें",
         "options": {
-          "sandy": "sablonneux",
-          "silty": "limoneux",
-          "clay": "argileux",
-          "loamy": "limoneux",
-          "peaty": "tourbeux"
+          "sandy": "रेतीली",
+          "silty": "गादयुक्त",
+          "clay": "चिकनी",
+          "loamy": "दोमट",
+          "peaty": "पीट"
         }
       },
-      "nitrogen": { "label": "azote (ppm)" },
-      "phosphorus": { "label": "phosphore (ppm)" },
-      "potassium": { "label": "potassium (ppm)" },
-      "ph": { "label": "niveau de pH" },
-      "organicMatter": { "label": "matière organique (%)" },
+      "nitrogen": { "label": "नाइट्रोजन (पीपीएम)" },
+      "phosphorus": { "label": "फास्फोरस (पीपीएम)" },
+      "potassium": { "label": "पोटेशियम (पीपीएम)" },
+      "ph": { "label": "पीएच स्तर" },
+      "organicMatter": { "label": "कार्बनिक पदार्थ (%)" },
       "cropType": {
-        "label": "type de culture",
-        "placeholder": "ex: blé, riz"
+        "label": "फसल का प्रकार",
+        "placeholder": "जैसे, गेहूं, चावल"
       },
-      "submit": "analyser le sol"
+      "submit": "मृदा का विश्लेषण करें"
     },
     "results": {
-      "title": "analyse pour {{cropType}}",
-      "description": "basé sur les paramètres de sol que vous avez fournis.",
-      "readAloud": "lire à haute voix",
-      "saveOffline": "enregistrer pour une utilisation hors ligne",
-      "soilAnalysis": "analyse du sol",
-      "fertilizer": "recommandation d'engrais",
-      "treatment": "recommandation de traitement"
+      "title": "{{cropType}} के लिए विश्लेषण",
+      "description": "आपके द्वारा प्रदान किए गए मृदा मापदंडों के आधार पर।",
+      "readAloud": "जोर से पढ़ें",
+      "saveOffline": "ऑफ़लाइन के लिए सहेजें",
+      "soilAnalysis": "मृदा विश्लेषण",
+      "fertilizer": "उर्वरक की सिफारिश",
+      "treatment": "उपचार की सिफारिश"
     },
     "placeholder": {
-      "title": "en attente d'analyse",
-      "description": "vos recommandations de sol apparaîtront ici."
+      "title": "विश्लेषण की प्रतीक्षा है",
+      "description": "आपकी मृदा सिफारिशें यहां दिखाई देंगी।"
     },
     "speech": {
-      "analysisFor": "analyse pour {{cropType}}.",
-      "soilAnalysis": "analyse du sol",
-      "fertilizer": "recommandation d'engrais",
-      "treatment": "recommandation de traitement"
+      "analysisFor": "{{cropType}} के लिए विश्लेषण।",
+      "soilAnalysis": "मृदा विश्लेषण",
+      "fertilizer": "उर्वरक की सिफारिश",
+      "treatment": "उपचार की सिफारिश"
     },
     "toast": {
       "analysisFailed": {
-        "title": "l'analyse a échoué",
-        "description": "impossible d'obtenir des recommandations. veuillez réessayer plus tard."
+        "title": "विश्लेषण विफल",
+        "description": "सिफारिशें प्राप्त नहीं हो सकीं। कृपया बाद में पुनः प्रयास करें।"
       },
       "authRequired": {
-        "title": "authentification requise",
-        "description": "vous devez être connecté pour enregistrer les résultats."
+        "title": "प्रमाणीकरण आवश्यक है",
+        "description": "परिणाम सहेजने के लिए आपको साइन इन होना चाहिए।"
       },
       "noResult": {
-        "title": "aucun résultat à enregistrer",
-        "description": "veuillez d'abord analyser le sol avant d'enregistrer."
+        "title": "सहेजने के लिए कोई परिणाम नहीं",
+        "description": "कृपया सहेजने से पहले मिट्टी का विश्लेषण करें।"
       },
       "saveSuccess": {
-        "title": "analyse enregistrée",
-        "description": "votre analyse de sol a été enregistrée dans votre historique."
+        "title": "विश्लेषण सहेजा गया",
+        "description": "आपका मृदा विश्लेषण आपके इतिहास में सहेजा गया है।"
       },
       "saveFailed": {
-        "title": "l'enregistrement a échoué",
-        "description": "impossible d'enregistrer votre analyse. veuillez réessayer."
+        "title": "सहेजें विफल",
+        "description": "आपका विश्लेषण सहेजा नहीं जा सका। कृपया पुनः प्रयास करें।"
       },
       "speechError": {
-        "title": "erreur de parole",
-        "description": "impossible de générer l'audio. veuillez réessayer."
+        "title": "भाषण त्रुटि",
+        "description": "ऑडियो उत्पन्न नहीं हो सका। कृपया पुनः प्रयास करें।"
       }
     }
   },
   "diseaseDetection": {
     "upload": {
-      "title": "télécharger une image de plante",
-      "description": "téléchargez une image d'une feuille de plante pour détecter les maladies potentielles.",
-      "dropActive": "déposez l'image ici",
-      "dropInactive": "faites glisser et déposez une image, ou cliquez pour sélectionner",
-      "fileTypes": "PNG, JPG ou WEBP",
-      "button": "analyser l'image"
+      "title": "पौधे की छवि अपलोड करें",
+      "description": "संभावित रोगों का पता लगाने के लिए पौधे की पत्ती की एक छवि अपलोड करें।",
+      "dropActive": "छवि को यहाँ छोड़ें",
+      "dropInactive": "एक छवि खींचें और छोड़ें, या चुनने के लिए क्लिक करें",
+      "fileTypes": "पीएनजी, जेपीजी, या वेबपी",
+      "button": "छवि का विश्लेषण करें"
     },
     "results": {
-      "title": "résultat de l'analyse",
-      "readAloud": "lire à haute voix",
-      "saveOffline": "enregistrer pour une utilisation hors ligne",
-      "detectedDisease": "maladie détectée",
-      "noneDetected": "aucune détectée",
-      "confidence": "niveau de confiance",
+      "title": "विश्लेषण परिणाम",
+      "readAloud": "जोर से पढ़ें",
+      "saveOffline": "ऑफ़लाइन के लिए सहेजें",
+      "detectedDisease": "पता चला रोग",
+      "noneDetected": "कोई नहीं मिला",
+      "confidence": "आत्मविश्वास स्तर",
       "expertNeeded": {
-        "title": "consultation d'un expert recommandée",
-        "description": "la confiance de l'IA est modérée. pour un diagnostic précis, envisagez de consulter un expert en pathologie végétale."
+        "title": "विशेषज्ञ परामर्श की सिफारिश की गई है",
+        "description": "एआई का आत्मविश्वास मध्यम है। एक सटीक निदान के लिए, एक संयंत्र विकृति विज्ञान विशेषज्ञ से परामर्श करने पर विचार करें।"
       }
     },
     "placeholder": {
-      "title": "en attente d'analyse d'image",
-      "description": "vos résultats de détection de maladies apparaîtront ici."
+      "title": "छवि विश्लेषण की प्रतीक्षा है",
+      "description": "आपके रोग का पता लगाने के परिणाम यहां दिखाई देंगे।"
     },
     "speech": {
-      "complete": "analyse terminée.",
-      "disease": "maladie détectée",
-      "noneDetected": "aucune détectée",
-      "confidence": "niveau de confiance",
-      "percent": "pourcentage",
-      "expertRecommended": "une consultation d'expert est recommandée."
+      "complete": "विश्लेषण पूरा हुआ।",
+      "disease": "पता चला रोग",
+      "noneDetected": "कोई नहीं मिला",
+      "confidence": "आत्मविश्वास स्तर",
+      "percent": "प्रतिशत",
+      "expertRecommended": "एक विशेषज्ञ परामर्श की सिफारिश की जाती है।"
     },
     "toast": {
       "invalidFileType": {
-        "title": "type de fichier non valide",
-        "description": "veuillez télécharger un fichier image."
+        "title": "अमान्य फ़ाइल प्रकार",
+        "description": "कृपया एक छवि फ़ाइल अपलोड करें।"
       },
       "noImage": {
-        "title": "aucune image sélectionnée",
-        "description": "veuillez télécharger une image à analyser."
+        "title": "कोई छवि चयनित नहीं",
+        "description": "कृपया विश्लेषण करने के लिए एक छवि अपलोड करें।"
       },
       "analysisFailed": {
-        "title": "l'analyse a échoué",
-        "description": "impossible d'analyser l'image. veuillez réessayer."
+        "title": "विश्लेषण विफल",
+        "description": "छवि का विश्लेषण नहीं हो सका। कृपया पुनः प्रयास करें।"
       },
       "fileReadError": {
-        "title": "erreur de lecture du fichier",
-        "description": "impossible de lire le fichier sélectionné."
+        "title": "फ़ाइल पढ़ने में त्रुटि",
+        "description": "चयनित फ़ाइल को पढ़ा नहीं जा सका।"
       },
       "speechError": {
-        "title": "erreur de parole",
-        "description": "impossible de générer l'audio. veuillez réessayer."
+        "title": "भाषण त्रुटि",
+        "description": "ऑडियो उत्पन्न नहीं हो सका। कृपया पुनः प्रयास करें।"
       }
     }
   },
   "weather": {
     "current": {
-      "title": "météo actuelle à {{location}}",
-      "humidity": "humidité",
-      "wind": "vent"
+      "title": "{{location}} में वर्तमान मौसम",
+      "humidity": "नमी",
+      "wind": "हवा"
     },
     "advisory": {
-      "title": "conseils agricoles basés sur l'IA",
-      "planting": { "title": "plantation et récolte" },
-      "irrigation": { "title": "calendrier d'irrigation" },
-      "pest": { "title": "prévention des ravageurs et des maladies" },
-      "planning": { "title": "planification du travail quotidien" }
+      "title": "एआई-संचालित कृषि सलाहकार",
+      "planting": { "title": "रोपण और कटाई" },
+      "irrigation": { "title": "सिंचाई निर्धारण" },
+      "pest": { "title": "कीट और रोग की रोकथाम" },
+      "planning": { "title": "दैनिक कार्य योजना" }
     },
-    "hourly": { "title": "prévisions horaires" },
-    "daily": { "title": "prévisions sur 7 jours" }
+    "hourly": { "title": "घंटेवार पूर्वानुमान" },
+    "daily": { "title": "7-दिवसीय पूर्वानुमान" }
   },
   "marketPrices": {
-    "title": "prix du marché",
-    "description": "données de prix historiques pour les principales cultures.",
+    "title": "बाजार मूल्य",
+    "description": "प्रमुख फसलों के लिए ऐतिहासिक मूल्य डेटा।",
     "chart": {
-      "title": "tendance des prix de {{crop}}",
-      "description": "prix par tonne des 30 derniers jours."
+      "title": "{{crop}} मूल्य प्रवृत्ति",
+      "description": "पिछले 30 दिनों में प्रति टन मूल्य।"
     }
   },
   "crops": {
-    "wheat": "blé",
-    "rice": "riz",
-    "corn": "maïs",
-    "soybean": "soja"
+    "wheat": "गेहूं",
+    "rice": "चावल",
+    "corn": "मक्का",
+    "soybean": "सोयाबीन"
   },
   "history": {
-    "title": "historique des analyses",
-    "description": "vos résultats d'analyse de sol précédemment enregistrés.",
+    "title": "विश्लेषण इतिहास",
+    "description": "आपके पहले सहेजे गए मृदा विश्लेषण परिणाम।",
     "signIn": {
-      "title": "veuillez vous connecter",
-      "description": "vous devez être connecté pour voir votre historique."
+      "title": "कृपया साइन इन करें",
+      "description": "अपना इतिहास देखने के लिए आपको लॉग इन होना होगा।"
     },
     "noHistory": {
-      "title": "aucun historique trouvé",
-      "description": "vous n'avez encore enregistré aucune analyse de sol."
+      "title": "कोई इतिहास नहीं मिला",
+      "description": "आपने अभी तक कोई मृदा विश्लेषण नहीं सहेजा है।"
     },
     "card": {
-      "title": "analyse pour {{cropType}}",
-      "savedOn": "enregistré le {{date}}",
-      "viewResults": "voir les résultats",
-      "soilAnalysis": "analyse du sol",
-      "fertilizer": "recommandation d'engrais",
-      "treatment": "recommandation de traitement",
-      "viewInputs": "voir les entrées",
-      "soilType": "type de sol",
-      "nitrogen": "azote",
-      "phosphorus": "phosphore",
-      "potassium": "potassium",
-      "ph": "pH",
-      "organicMatter": "matière organique"
+      "title": "{{cropType}} के लिए विश्लेषण",
+      "savedOn": "{{date}} को सहेजा गया",
+      "viewResults": "परिणाम देखें",
+      "soilAnalysis": "मृदा विश्लेषण",
+      "fertilizer": "उर्वरक की सिफारिश",
+      "treatment": "उपचार की सिफारिश",
+      "viewInputs": "इनपुट देखें",
+      "soilType": "मृदा का प्रकार",
+      "nitrogen": "नाइट्रोजन",
+      "phosphorus": "फास्फोरस",
+      "potassium": "पोटेशियम",
+      "ph": "पीएच",
+      "organicMatter": "कार्बनिक पदार्थ"
     }
   },
   "profile": {
-    "title": "votre profil",
-    "description": "gérez vos informations personnelles.",
-    "signInPrompt": "veuillez vous connecter pour voir votre profil.",
+    "title": "आपकी प्रोफ़ाइल",
+    "description": "अपनी व्यक्तिगत जानकारी प्रबंधित करें।",
+    "signInPrompt": "अपनी प्रोफ़ाइल देखने के लिए कृपया साइन इन करें।",
     "card": {
-      "description": "mettez à jour votre photo et vos informations personnelles ici."
+      "description": "अपनी तस्वीर और व्यक्तिगत विवरण यहाँ अपडेट करें।"
     },
     "form": {
-      "name": { "label": "nom complet" },
-      "email": { "label": "adresse e-mail" },
+      "name": { "label": "पूरा नाम" },
+      "email": { "label": "ईमेल पता" },
       "location": {
-        "label": "emplacement",
-        "placeholder": "ex: Bengaluru, Inde"
+        "label": "स्थान",
+        "placeholder": "जैसे, बेंगलुरु, भारत"
       },
-      "submit": "enregistrer les modifications"
+      "submit": "परिवर्तनों को सहेजें"
     },
     "toast": {
-      "title": "profil mis à jour",
-      "description": "vos informations ont été enregistrées."
+      "title": "प्रोफ़ाइल अपडेट किया गया",
+      "description": "आपकी जानकारी सहेज ली गई है।"
     }
   },
   "settings": {
-    "title": "paramètres",
-    "description": "personnalisez votre expérience d'application.",
+    "title": "सेटिंग्स",
+    "description": "अपने एप्लिकेशन अनुभव को अनुकूलित करें।",
     "language": {
-      "title": "langue",
-      "description": "choisissez la langue de l'interface de l'application et de l'assistant IA.",
-      "label": "langue préférée",
-      "placeholder": "sélectionnez la langue"
+      "title": "भाषा",
+      "description": "एप्लिकेशन इंटरफ़ेस और एआई सहायक के लिए भाषा चुनें।",
+      "label": "पसंदीदा भाषा",
+      "placeholder": "भाषा चुनें"
     },
     "voice": {
-      "title": "assistant vocal",
-      "description": "gérez les paramètres vocaux de l'assistant IA.",
+      "title": "वॉइस असिस्टेंट",
+      "description": "एआई सहायक के लिए आवाज सेटिंग्स प्रबंधित करें।",
       "input": {
-        "label": "activer l'entrée vocale",
-        "description": "utilisez votre microphone pour parler à l'assistant."
+        "label": "वॉइस इनपुट सक्षम करें",
+        "description": "सहायक से बात करने के लिए अपने माइक्रोफ़ोन का उपयोग करें।"
       },
       "output": {
-        "label": "activer la sortie vocale",
-        "description": "entendez les réponses de l'assistant à haute voix."
+        "label": "वॉइस आउटपुट सक्षम करें",
+        "description": "सहायक की प्रतिक्रियाओं को जोर से सुनें।"
       }
     }
   },
   "support": {
-    "title": "centre d'aide",
-    "description": "trouvez des réponses aux questions courantes et contactez notre équipe.",
+    "title": "सहायता केंद्र",
+    "description": "सामान्य प्रश्नों के उत्तर खोजें और हमारी टीम से संपर्क करें।",
     "faq": {
-      "title": "questions fréquemment posées",
+      "title": "अक्सर पूछे जाने वाले प्रश्न",
       "q1": {
-        "question": "comment utiliser la fonction d'analyse du sol ?",
-        "answer": "accédez à la page d'analyse du sol, entrez les paramètres de votre sol tels que les niveaux d'azote, de phosphore, de potassium, le pH, etc., ainsi que la culture que vous avez l'intention de cultiver. cliquez sur 'analyser le sol' pour obtenir des recommandations d'engrais et de traitement basées sur l'IA."
+        "question": "मैं मृदा विश्लेषण सुविधा का उपयोग कैसे करूं?",
+        "answer": "मृदा विश्लेषण पृष्ठ पर नेविगेट करें, अपनी मिट्टी के पैरामीटर जैसे नाइट्रोजन, फास्फोरस, पोटेशियम स्तर, पीएच, आदि दर्ज करें, और आप जिस फसल को उगाना चाहते हैं उसे दर्ज करें। एआई-संचालित उर्वरक और उपचार सिफारिशें प्राप्त करने के लिए 'मृदा का विश्लेषण करें' पर क्लिक करें।"
       },
       "q2": {
-        "question": "quelle est la précision de la détection des maladies ?",
-        "answer": "la détection des maladies par IA est un outil puissant pour l'identification précoce, mais elle doit être utilisée comme un guide préliminaire. le score de confiance indique la certitude de l'IA. pour un diagnostic définitif, surtout lorsque la confiance est faible, nous recommandons toujours de consulter un expert agricole local."
+        "question": "रोग का पता लगाना कितना सटीक है?",
+        "answer": "एआई रोग का पता लगाना शीघ्र पहचान के लिए एक शक्तिशाली उपकरण है, लेकिन इसे एक प्रारंभिक मार्गदर्शक के रूप में इस्तेमाल किया जाना चाहिए। आत्मविश्वास स्कोर एआई की निश्चितता को इंगित करता है। एक निश्चित निदान के लिए, विशेष रूप से जब आत्मविश्वास कम हो, तो हम हमेशा एक स्थानीय कृषि विशेषज्ञ से परामर्श करने की सलाह देते हैं।"
       },
       "q3": {
-        "question": "puis-je utiliser l'application dans ma langue locale ?",
-        "answer": "oui ! vous pouvez changer la langue en accédant aux paramètres et en sélectionnant parmi les options disponibles. l'assistant IA communiquera également dans la langue sélectionnée."
+        "question": "क्या मैं अपनी स्थानीय भाषा में ऐप का उपयोग कर सकता हूं?",
+        "answer": "हाँ! आप सेटिंग्स में जाकर और उपलब्ध विकल्पों में से चुनकर भाषा बदल सकते हैं। एआई सहायक चयनित भाषा में भी संवाद करेगा।"
       },
       "q4": {
-        "question": "comment utiliser l'assistant vocal ?",
-        "answer": "tout d'abord, activez l'entrée vocale et la sortie vocale à partir de la page des paramètres. ensuite, cliquez sur l'icône du robot en bas à droite de l'écran. utilisez le bouton du microphone dans la fenêtre de discussion pour prononcer vos commandes."
+        "question": "मैं आवाज सहायक का उपयोग कैसे करूं?",
+        "answer": "सबसे पहले, सेटिंग्स पृष्ठ से 'वॉइस इनपुट' और 'वॉइस आउटपुट' सक्षम करें। फिर, स्क्रीन के नीचे-दाईं ओर रोबोट आइकन पर क्लिक करें। अपनी आज्ञाओं को बोलने के लिए चैट विंडो में माइक्रोफ़ोन बटन का उपयोग करें।"
       }
     },
     "contact": {
-      "title": "contactez-nous",
-      "description": "vous ne trouvez pas de réponse ? envoyez-nous un message.",
+      "title": "हमसे संपर्क करें",
+      "description": "कोई उत्तर नहीं मिला? हमें एक संदेश भेजें।",
       "form": {
         "name": {
-          "label": "nom",
-          "placeholder": "votre nom"
+          "label": "नाम",
+          "placeholder": "आपका नाम"
         },
         "email": {
-          "label": "e-mail",
-          "placeholder": "votre@email.com"
+          "label": "ईमेल",
+          "placeholder": "your@email.com"
         },
         "message": {
-          "label": "message",
-          "placeholder": "comment pouvons-nous vous aider ?"
+          "label": "संदेश",
+          "placeholder": "हम आपकी कैसे मदद कर सकते हैं?"
         },
-        "submit": "envoyer le message"
+        "submit": "संदेश भेजें"
       },
       "toast": {
-        "title": "message envoyé",
-        "description": "notre équipe d'assistance vous répondra sous peu."
+        "title": "संदೇಶ भेजा गया",
+        "description": "हमारी सहायता टीम जल्द ही आपसे संपर्क करेगी।"
       }
     }
   },
   "voiceAssistant": {
-    "greeting": "Bonjour ! comment puis-je vous aider aujourd'hui ?",
-    "error": "désolé, j'ai rencontré une erreur. veuillez réessayer.",
-    "open": "ouvrir l'assistant IA",
-    "title": "assistant IA",
-    "placeholder": "demandez-moi n'importe quoi..."
+    "greeting": "नमस्ते! मैं आज आपकी कैसे मदद कर सकता हूँ?",
+    "error": "क्षमा करें, मुझे एक त्रुटि का सामना करना पड़ा। कृपया पुनः प्रयास करें।",
+    "open": "एआई सहायक खोलें",
+    "title": "एआई सहायक",
+    "placeholder": "मुझसे कुछ भी पूछें..."
   }
 }
