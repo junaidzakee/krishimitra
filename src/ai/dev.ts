@@ -6,3 +6,4 @@ import '@/ai/flows/soil-analysis-recommendation.ts';
 import '@/ai/flows/weather-advisor.ts';
 import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/chat.ts';
+import '@/ai/flows/support-agent.ts';

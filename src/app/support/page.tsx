@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
@@ -10,14 +10,25 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
+import { getSupportResponse } from '@/ai/flows/support-agent';
+import { Loader2, Send } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Bot, User } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+interface ChatMessage {
+  role: 'user' | 'model';
+  content: string;
+}
 
 export default function SupportPage() {
-  const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language, languageName } = useLanguage();
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const faqs = [
     {
@@ -38,13 +49,37 @@ export default function SupportPage() {
     }
   ];
 
-  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toast({
-      title: t('support.contact.toast.title'),
-      description: t('support.contact.toast.description'),
-    });
-    (event.target as HTMLFormElement).reset();
+    if (!input.trim()) return;
+
+    const userMessage: ChatMessage = { role: 'user', content: input };
+    setChatMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const faqString = JSON.stringify(faqs);
+      const result = await getSupportResponse({
+        message: input,
+        language: languageName,
+        faq: faqString
+      });
+      const modelMessage: ChatMessage = { role: 'model', content: result.response };
+      setChatMessages(prev => [...prev, modelMessage]);
+    } catch (error) {
+      console.error("Support chat error:", error);
+      const errorMessage: ChatMessage = { role: 'model', content: t('voiceAssistant.error') };
+      setChatMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -70,26 +105,68 @@ export default function SupportPage() {
         </Card>
       </div>
       <div className="md:col-span-2">
-        <Card>
+        <Card className="flex flex-col h-[70vh]">
           <CardHeader>
             <CardTitle>{t('support.contact.title')}</CardTitle>
             <CardDescription>{t('support.contact.description')}</CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleContactSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">{t('support.contact.form.name.label')}</Label>
-                <Input id="name" placeholder={t('support.contact.form.name.placeholder')} required />
+          <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
+            <ScrollArea className="flex-1 pr-4" ref={scrollAreaRef}>
+              <div className="space-y-4">
+                {chatMessages.map((msg, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      'flex items-start gap-3',
+                      msg.role === 'user' ? 'justify-end' : 'justify-start'
+                    )}
+                  >
+                    {msg.role === 'model' && (
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback><Bot /></AvatarFallback>
+                      </Avatar>
+                    )}
+                    <div
+                      className={cn(
+                        'p-3 rounded-lg max-w-xs text-sm',
+                        msg.role === 'user'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted'
+                      )}
+                    >
+                      <p>{msg.content}</p>
+                    </div>
+                    {msg.role === 'user' && (
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback><User /></AvatarFallback>
+                      </Avatar>
+                    )}
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex items-start gap-3 justify-start">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback><Bot /></AvatarFallback>
+                    </Avatar>
+                    <div className="p-3 rounded-lg bg-muted">
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">{t('support.contact.form.email.label')}</Label>
-                <Input id="email" type="email" placeholder={t('support.contact.form.email.placeholder')} required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">{t('support.contact.form.message.label')}</Label>
-                <Textarea id="message" placeholder={t('support.contact.form.message.placeholder')} required />
-              </div>
-              <Button type="submit" className="w-full">{t('support.contact.form.submit')}</Button>
+            </ScrollArea>
+            <form onSubmit={handleContactSubmit} className="relative mt-auto">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder={t('support.contact.form.message.placeholder')}
+                className="pr-12"
+                disabled={isLoading}
+              />
+              <Button type="submit" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" disabled={isLoading}>
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                <span className="sr-only">{t('support.contact.form.submit')}</span>
+              </Button>
             </form>
           </CardContent>
         </Card>
