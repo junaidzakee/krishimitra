@@ -33,7 +33,7 @@ export default function DiseaseDetectionPage() {
   const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
   const { voiceOutputEnabled } = useVoice();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -140,7 +140,7 @@ export default function DiseaseDetectionPage() {
         ${t('diseaseDetection.speech.fertilizer')}: ${result.fertilizerRecommendation}.
         ${t('diseaseDetection.speech.prevention')}: ${result.preventionTips}.
       `;
-      const { audioDataUri } = await textToSpeech({ text: textToRead, language: t('code') });
+      const { audioDataUri } = await textToSpeech({ text: textToRead, language: language });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();
@@ -306,3 +306,5 @@ export default function DiseaseDetectionPage() {
     </div>
   );
 }
+
+    
