@@ -30,11 +30,14 @@ import {
 } from "@/components/ui/select";
 import { Loader2, Mic, Save, Volume2, Wand2 } from "lucide-react";
 import { analyzeSoilAndRecommend, SoilAnalysisOutput } from "@/ai/flows/soil-analysis-recommendation";
+import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+import { useVoice } from "@/hooks/use-voice";
+import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 
 const formSchema = z.object({
   soilType: z.string().min(1, "Soil type is required."),
@@ -52,8 +55,10 @@ export default function SoilAnalysisPage() {
   const [analysisResult, setAnalysisResult] = useState<SoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
+  const { voiceInputEnabled, voiceOutputEnabled } = useVoice();
 
   const form = useForm<SoilAnalysisFormValues>({
     resolver: zodResolver(formSchema),
@@ -66,6 +71,21 @@ export default function SoilAnalysisPage() {
       organicMatterContent: 3.5,
       cropType: "Wheat",
     },
+  });
+
+  const { listening, transcript, startListening, stopListening } = useSpeechRecognition({
+    onResult: (result) => {
+      const numericResult = parseFloat(result);
+      if (!isNaN(numericResult)) {
+        form.setValue("organicMatterContent", numericResult);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Voice Input Error",
+          description: "Could not recognize a valid number. Please try again.",
+        });
+      }
+    }
   });
 
   const onSubmit = async (data: SoilAnalysisFormValues) => {
@@ -106,9 +126,10 @@ export default function SoilAnalysisPage() {
 
     setIsSaving(true);
     try {
-      await addDoc(collection(db, "soilAnalyses"), {
+      const docRef = doc(db, "soilAnalyses", `${user.uid}_${Date.now()}`);
+      await setDoc(docRef, {
         userId: user.uid,
-        createdAt: serverTimestamp(),
+        createdAt: new Date(),
         inputs: form.getValues(),
         results: analysisResult,
       });
@@ -125,6 +146,39 @@ export default function SoilAnalysisPage() {
       });
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleSpeak = async () => {
+    if (!analysisResult || !voiceOutputEnabled) return;
+    setIsSpeaking(true);
+    try {
+      const textToRead = `
+        Analysis for ${form.getValues("cropType")}.
+        Soil Analysis: ${analysisResult.soilAnalysis}.
+        Fertilizer Recommendation: ${analysisResult.fertilizerRecommendation}.
+        Treatment Recommendation: ${analysisResult.treatmentRecommendation}.
+      `;
+      const { audioDataUri } = await textToSpeech({ text: textToRead });
+      const audio = new Audio(audioDataUri);
+      audio.play();
+      audio.onended = () => setIsSpeaking(false);
+    } catch (error) {
+      console.error("Error generating speech:", error);
+      toast({
+        variant: "destructive",
+        title: "Speech Error",
+        description: "Could not generate audio. Please try again.",
+      });
+      setIsSpeaking(false);
+    }
+  };
+
+  const handleMicClick = () => {
+    if (listening) {
+      stopListening();
+    } else {
+      startListening();
     }
   };
 
@@ -230,8 +284,8 @@ export default function SoilAnalysisPage() {
                         <FormControl>
                             <Input type="number" step="0.1" {...field} className="pr-10" />
                         </FormControl>
-                        <Button type="button" size="icon" variant="ghost" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground">
-                            <Mic className="h-4 w-4" />
+                        <Button type="button" size="icon" variant="ghost" onClick={handleMicClick} disabled={!voiceInputEnabled} className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground">
+                            {listening ? <Loader2 className="h-4 w-4 animate-spin text-primary" /> : <Mic className="h-4 w-4" />}
                         </Button>
                        </div>
                       <FormMessage />
@@ -296,8 +350,8 @@ export default function SoilAnalysisPage() {
                         <CardDescription>Based on your provided soil parameters.</CardDescription>
                     </div>
                     <div className="flex gap-2">
-                        <Button variant="outline" size="icon">
-                            <Volume2 className="h-4 w-4"/>
+                        <Button variant="outline" size="icon" onClick={handleSpeak} disabled={isSpeaking || !voiceOutputEnabled}>
+                            {isSpeaking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Volume2 className="h-4 w-4"/>}
                             <span className="sr-only">Read aloud</span>
                         </Button>
                          <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving}>

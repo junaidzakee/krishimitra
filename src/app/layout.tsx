@@ -6,6 +6,7 @@ import { MainNav } from '@/components/main-nav';
 import { Header } from '@/components/header';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/hooks/use-auth';
+import { VoiceProvider } from '@/hooks/use-voice';
 
 export const metadata: Metadata = {
   title: 'AgriAssist',
@@ -33,19 +34,21 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
-          <SidebarProvider>
-            <div className="flex min-h-screen">
-              <Sidebar>
-                <MainNav />
-              </Sidebar>
-              <SidebarInset className="flex flex-col flex-1">
-                <Header />
-                <main className="flex-1 p-4 md:p-8 overflow-y-auto">
-                  {children}
-                </main>
-              </SidebarInset>
-            </div>
-          </SidebarProvider>
+          <VoiceProvider>
+            <SidebarProvider>
+              <div className="flex min-h-screen">
+                <Sidebar>
+                  <MainNav />
+                </Sidebar>
+                <SidebarInset className="flex flex-col flex-1">
+                  <Header />
+                  <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+                    {children}
+                  </main>
+                </SidebarInset>
+              </div>
+            </SidebarProvider>
+          </VoiceProvider>
         </AuthProvider>
         <Toaster />
       </body>

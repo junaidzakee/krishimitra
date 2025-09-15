@@ -10,6 +10,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ import { usePathname } from "next/navigation";
 import Link from 'next/link';
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "./ui/skeleton";
+import { useVoice } from "@/hooks/use-voice";
 
 function getBreadcrumb(pathname: string) {
     const segments = pathname.split('/').filter(Boolean);
@@ -37,6 +39,12 @@ function getBreadcrumb(pathname: string) {
 export function Header() {
   const pathname = usePathname();
   const { user, loading, signOut } = useAuth();
+  const { 
+    voiceInputEnabled, 
+    setVoiceInputEnabled, 
+    voiceOutputEnabled, 
+    setVoiceOutputEnabled 
+  } = useVoice();
   const isAuthPage = pathname === '/sign-in' || pathname === '/sign-up';
 
   const renderAuthSection = () => {
@@ -96,26 +104,20 @@ export function Header() {
                 <DropdownMenuItem>ಕನ್ನಡ (Kannada)</DropdownMenuItem>
                 </DropdownMenuSubContent>
             </DropdownMenuSub>
-            <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                    <Mic className="mr-2 h-4 w-4" />
-                    <span>Voice Input</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                    <DropdownMenuItem>Enabled</DropdownMenuItem>
-                    <DropdownMenuItem>Disabled</DropdownMenuItem>
-                </DropdownMenuSubContent>
-            </DropdownMenuSub>
-            <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                    <Volume2 className="mr-2 h-4 w-4" />
-                    <span>Voice Output</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                    <DropdownMenuItem>Enabled</DropdownMenuItem>
-                    <DropdownMenuItem>Disabled</DropdownMenuItem>
-                </DropdownMenuSubContent>
-            </DropdownMenuSub>
+            <DropdownMenuCheckboxItem
+              checked={voiceInputEnabled}
+              onCheckedChange={setVoiceInputEnabled}
+            >
+              <Mic className="mr-2 h-4 w-4" />
+              <span>Voice Input</span>
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={voiceOutputEnabled}
+              onCheckedChange={setVoiceOutputEnabled}
+            >
+              <Volume2 className="mr-2 h-4 w-4" />
+              <span>Voice Output</span>
+            </DropdownMenuCheckboxItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>
                 <LogOut className="mr-2 h-4 w-4" />
