@@ -177,24 +177,23 @@ export default function WeatherPage() {
 
       <div>
         <h2 className="text-xl font-bold mb-4 font-headline">{t('weather.daily.title')}</h2>
-        <div className="space-y-2">
-          {weatherData.daily.map((day) => (
-            <Card key={day.day}>
-              <CardContent className="flex items-center justify-between p-3">
-                <p className="font-semibold w-24">{day.day}</p>
-                <div className="flex items-center justify-end gap-4 w-full">
-                  <div className="flex items-center gap-2 w-32">
-                    {getWeatherIcon(day.condition, "sm")}
-                    <p className="text-muted-foreground">{day.condition}</p>
-                  </div>
-                  <p className="font-semibold w-20 text-right">
+        <ScrollArea>
+          <div className="flex space-x-4 pb-4">
+            {weatherData.daily.map((day) => (
+              <Card key={day.day} className="flex-shrink-0 w-[150px]">
+                <CardContent className="flex flex-col items-center justify-center p-4 gap-2">
+                  <div className="font-semibold">{day.day}</div>
+                  {getWeatherIcon(day.condition, "sm")}
+                   <p className="text-sm text-muted-foreground">{day.condition}</p>
+                  <p className="font-semibold">
                     {day.high}° / {day.low}°
                   </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
     </div>
   );
