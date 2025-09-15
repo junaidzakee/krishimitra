@@ -1,11 +1,27 @@
+
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { CloudSun, Leaf, LineChart, TestTube2, ArrowRight } from "lucide-react";
 import { getCurrentWeather } from "@/lib/demo-data";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Dashboard() {
   const currentWeather = getCurrentWeather();
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/sign-in');
+    }
+  }, [user, loading, router]);
+
 
   const features = [
     {
@@ -33,6 +49,23 @@ export default function Dashboard() {
       link: "/market-prices",
     },
   ];
+
+  if (loading || !user) {
+    return (
+      <div className="flex flex-col gap-8">
+        <Skeleton className="h-10 w-1/2" />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28" />)}
+        </div>
+        <div>
+          <Skeleton className="h-10 w-1/4 mb-4" />
+          <div className="grid gap-6 md:grid-cols-2">
+            {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-40" />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-8">
