@@ -1,4 +1,9 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { getDemoWeather } from "@/lib/demo-data";
+import type { WeatherForecast } from "@/types";
+import { getWeatherAdvice, WeatherAdviceOutput } from "@/ai/flows/weather-advisor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -9,21 +14,66 @@ import {
   Sun,
   Wind,
   Droplets,
+  Sprout,
+  Spray,
+  CalendarDays,
+  Thermometer,
 } from "lucide-react";
+import { Skeleton } from '@/components/ui/skeleton';
 
 function getWeatherIcon(condition: string, size = "md") {
   const sizes = { sm: "h-6 w-6", md: "h-10 w-10", lg: "h-16 w-16" };
   const className = `${sizes[size]} text-muted-foreground`;
 
-  if (condition.includes("Cloud")) return <Cloud className={className} />;
-  if (condition.includes("Rain")) return <CloudRain className={className} />;
-  if (condition.includes("Thunder")) return <CloudLightning className={className} />;
-  if (condition.includes("Snow")) return <CloudSnow className={className} />;
+  if (condition.toLowerCase().includes("cloud")) return <Cloud className={className} />;
+  if (condition.toLowerCase().includes("rain")) return <CloudRain className={className} />;
+  if (condition.toLowerCase().includes("thunder")) return <CloudLightning className={className} />;
+  if (condition.toLowerCase().includes("snow")) return <CloudSnow className={className} />;
   return <Sun className={className} />;
 }
 
 export default function WeatherPage() {
-  const weather = getDemoWeather();
+  const [weather] = useState<WeatherForecast>(getDemoWeather());
+  const [advice, setAdvice] = useState<WeatherAdviceOutput | null>(null);
+  const [loadingAdvice, setLoadingAdvice] = useState(true);
+
+  useEffect(() => {
+    const fetchAdvice = async () => {
+      try {
+        setLoadingAdvice(true);
+        const result = await getWeatherAdvice({ weather });
+        setAdvice(result);
+      } catch (error) {
+        console.error("Failed to get weather advice:", error);
+      } finally {
+        setLoadingAdvice(false);
+      }
+    };
+    fetchAdvice();
+  }, [weather]);
+
+  const adviceCards = [
+    {
+      title: "Planting & Harvesting",
+      icon: <Sprout className="h-6 w-6 text-primary" />,
+      content: advice?.plantingAndHarvesting,
+    },
+    {
+      title: "Irrigation Scheduling",
+      icon: <Droplets className="h-6 w-6 text-primary" />,
+      content: advice?.irrigation,
+    },
+    {
+      title: "Pest & Disease Prevention",
+      icon: <Spray className="h-6 w-6 text-primary" />,
+      content: advice?.pestAndDisease,
+    },
+    {
+      title: "Daily Work Planning",
+      icon: <CalendarDays className="h-6 w-6 text-primary" />,
+      content: advice?.dailyWorkPlanning,
+    },
+  ];
 
   return (
     <div className="space-y-8">
@@ -59,6 +109,38 @@ export default function WeatherPage() {
           </div>
         </CardContent>
       </Card>
+
+      <div>
+        <h2 className="text-xl font-bold mb-4 font-headline">AI-Powered Agricultural Advisory</h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          {loadingAdvice ? (
+            [...Array(4)].map((_, i) => (
+              <Card key={i}>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <Skeleton className="h-10 w-10 rounded-full" />
+                  <Skeleton className="h-6 w-1/2" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-5/6" />
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            adviceCards.map((item) => (
+              <Card key={item.title}>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="p-2 bg-accent rounded-full">{item.icon}</div>
+                  <CardTitle className="text-lg">{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{item.content}</p>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
+      </div>
 
       <div>
         <h2 className="text-xl font-bold mb-4 font-headline">Hourly Forecast</h2>
