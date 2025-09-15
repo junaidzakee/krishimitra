@@ -90,7 +90,7 @@ export default function DiseaseDetectionPage() {
         const photoDataUri = reader.result as string;
         const analysisResult = await detectDisease({ photoDataUri });
         setResult(analysisResult);
-      } catch (error) => {
+      } catch (error) {
         console.error("Error detecting disease:", error);
         toast({
           variant: "destructive",
