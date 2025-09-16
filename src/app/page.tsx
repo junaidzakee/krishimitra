@@ -130,7 +130,7 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-         <Card>
+         <Card className="bg-card/50">
             <CardHeader>
                 <CardTitle>{t('dashboard.quickActions.title')}</CardTitle>
                 <p className="text-sm text-muted-foreground">{t('dashboard.quickActions.description')}</p>
