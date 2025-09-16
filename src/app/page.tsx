@@ -69,15 +69,15 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      <Card className="bg-gradient-to-r from-accent/50 to-accent/80 border-primary/20">
+      <Card className="bg-gradient-to-r from-green-100/50 to-green-200/50 dark:from-green-900/20 dark:to-green-800/20 border-primary/20">
         <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="space-y-1">
-                <h1 className="text-2xl font-bold tracking-tight font-headline text-accent-foreground">
+                <h1 className="text-2xl font-bold tracking-tight font-headline text-primary-foreground">
                     {t('dashboard.welcome', { name: displayName })}
                 </h1>
                 <p className="text-muted-foreground">{t('dashboard.description')}</p>
             </div>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button asChild>
                 <Link href="/disease-detection">
                     <Camera className="mr-2 h-4 w-4" />
                     {t('dashboard.quickScan')}
@@ -139,7 +139,7 @@ export default function Dashboard() {
                 {quickActions.map((action) => (
                    <Link href={action.link} passHref key={action.title}>
                     <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
-                        <div className="p-3 rounded-lg bg-accent">
+                        <div className="p-3 rounded-lg bg-primary/10 dark:bg-primary/20">
                             {action.icon}
                         </div>
                         <div>

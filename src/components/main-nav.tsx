@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -48,8 +49,8 @@ export function MainNav() {
     <>
       <SidebarHeader className="p-4">
         <Link href="/" className="flex items-center gap-2">
-            <div className="p-2 bg-primary rounded-lg">
-                <Leaf className="w-6 h-6 text-primary-foreground" />
+            <div className="p-2 bg-primary rounded-lg text-primary-foreground">
+                <Leaf className="w-6 h-6" />
             </div>
             <span className="font-bold text-lg text-primary font-headline">KrishiMitra</span>
         </Link>
