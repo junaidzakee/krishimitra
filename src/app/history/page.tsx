@@ -79,11 +79,22 @@ export default function HistoryPage() {
 
   if (loading || authLoading) {
     return (
-      <div className="space-y-6">
-        <Skeleton className="h-10 w-1/3" />
+      <div className="space-y-8">
+        <div>
+            <h1 className="text-3xl font-bold tracking-tight font-headline">{t('history.title')}</h1>
+            <p className="text-muted-foreground">{t('history.description')}</p>
+        </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(3)].map((_, i) => (
-            <Skeleton key={i} className="h-48" />
+            <Card key={i}>
+                <CardHeader>
+                    <Skeleton className="h-6 w-2/3" />
+                    <Skeleton className="h-4 w-1/2" />
+                </CardHeader>
+                <CardContent>
+                    <Skeleton className="h-10 w-full" />
+                </CardContent>
+            </Card>
           ))}
         </div>
       </div>
@@ -92,20 +103,32 @@ export default function HistoryPage() {
 
   if (!user) {
     return (
-      <div className="text-center">
-        <h2 className="text-2xl font-bold">{t('history.signIn.title')}</h2>
-        <p className="text-muted-foreground">{t('history.signIn.description')}</p>
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight font-headline">{t('history.title')}</h1>
+                <p className="text-muted-foreground">{t('history.description')}</p>
+            </div>
+            <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8 mt-8">
+                <h2 className="text-2xl font-bold">{t('history.signIn.title')}</h2>
+                <p className="text-muted-foreground">{t('history.signIn.description')}</p>
+            </div>
       </div>
     );
   }
 
   if (history.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8 mt-8">
-        <Leaf className="h-16 w-16 text-muted-foreground/50" />
-        <h3 className="mt-4 text-lg font-semibold">{t('history.noHistory.title')}</h3>
-        <p className="mt-2 text-sm text-muted-foreground">{t('history.noHistory.description')}</p>
-      </div>
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight font-headline">{t('history.title')}</h1>
+                <p className="text-muted-foreground">{t('history.description')}</p>
+            </div>
+            <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8 mt-8">
+                <Leaf className="h-16 w-16 text-muted-foreground/50" />
+                <h3 className="mt-4 text-lg font-semibold">{t('history.noHistory.title')}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{t('history.noHistory.description')}</p>
+            </div>
+        </div>
     );
   }
 
