@@ -183,3 +183,4 @@ export const getAnalyticsData = (t: (key: string) => string): AnalyticsData => {
     })),
   };
 };
+
