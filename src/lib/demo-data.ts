@@ -1,5 +1,7 @@
 import type { WeatherForecast, MarketPrice } from '@/types';
-import { subDays, startOfHour } from 'date-fns';
+import type { Product } from '@/types/shopping-cart';
+import type { FarmHealthData } from '@/types/farm-health';
+import { subDays } from 'date-fns';
 
 const weatherConditions = ['Sunny', 'Partly Cloudy', 'Cloudy', 'Rainy', 'Thunderstorm'];
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -78,3 +80,82 @@ export const getMarketPrices = (t: (key: string) => string): MarketPrice[] => [
     data: generatePriceData(550, 30),
   },
 ];
+
+export const getMarketplaceProducts = (t: (key: string) => string): Product[] => [
+  {
+    id: '1',
+    name: t('products.fertilizer.name'),
+    description: t('products.fertilizer.description'),
+    price: 1250.00,
+    category: t('products.categories.fertilizers'),
+    imageUrl: 'https://picsum.photos/seed/fertilizer/400/400'
+  },
+  {
+    id: '2',
+    name: t('products.wheatSeeds.name'),
+    description: t('products.wheatSeeds.description'),
+    price: 800.00,
+    category: t('products.categories.seeds'),
+    imageUrl: 'https://picsum.photos/seed/wheat/400/400'
+  },
+  {
+    id: '3',
+    name: t('products.pesticide.name'),
+    description: t('products.pesticide.description'),
+    price: 1500.00,
+    category: t('products.categories.pesticides'),
+    imageUrl: 'https://picsum.photos/seed/pesticide/400/400'
+  },
+  {
+    id: '4',
+    name: t('products.spade.name'),
+    description: t('products.spade.description'),
+    price: 600.00,
+    category: t('products.categories.tools'),
+    imageUrl: 'https://picsum.photos/seed/spade/400/400'
+  },
+   {
+    id: '5',
+    name: t('products.cornSeeds.name'),
+    description: t('products.cornSeeds.description'),
+    price: 950.00,
+    category: t('products.categories.seeds'),
+    imageUrl: 'https://picsum.photos/seed/corn/400/400'
+  },
+  {
+    id: '6',
+    name: t('products.organicManure.name'),
+    description: t('products.organicManure.description'),
+    price: 500.00,
+    category: t('products.categories.fertilizers'),
+    imageUrl: 'https://picsum.photos/seed/manure/400/400'
+  },
+];
+
+export const getFarmHealthData = (t: (key: string) => string): FarmHealthData => {
+  return {
+    overallScore: 0.85,
+    soilQuality: {
+      status: t('farmHealth.statuses.good'),
+      ph: 6.8,
+      nitrogen: 45,
+    },
+    cropVigor: {
+      status: t('farmHealth.statuses.good'),
+      ndvi: 0.78,
+    },
+    pestDiseaseRisk: {
+      status: t('farmHealth.statuses.low'),
+    },
+    fieldStatus: [
+      { id: '1', name: t('farmHealth.fields.north'), crop: t('crops.wheat'), status: t('farmHealth.statuses.healthy') },
+      { id: '2', name: t('farmHealth.fields.south'), crop: t('crops.corn'), status: t('farmHealth.statuses.healthy') },
+      { id: '3', name: t('farmHealth.fields.east'), crop: t('crops.soybean'), status: t('farmHealth.statuses.warning') },
+      { id: '4', name: t('farmHealth.fields.west'), crop: t('crops.rice'), status: t('farmHealth.statuses.healthy') },
+    ],
+    activeAlerts: [
+      { id: '1', title: t('farmHealth.alerts.soybean.title'), description: t('farmHealth.alerts.soybean.description'), risk: 'Medium' },
+      { id: '2', title: t('farmHealth.alerts.weather.title'), description: t('farmHealth.alerts.weather.description'), risk: 'Low' },
+    ],
+  };
+};

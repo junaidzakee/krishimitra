@@ -449,5 +449,96 @@
         "description": "Could not get crop recommendations. Please try again later."
       }
     }
+  },
+  "marketplace": {
+    "description": "Browse and purchase agricultural supplies.",
+    "searchPlaceholder": "Search for products...",
+    "addToCart": "Add to Cart",
+    "noProducts": "No products found matching your criteria.",
+    "toast": {
+      "addedToCart": "{{name}} added to cart."
+    }
+  },
+  "products": {
+    "categories": {
+      "fertilizers": "Fertilizers",
+      "seeds": "Seeds",
+      "pesticides": "Pesticides",
+      "tools": "Tools"
+    },
+    "fertilizer": {
+      "name": "NPK Balanced Fertilizer",
+      "description": "A balanced NPK fertilizer for all-purpose use."
+    },
+    "wheatSeeds": {
+      "name": "High-Yield Wheat Seeds",
+      "description": "Certified high-yield wheat seeds for rabi season."
+    },
+    "pesticide": {
+      "name": "Organic Neem Pesticide",
+      "description": "Broad-spectrum organic pesticide for common pests."
+    },
+    "spade": {
+      "name": "Heavy Duty Garden Spade",
+      "description": "A durable spade for all your digging needs."
+    },
+    "cornSeeds": {
+      "name": "Hybrid Corn Seeds",
+      "description": "Drought-resistant hybrid corn seeds."
+    },
+    "organicManure": {
+      "name": "Organic Compost Manure",
+      "description": "Well-decomposed organic manure to enrich soil."
+    }
+  },
+  "farmHealth": {
+    "description": "An overview of your farm's current health and status.",
+    "overallScore": {
+      "title": "Overall Health Score",
+      "description": "A weighted average of all metrics."
+    },
+    "soilQuality": {
+      "title": "Soil Quality"
+    },
+    "cropVigor": {
+      "title": "Crop Vigor"
+    },
+    "pestRisk": {
+      "title": "Pest/Disease Risk",
+      "next7days": "Forecast for next 7 days"
+    },
+    "fieldStatus": {
+      "title": "Field Status",
+      "description": "Health status of individual fields."
+    },
+    "alerts": {
+      "title": "Active Alerts",
+      "description": "Urgent issues that require your attention.",
+      "soybean": {
+        "title": "Soybean Rust Detected",
+        "description": "Moderate risk in East Field. Consider preventative spray."
+      },
+      "weather": {
+        "title": "Heavy Rain Forecast",
+        "description": "Expected in 48 hours. Check drainage systems."
+      }
+    },
+    "statuses": {
+      "good": "Good",
+      "moderate": "Moderate",
+      "poor": "Poor",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "healthy": "Healthy",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "fields": {
+      "north": "North Field",
+      "south": "South Field",
+      "east": "East Field",
+      "west": "West Field"
+    }
   }
 }
