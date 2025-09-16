@@ -1,3 +1,11 @@
+
+export type FarmHealthAlert = {
+    id: string;
+    title: string;
+    description: string;
+    risk: string;
+};
+
 export type FarmHealthData = {
   overallScore: number;
   soilQuality: {
@@ -18,10 +26,5 @@ export type FarmHealthData = {
     crop: string;
     status: string;
   }[];
-  activeAlerts: {
-    id: string;
-    title: string;
-    description: string;
-    risk: 'Low' | 'Medium' | 'High';
-  }[];
+  activeAlerts: FarmHealthAlert[];
 };

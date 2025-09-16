@@ -8,10 +8,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle, MapPin, ShieldCheck, TestTube2, Wind, Leaf } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/hooks/use-language";
+import type { FarmHealthData, FarmHealthAlert } from "@/types/farm-health";
 
 export default function FarmHealthPage() {
   const { t } = useLanguage();
-  const farmHealthData = getFarmHealthData(t);
+  const farmHealthData: FarmHealthData = getFarmHealthData(t);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -129,8 +130,8 @@ export default function FarmHealthPage() {
             <CardDescription>{t('farmHealth.alerts.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {farmHealthData.activeAlerts.map((alert) => (
-              <Alert key={alert.id} variant={getRiskVariant(alert.risk)}>
+            {farmHealthData.activeAlerts.map((alert: FarmHealthAlert) => (
+              <Alert key={alert.id} variant={getRiskVariant(t(alert.risk))}>
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>{alert.title}</AlertTitle>
                 <AlertDescription>{alert.description}</AlertDescription>
@@ -142,5 +143,3 @@ export default function FarmHealthPage() {
     </div>
   );
 }
-
-    
