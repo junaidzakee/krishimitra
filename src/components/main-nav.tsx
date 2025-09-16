@@ -25,7 +25,8 @@ import {
   AreaChart,
   ShoppingBasket,
   HeartPulse,
-  FlaskConical
+  FlaskConical,
+  Sprout,
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -50,7 +51,7 @@ export function MainNav() {
       <SidebarHeader className="p-4">
         <Link href="/" className="flex items-center gap-2">
             <div className="p-2 bg-primary rounded-lg text-primary-foreground">
-                <Leaf className="w-6 h-6" />
+                <Sprout className="w-6 h-6" />
             </div>
             <span className="font-bold text-lg text-primary font-headline">KrishiMitra</span>
         </Link>
