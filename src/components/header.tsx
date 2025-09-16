@@ -38,7 +38,13 @@ function getBreadcrumb(pathname: string, t: (key: string) => string) {
     if (segments.length === 0) return t('breadcrumbs.dashboard');
 
     const breadcrumbKey = segments[0].replace('-', '');
-    return t(`breadcrumbs.${breadcrumbKey}`);
+    const key = `breadcrumbs.${breadcrumbKey}`;
+    const translated = t(key);
+    // if translation is not found, fallback to a sensible default
+    if (translated === key) {
+        return segments[0].charAt(0).toUpperCase() + segments[0].slice(1).replace('-', ' ');
+    }
+    return translated;
 }
 
 export function Header() {

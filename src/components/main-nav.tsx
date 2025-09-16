@@ -21,6 +21,9 @@ import {
   Settings,
   LifeBuoy,
   History,
+  AreaChart,
+  ShoppingBasket,
+  HeartPulse
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -30,11 +33,12 @@ export function MainNav() {
 
   const links = [
     { href: "/", label: t('sidebar.dashboard'), icon: LayoutGrid },
-    { href: "/soil-analysis", label: t('sidebar.soilAnalysis'), icon: TestTube2 },
+    { href: "/analytics", label: t('sidebar.analytics'), icon: AreaChart },
     { href: "/disease-detection", label: t('sidebar.diseaseDetection'), icon: Leaf },
-    { href: "/weather", label: t('sidebar.weather'), icon: CloudSun },
+    { href: "/crop-recommendation", label: t('sidebar.cropRecommendation'), icon: TestTube2 },
+    { href: "/marketplace", label: t('sidebar.marketplace'), icon: ShoppingBasket },
+    { href: "/farm-health", label: t('sidebar.farmHealth'), icon: HeartPulse },
     { href: "/market-prices", label: t('sidebar.marketPrices'), icon: BarChart },
-    { href: "/history", label: t('sidebar.history'), icon: History },
   ];
 
   return (
@@ -49,6 +53,7 @@ export function MainNav() {
       </SidebarHeader>
       <SidebarContent className="p-4">
         <SidebarMenu>
+            <p className="text-xs text-muted-foreground px-2 pb-2">{t('sidebar.dashboard')}</p>
           {links.map((link) => (
             <SidebarMenuItem key={link.href}>
               <Link href={link.href} passHref>
@@ -70,6 +75,7 @@ export function MainNav() {
       <SidebarFooter className="p-4">
         <SidebarSeparator />
         <SidebarMenu>
+           <p className="text-xs text-muted-foreground px-2 pb-2">{t('sidebar.support')}</p>
           <SidebarMenuItem>
             <Link href="/settings" passHref>
               <SidebarMenuButton className="justify-start" tooltip={t('sidebar.settings')} isActive={pathname.startsWith('/settings')}>
@@ -80,9 +86,9 @@ export function MainNav() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link href="/support" passHref>
-              <SidebarMenuButton className="justify-start" tooltip={t('sidebar.support')} isActive={pathname.startsWith('/support')}>
+              <SidebarMenuButton className="justify-start" tooltip={t('sidebar.help')} isActive={pathname.startsWith('/support')}>
                 <LifeBuoy className="h-5 w-5" />
-                <span>{t('sidebar.support')}</span>
+                <span>{t('sidebar.help')}</span>
               </SidebarMenuButton>
             </Link>
           </SidebarMenuItem>

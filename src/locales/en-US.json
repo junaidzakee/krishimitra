@@ -3,13 +3,18 @@
   "code": "en-US",
   "sidebar": {
     "dashboard": "Dashboard",
-    "soilAnalysis": "Soil Analysis",
+    "analytics": "Analytics",
     "diseaseDetection": "Disease Detection",
+    "cropRecommendation": "Crop Recommendation",
+    "marketplace": "Marketplace",
+    "farmHealth": "Farm Health",
+    "soilAnalysis": "Soil Analysis",
     "weather": "Weather",
     "marketPrices": "Market Prices",
     "history": "History",
     "settings": "Settings",
-    "support": "Support"
+    "support": "Support",
+    "help": "Help & Support"
   },
   "header": {
     "signIn": "Sign In",
@@ -17,64 +22,74 @@
     "myAccount": "My Account",
     "profile": "Profile",
     "settings": "Settings",
-    "support": "Support",
+    "support": "Help & Support",
     "language": "Language",
     "voiceInput": "Voice Input",
     "voiceOutput": "Voice Output",
     "logOut": "Log out"
   },
   "breadcrumbs": {
-    "dashboard": "Dashboard",
+    "dashboard": "Farm Dashboard",
+    "analytics": "Analytics",
     "soilanalysis": "Soil Analysis",
     "diseasedetection": "Disease Detection",
+    "croprecommendation": "Crop Recommendation",
+    "marketplace": "Marketplace",
+    "farmhealth": "Farm Health",
     "weather": "Weather",
     "marketprices": "Market Prices",
     "history": "History",
     "profile": "Profile",
     "settings": "Settings",
-    "support": "Support",
+    "support": "Help & Support",
     "signin": "Sign In",
     "signup": "Sign Up"
   },
   "dashboard": {
-    "welcome": "Welcome to KrishiMitra",
-    "description": "Your smart crop advisory platform.",
+    "welcome": "Welcome back, {{name}}!",
+    "description": "Here's what's happening with your farm today.",
+    "quickScan": "Quick AI Scan",
     "stats": {
-      "currentWeather": {
-        "title": "Current Weather"
+      "cropsMonitored": {
+        "title": "Crops Monitored",
+        "description": "+12% from last month"
       },
-      "nitrogen": {
-        "title": "Nitrogen Level",
-        "description": "From last soil test"
+      "diseaseDetections": {
+        "title": "Disease Detections",
+        "description": "-25% from last month"
       },
-      "wheatPrice": {
-        "title": "Wheat Price",
-        "description": "+2.1% from last month"
+      "farmHealth": {
+        "title": "Farm Health Score",
+        "description": "+5% from last month"
       },
-      "activeAlerts": {
-        "title": "Active Alerts",
-        "description": "Potential rust detection"
+      "marketRevenue": {
+        "title": "Market Revenue",
+        "description": "+12% from last month"
       }
     },
-    "features": {
-      "title": "Features",
-      "goTo": "Go to",
+    "quickActions": {
+      "title": "KrishiMitra Quick Actions",
+      "description": "AI-powered tools for modern farming",
+      "diseaseScanner": {
+        "title": "AI Disease Scanner",
+        "description": "Upload crop images for instant AI-powered disease detection"
+      },
       "soilAnalysis": {
-        "title": "Soil Analysis",
-        "description": "Get fertilizer and treatment advice based on soil parameters."
+        "title": "AI Soil Analysis",
+        "description": "Get recommendations for fertilizers and soil treatments."
       },
-      "diseaseDetection": {
-        "title": "Disease Detection",
-        "description": "Upload a plant image to detect diseases using AI."
-      },
-      "weather": {
-        "title": "Weather Forecast",
-        "description": "View local weather information and alerts."
+       "cropRecommendation": {
+        "title": "AI Crop Recommender",
+        "description": "Find the best crops to plant based on your soil and weather."
       },
       "marketPrices": {
-        "title": "Market Prices",
-        "description": "Visualize historical market prices for key crops."
+        "title": "Market Price Tracker",
+        "description": "Keep an eye on the latest market trends for your crops."
       }
+    },
+    "activityFeed": {
+        "title": "Farm Activity Feed",
+        "description": "Latest updates from your KrishiMitra system"
     }
   },
   "signIn": {
@@ -388,19 +403,10 @@
       }
     },
     "contact": {
-      "title": "Contact Us",
-      "description": "Can't find an answer? Send us a message.",
+      "title": "Chat with Support",
+      "description": "Can't find an answer? Ask our AI assistant.",
       "form": {
-        "name": {
-          "label": "Name",
-          "placeholder": "Your Name"
-        },
-        "email": {
-          "label": "Email",
-          "placeholder": "your@email.com"
-        },
         "message": {
-          "label": "Message",
           "placeholder": "How can we help you?"
         },
         "submit": "Send Message"
