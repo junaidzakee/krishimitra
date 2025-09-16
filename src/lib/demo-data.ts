@@ -1,3 +1,4 @@
+
 import type { WeatherForecast, MarketPrice } from '@/types';
 import type { Product } from '@/types/shopping-cart';
 import type { FarmHealthData } from '@/types/farm-health';

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -16,12 +17,22 @@ export default function FarmHealthPage() {
     switch (status.toLowerCase()) {
       case 'good':
       case 'healthy':
+      case 'अच्छा':
+      case 'स्वस्थ':
+      case 'ಒಳ್ಳೆಯದು':
+      case 'ಆರೋಗ್ಯಕರ':
         return 'bg-green-500';
       case 'moderate':
       case 'warning':
+      case 'मध्यम':
+      case 'चेतावनी':
         return 'bg-yellow-500';
       case 'poor':
       case 'critical':
+      case 'खराब':
+      case 'गंभीर':
+      case 'ಕಳಪೆ':
+      case 'ನಿರ್ಣಾಯಕ':
         return 'bg-red-500';
       default:
         return 'bg-gray-500';
@@ -31,10 +42,15 @@ export default function FarmHealthPage() {
   const getRiskVariant = (risk: string) => {
     switch (risk.toLowerCase()) {
       case 'low':
+      case 'कम':
+      case 'ಕಡಿಮೆ':
         return 'default';
       case 'medium':
+      case 'मध्यम':
         return 'secondary';
       case 'high':
+      case 'उच्च':
+      case 'ಹೆಚ್ಚು':
         return 'destructive';
       default:
         return 'outline';
