@@ -37,7 +37,7 @@ export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState<WeatherForecast | null>(null);
   const [advice, setAdvice] = useState<WeatherAdviceOutput | null>(null);
   const [loadingAdvice, setLoadingAdvice] = useState(true);
-  const { t } = useLanguage();
+  const { t, languageName } = useLanguage();
 
   useEffect(() => {
     const data = getDemoWeather();
@@ -46,7 +46,7 @@ export default function WeatherPage() {
     const fetchAdvice = async () => {
       try {
         setLoadingAdvice(true);
-        const result = await getWeatherAdvice({ weather: data });
+        const result = await getWeatherAdvice({ weather: data, language: languageName });
         setAdvice(result);
       } catch (error) {
         console.error("Failed to get weather advice:", error);
@@ -55,7 +55,7 @@ export default function WeatherPage() {
       }
     };
     fetchAdvice();
-  }, []);
+  }, [languageName]);
 
   const adviceCards = advice ? [
     {

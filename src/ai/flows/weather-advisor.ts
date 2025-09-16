@@ -32,7 +32,8 @@ const WeatherAdviceInputSchema = z.object({
       low: z.number(),
       condition: z.string(),
     })),
-  })
+  }),
+  language: z.string().describe('The language for the response (e.g., "English", "Hindi").'),
 });
 export type WeatherAdviceInput = z.infer<typeof WeatherAdviceInputSchema>;
 
@@ -55,6 +56,7 @@ const prompt = ai.definePrompt({
   input: {schema: WeatherAdviceInputSchema},
   output: {schema: WeatherAdviceOutputSchema},
   prompt: `You are an expert agricultural advisor. Based on the provided weather forecast data, generate concise and actionable recommendations for a farmer.
+Your response must be entirely in the following language: {{{language}}}.
 
 Weather Data:
 Current: {{weather.current.temperature}}°C, {{weather.current.condition}}, Humidity: {{weather.current.humidity}}%, Wind: {{weather.current.windSpeed}} km/h

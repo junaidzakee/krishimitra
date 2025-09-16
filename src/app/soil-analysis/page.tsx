@@ -62,7 +62,7 @@ export default function SoilAnalysisPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { voiceOutputEnabled } = useVoice();
-  const { t, language } = useLanguage();
+  const { t, languageName } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
@@ -109,7 +109,7 @@ export default function SoilAnalysisPage() {
     setIsSpeaking(false);
     setIsPaused(false);
     try {
-      const result = await analyzeSoilAndRecommend(data);
+      const result = await analyzeSoilAndRecommend({ ...data, language: languageName });
       setAnalysisResult(result);
       await awardPoints();
     } catch (error) {
@@ -190,7 +190,7 @@ export default function SoilAnalysisPage() {
         ${t('soilAnalysis.speech.fertilizer')}: ${analysisResult.fertilizerRecommendation}.
         ${t('soilAnalysis.speech.treatment')}: ${analysisResult.treatmentRecommendation}.
       `;
-      const { audioDataUri } = await textToSpeech({ text: textToRead, language });
+      const { audioDataUri } = await textToSpeech({ text: textToRead, language: languageName });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();

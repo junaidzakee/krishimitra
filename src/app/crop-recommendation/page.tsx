@@ -50,7 +50,7 @@ export default function CropRecommendationPage() {
   const [recommendations, setRecommendations] = useState<RecommendCropsOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, languageName } = useLanguage();
 
   const form = useForm<CropRecommendationFormValues>({
     resolver: zodResolver(formSchema),
@@ -68,7 +68,7 @@ export default function CropRecommendationPage() {
     setIsLoading(true);
     setRecommendations(null);
     try {
-      const result = await recommendCrops(data);
+      const result = await recommendCrops({ ...data, language: languageName });
       setRecommendations(result);
     } catch (error) {
       console.error("Error recommending crops:", error);

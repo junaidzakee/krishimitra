@@ -33,6 +33,7 @@ const SoilAnalysisInputSchema = z.object({
   cropType: z
     .string()
     .describe('The type of crop to be grown in the soil.'),
+  language: z.string().describe('The language for the response (e.g., "English", "Hindi").'),
 });
 export type SoilAnalysisInput = z.infer<typeof SoilAnalysisInputSchema>;
 
@@ -58,6 +59,7 @@ const prompt = ai.definePrompt({
   input: {schema: SoilAnalysisInputSchema},
   output: {schema: SoilAnalysisOutputSchema},
   prompt: `You are an expert agricultural advisor. A farmer will provide you with their soil parameters and the crop they intend to grow.
+Your response must be entirely in the following language: {{{language}}}.
 
 You will provide an analysis of the soil conditions, a recommendation for fertilizers to use, and a recommendation for soil treatments.
 

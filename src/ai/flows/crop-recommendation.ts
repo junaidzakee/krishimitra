@@ -19,6 +19,7 @@ const RecommendCropsInputSchema = z.object({
   potassiumLevel: z.number().describe('The potassium level in the soil, in ppm (parts per million).'),
   pHLevel: z.number().describe('The pH level of the soil, on a scale of 0 to 14.'),
   location: z.string().describe('The geographical location (e.g., city, region) for which to get weather data.'),
+  language: z.string().describe('The language for the response (e.g., "English", "Hindi").'),
 });
 export type RecommendCropsInput = z.infer<typeof RecommendCropsInputSchema>;
 
@@ -59,6 +60,7 @@ const recommendCropsFlow = ai.defineFlow(
   },
   async (input) => {
     const prompt = `You are an expert agricultural advisor. Based on the provided soil and weather data, recommend the top 2-3 most suitable and profitable crops to grow. For each crop, provide a clear reason and an estimated market value.
+      Your response must be entirely in the following language: ${input.language}.
 
       Soil Data:
       - Soil Type: ${input.soilType}
