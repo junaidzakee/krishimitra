@@ -26,7 +26,6 @@ import {
   ShoppingBasket,
   HeartPulse,
   FlaskConical,
-  Sprout,
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -51,7 +50,19 @@ export function MainNav() {
       <SidebarHeader className="p-4">
         <Link href="/" className="flex items-center gap-2">
             <div className="p-2 bg-primary rounded-lg text-primary-foreground">
-                <Sprout className="w-6 h-6" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-white"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.28 15.25C16.1 15.42 15.86 15.5 15.61 15.5C15.36 15.5 15.12 15.42 14.93 15.25L12 12.55L9.07 15.25C8.7 15.6 8.1 15.6 7.72 15.25C7.35 14.9 7.35 14.3 7.72 13.95L11.3 10.65C11.48 10.48 11.74 10.39 12 10.39C12.26 10.39 12.52 10.48 12.7 10.65L16.28 13.95C16.65 14.3 16.65 14.9 16.28 15.25Z"
+                  fill="currentColor"
+                />
+              </svg>
             </div>
             <span className="font-bold text-lg text-primary font-headline">KrishiMitra</span>
         </Link>
