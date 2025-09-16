@@ -69,7 +69,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      <Card className="bg-gradient-to-r from-green-100/50 to-green-200/50 dark:from-green-900/20 dark:to-green-800/20 border-primary/20">
+      <Card className="bg-gradient-to-r from-primary/10 to-primary/20 dark:from-primary/20 dark:to-primary/30 border-primary/20">
         <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="space-y-1">
                 <h1 className="text-2xl font-bold tracking-tight font-headline text-primary-foreground">
@@ -132,7 +132,7 @@ export default function Dashboard() {
       <div className="grid gap-6 md:grid-cols-2">
          <Card className="bg-card/50">
             <CardHeader>
-                <CardTitle>{t('dashboard.quickActions.title')}</CardTitle>
+                <CardTitle className='font-headline'>{t('dashboard.quickActions.title')}</CardTitle>
                 <p className="text-sm text-muted-foreground">{t('dashboard.quickActions.description')}</p>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -153,7 +153,7 @@ export default function Dashboard() {
          </Card>
         <Card>
             <CardHeader>
-                <CardTitle>{t('dashboard.activityFeed.title')}</CardTitle>
+                <CardTitle className='font-headline'>{t('dashboard.activityFeed.title')}</CardTitle>
                 <p className="text-sm text-muted-foreground">{t('dashboard.activityFeed.description')}</p>
             </CardHeader>
             <CardContent>

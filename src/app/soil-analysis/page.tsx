@@ -62,7 +62,7 @@ export default function SoilAnalysisPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { voiceOutputEnabled } = useVoice();
-  const { t, languageName } = useLanguage();
+  const { t, languageName, language } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
@@ -190,7 +190,7 @@ export default function SoilAnalysisPage() {
         ${t('soilAnalysis.speech.fertilizer')}: ${analysisResult.fertilizerRecommendation}.
         ${t('soilAnalysis.speech.treatment')}: ${analysisResult.treatmentRecommendation}.
       `;
-      const { audioDataUri } = await textToSpeech({ text: textToRead, language: languageName });
+      const { audioDataUri } = await textToSpeech({ text: textToRead, language });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();
@@ -217,7 +217,7 @@ export default function SoilAnalysisPage() {
     <div className="grid gap-8 md:grid-cols-3">
       <Card className="md:col-span-1">
         <CardHeader>
-          <CardTitle>{t('soilAnalysis.form.title')}</CardTitle>
+          <CardTitle className='font-headline'>{t('soilAnalysis.form.title')}</CardTitle>
           <CardDescription>
             {t('soilAnalysis.form.description')}
           </CardDescription>
@@ -418,5 +418,3 @@ export default function SoilAnalysisPage() {
     </div>
   );
 }
-
-    
