@@ -89,7 +89,19 @@
     },
     "activityFeed": {
         "title": "Farm Activity Feed",
-        "description": "Latest updates from your KrishiMitra system"
+        "description": "Latest updates from your KrishiMitra system",
+        "disease": {
+          "text": "New disease detected in Wheat plot A-3.",
+          "timestamp": "Just now - High priority"
+        },
+        "soil": {
+          "text": "Soil analysis for Corn plot B-1 completed.",
+          "timestamp": "2 hours ago"
+        },
+        "market": {
+          "text": "Soybean market price increased by 3%.",
+          "timestamp": "1 day ago"
+        }
     }
   },
   "signIn": {

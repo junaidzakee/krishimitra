@@ -163,8 +163,8 @@ export default function Dashboard() {
                             <AvatarFallback><FileText/></AvatarFallback>
                         </Avatar>
                         <div>
-                            <p className="font-medium">New disease detected in Wheat plot A-3.</p>
-                            <p className="text-sm text-muted-foreground">Just now - High priority</p>
+                            <p className="font-medium">{t('dashboard.activityFeed.disease.text')}</p>
+                            <p className="text-sm text-muted-foreground">{t('dashboard.activityFeed.disease.timestamp')}</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-4">
@@ -172,8 +172,8 @@ export default function Dashboard() {
                             <AvatarFallback><TestTube2/></AvatarFallback>
                         </Avatar>
                         <div>
-                            <p>Soil analysis for Corn plot B-1 completed.</p>
-                            <p className="text-sm text-muted-foreground">2 hours ago</p>
+                            <p>{t('dashboard.activityFeed.soil.text')}</p>
+                            <p className="text-sm text-muted-foreground">{t('dashboard.activityFeed.soil.timestamp')}</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-4">
@@ -181,8 +181,8 @@ export default function Dashboard() {
                             <AvatarFallback><LineChart/></AvatarFallback>
                         </Avatar>
                         <div>
-                            <p>Soybean market price increased by 3%.</p>
-                            <p className="text-sm text-muted-foreground">1 day ago</p>
+                            <p>{t('dashboard.activityFeed.market.text')}</p>
+                            <p className="text-sm text-muted-foreground">{t('dashboard.activityFeed.market.timestamp')}</p>
                         </div>
                     </div>
                 </div>
