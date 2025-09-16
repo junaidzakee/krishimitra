@@ -2,6 +2,7 @@ import type { WeatherForecast, MarketPrice } from '@/types';
 import type { Product } from '@/types/shopping-cart';
 import type { FarmHealthData } from '@/types/farm-health';
 import { subDays } from 'date-fns';
+import type { AnalyticsData } from '@/types/analytics';
 
 const weatherConditions = ['Sunny', 'Partly Cloudy', 'Cloudy', 'Rainy', 'Thunderstorm'];
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -157,5 +158,27 @@ export const getFarmHealthData = (t: (key: string) => string): FarmHealthData =>
       { id: '1', title: t('farmHealth.alerts.soybean.title'), description: t('farmHealth.alerts.soybean.description'), risk: 'Medium' },
       { id: '2', title: t('farmHealth.alerts.weather.title'), description: t('farmHealth.alerts.weather.description'), risk: 'Low' },
     ],
+  };
+};
+
+export const getAnalyticsData = (t: (key: string) => string): AnalyticsData => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  return {
+    farmHealthHistory: months.map((month, i) => ({
+      month,
+      score: 80 + Math.random() * 5 + i * 2,
+    })),
+    diseaseDetections: [
+      { crop: t('crops.wheat'), detections: Math.floor(Math.random() * 10) + 5 },
+      { crop: t('crops.rice'), detections: Math.floor(Math.random() * 5) + 2 },
+      { crop: t('crops.corn'), detections: Math.floor(Math.random() * 15) + 8 },
+      { crop: t('crops.soybean'), detections: Math.floor(Math.random() * 12) + 3 },
+    ],
+    soilNutrientHistory: months.map((month) => ({
+      month,
+      nitrogen: 40 + Math.random() * 15,
+      phosphorus: 20 + Math.random() * 10,
+      potassium: 30 + Math.random() * 12,
+    })),
   };
 };

@@ -553,5 +553,21 @@
       "title": "Reward!",
       "description": "You earned {{count}} Krishi Coins for scanning a plant."
     }
+  },
+  "analytics": {
+    "description": "An overview of trends and statistics for your farm.",
+    "farmHealth": {
+      "title": "Farm Health Trend",
+      "description": "Overall health score over the last 6 months."
+    },
+    "diseaseDetections": {
+      "title": "Disease Detections by Crop",
+      "description": "Total detections for each crop type this season."
+    },
+    "soilNutrients": {
+      "title": "Soil Nutrient History",
+      "description": "Average N, P, K levels over the last 6 months.",
+      "legend": "Nutrient levels (ppm)"
+    }
   }
 }
