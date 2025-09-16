@@ -156,8 +156,8 @@ export const getFarmHealthData = (t: (key: string) => string): FarmHealthData =>
       { id: '4', name: t('farmHealth.fields.west'), crop: t('crops.rice'), status: t('farmHealth.statuses.healthy') },
     ],
     activeAlerts: [
-      { id: '1', title: t('farmHealth.alerts.soybean.title'), description: t('farmHealth.alerts.soybean.description'), risk: 'farmHealth.statuses.medium' },
-      { id: '2', title: t('farmHealth.alerts.weather.title'), description: t('farmHealth.alerts.weather.description'), risk: 'farmHealth.statuses.low' },
+      { id: '1', title: t('farmHealth.alerts.soybean.title'), description: t('farmHealth.alerts.soybean.description'), risk: t('farmHealth.statuses.medium') },
+      { id: '2', title: t('farmHealth.alerts.weather.title'), description: t('farmHealth.alerts.weather.description'), risk: t('farmHealth.statuses.low') },
     ],
   };
 };
@@ -183,4 +183,3 @@ export const getAnalyticsData = (t: (key: string) => string): AnalyticsData => {
     })),
   };
 };
-

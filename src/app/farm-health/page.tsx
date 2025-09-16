@@ -9,39 +9,48 @@ import { AlertTriangle, MapPin, ShieldCheck, TestTube2, Wind, Leaf } from "lucid
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/hooks/use-language";
 import type { FarmHealthData, FarmHealthAlert } from "@/types/farm-health";
+import { useState, useEffect } from "react";
 
 export default function FarmHealthPage() {
   const { t } = useLanguage();
-  const farmHealthData: FarmHealthData = getFarmHealthData(t);
+  const [farmHealthData, setFarmHealthData] = useState<FarmHealthData | null>(null);
+
+  useEffect(() => {
+    setFarmHealthData(getFarmHealthData(t));
+  }, [t]);
+
 
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case t('farmHealth.statuses.good'):
-      case t('farmHealth.statuses.healthy'):
-        return 'bg-green-500';
-      case t('farmHealth.statuses.moderate'):
-      case t('farmHealth.statuses.warning'):
-        return 'bg-yellow-500';
-      case t('farmHealth.statuses.poor'):
-      case t('farmHealth.statuses.critical'):
-        return 'bg-red-500';
-      default:
-        return 'bg-gray-500';
-    }
+    const statusMap: Record<string, string> = {
+        [t('farmHealth.statuses.good')]: 'bg-green-500',
+        [t('farmHealth.statuses.healthy')]: 'bg-green-500',
+        [t('farmHealth.statuses.moderate')]: 'bg-yellow-500',
+        [t('farmHealth.statuses.warning')]: 'bg-yellow-500',
+        [t('farmHealth.statuses.poor')]: 'bg-red-500',
+        [t('farmHealth.statuses.critical')]: 'bg-red-500',
+    };
+    return statusMap[status] || 'bg-gray-500';
   };
 
   const getRiskVariant = (risk: string) => {
-    switch (risk) {
-      case t('farmHealth.statuses.low'):
-        return 'default';
-      case t('farmHealth.statuses.medium'):
-        return 'secondary';
-      case t('farmHealth.statuses.high'):
-        return 'destructive';
-      default:
-        return 'outline';
-    }
+    const riskMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+        [t('farmHealth.statuses.low')]: 'default',
+        [t('farmHealth.statuses.medium')]: 'secondary',
+        [t('farmHealth.statuses.high')]: 'destructive',
+    };
+    return riskMap[risk] || 'outline';
   };
+
+  if (!farmHealthData) {
+    return (
+        <div className="space-y-8">
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight font-headline">{t('breadcrumbs.farmhealth')}</h1>
+                <p className="text-muted-foreground">{t('farmHealth.description')}</p>
+            </div>
+        </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -131,7 +140,7 @@ export default function FarmHealthPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             {farmHealthData.activeAlerts.map((alert: FarmHealthAlert) => (
-              <Alert key={alert.id} variant={getRiskVariant(t(alert.risk))}>
+              <Alert key={alert.id} variant={getRiskVariant(alert.risk)}>
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>{alert.title}</AlertTitle>
                 <AlertDescription>{alert.description}</AlertDescription>

@@ -11,6 +11,8 @@ import {
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Legend } from "recharts";
 import { getAnalyticsData } from "@/lib/demo-data";
 import { useLanguage } from "@/hooks/use-language";
+import { useEffect, useState } from "react";
+import type { AnalyticsData } from "@/types/analytics";
 
 const farmHealthConfig = {
   score: { label: "Health Score", color: "hsl(var(--chart-1))" },
@@ -33,7 +35,26 @@ const CustomLegend = (props: any) => {
 
 export default function AnalyticsPage() {
   const { t } = useLanguage();
-  const analyticsData = getAnalyticsData(t);
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
+
+  useEffect(() => {
+    setAnalyticsData(getAnalyticsData(t));
+  }, [t]);
+
+  if (!analyticsData) {
+    return (
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold tracking-tight font-headline">{t('breadcrumbs.analytics')}</h1>
+        <p className="text-muted-foreground">{t('analytics.description')}</p>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('analytics.farmHealth.title')}</CardTitle>
+          </CardHeader>
+          <CardContent className="h-60" />
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

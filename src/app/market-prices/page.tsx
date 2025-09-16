@@ -90,7 +90,10 @@ export default function MarketPricesPage() {
     if (marketPrices.length === 0) {
         return (
             <div className="space-y-8">
-                <Skeleton className="h-10 w-1/3" />
+                 <div>
+                    <h1 className="text-3xl font-bold tracking-tight font-headline">{t('marketPrices.title')}</h1>
+                    <p className="text-muted-foreground">{t('marketPrices.description')}</p>
+                </div>
                 <Skeleton className="h-12 w-full" />
                 <Skeleton className="h-96 w-full" />
             </div>
