@@ -14,25 +14,15 @@ export default function FarmHealthPage() {
   const farmHealthData = getFarmHealthData(t);
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'good':
-      case 'healthy':
-      case 'अच्छा':
-      case 'स्वस्थ':
-      case 'ಒಳ್ಳೆಯದು':
-      case 'ಆರೋಗ್ಯಕರ':
+    switch (status) {
+      case t('farmHealth.statuses.good'):
+      case t('farmHealth.statuses.healthy'):
         return 'bg-green-500';
-      case 'moderate':
-      case 'warning':
-      case 'मध्यम':
-      case 'चेतावनी':
+      case t('farmHealth.statuses.moderate'):
+      case t('farmHealth.statuses.warning'):
         return 'bg-yellow-500';
-      case 'poor':
-      case 'critical':
-      case 'खराब':
-      case 'गंभीर':
-      case 'ಕಳಪೆ':
-      case 'ನಿರ್ಣಾಯಕ':
+      case t('farmHealth.statuses.poor'):
+      case t('farmHealth.statuses.critical'):
         return 'bg-red-500';
       default:
         return 'bg-gray-500';
@@ -40,17 +30,12 @@ export default function FarmHealthPage() {
   };
 
   const getRiskVariant = (risk: string) => {
-    switch (risk.toLowerCase()) {
-      case 'low':
-      case 'कम':
-      case 'ಕಡಿಮೆ':
+    switch (risk) {
+      case t('farmHealth.statuses.low'):
         return 'default';
-      case 'medium':
-      case 'मध्यम':
+      case t('farmHealth.statuses.medium'):
         return 'secondary';
-      case 'high':
-      case 'उच्च':
-      case 'ಹೆಚ್ಚು':
+      case t('farmHealth.statuses.high'):
         return 'destructive';
       default:
         return 'outline';
@@ -157,3 +142,5 @@ export default function FarmHealthPage() {
     </div>
   );
 }
+
+    
