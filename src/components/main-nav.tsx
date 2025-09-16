@@ -38,6 +38,7 @@ export function MainNav() {
     { href: "/disease-detection", label: t('sidebar.diseaseDetection'), icon: Leaf },
     { href: "/soil-analysis", label: t('sidebar.soilAnalysis'), icon: FlaskConical },
     { href: "/crop-recommendation", label: t('sidebar.cropRecommendation'), icon: TestTube2 },
+    { href: "/weather", label: t('sidebar.weather'), icon: CloudSun },
     { href: "/marketplace", label: t('sidebar.marketplace'), icon: ShoppingBasket },
     { href: "/farm-health", label: t('sidebar.farmHealth'), icon: HeartPulse },
     { href: "/market-prices", label: t('sidebar.marketPrices'), icon: BarChart },
