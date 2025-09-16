@@ -4,6 +4,7 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "analytics": "Analytics",
+    "community": "Community",
     "diseaseDetection": "Disease Detection",
     "cropRecommendation": "Crop Recommendation",
     "marketplace": "Marketplace",
@@ -31,6 +32,7 @@
   "breadcrumbs": {
     "dashboard": "Farm Dashboard",
     "analytics": "Analytics",
+    "community": "Community Feed",
     "soilanalysis": "Soil Analysis",
     "diseasedetection": "Disease Detection",
     "croprecommendation": "Crop Recommendation",
@@ -580,6 +582,63 @@
       "title": "Soil Nutrient History",
       "description": "Average N, P, K levels over the last 6 months.",
       "legend": "Nutrient levels (ppm)"
+    }
+  },
+  "community": {
+    "description": "Connect and share with other farmers.",
+    "noPosts": "No posts yet. Be the first to start a conversation!",
+    "createPost": {
+      "title": "Create a Post",
+      "description": "Share your thoughts with the community.",
+      "form": {
+        "title": {
+          "label": "Title",
+          "placeholder": "What's on your mind?"
+        },
+        "content": {
+          "label": "Content",
+          "placeholder": "Add more details here..."
+        },
+        "submit": "Post"
+      }
+    },
+    "postCard": {
+      "likes": "Likes",
+      "comments": "Comments"
+    },
+    "deleteDialog": {
+        "title": "Are you sure?",
+        "description": "This action cannot be undone. This will permanently delete your post.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+    },
+    "toast": {
+      "fetchError": {
+        "title": "Error",
+        "description": "Could not fetch community posts."
+      },
+      "authError": {
+        "title": "Authentication Error",
+        "description": "You must be logged in to create a post."
+      },
+      "postSuccess": {
+        "title": "Post Created!"
+      },
+      "postError": {
+        "title": "Error",
+        "description": "Could not create post. Please try again."
+      },
+      "likeError": {
+        "title": "Error",
+        "description": "Could not update like status."
+      },
+      "deleteSuccess": {
+        "title": "Post Deleted"
+      },
+      "deleteError": {
+        "title": "Error",
+        "description": "Could not delete post. Please try again."
+      }
     }
   }
 }

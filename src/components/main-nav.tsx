@@ -27,6 +27,7 @@ import {
   HeartPulse,
   FlaskConical,
   Sprout,
+  Users,
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -37,6 +38,7 @@ export function MainNav() {
   const links = [
     { href: "/", label: t('sidebar.dashboard'), icon: LayoutGrid },
     { href: "/analytics", label: t('sidebar.analytics'), icon: AreaChart },
+    { href: "/community", label: t('sidebar.community'), icon: Users },
     { href: "/disease-detection", label: t('sidebar.diseaseDetection'), icon: Leaf },
     { href: "/soil-analysis", label: t('sidebar.soilAnalysis'), icon: FlaskConical },
     { href: "/crop-recommendation", label: t('sidebar.cropRecommendation'), icon: TestTube2 },
