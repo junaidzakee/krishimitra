@@ -72,7 +72,7 @@ export default function Dashboard() {
       <Card className="bg-gradient-to-r from-primary/10 to-primary/20 dark:from-primary/20 dark:to-primary/30 border-primary/20">
         <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="space-y-1">
-                <h1 className="text-2xl font-bold tracking-tight font-headline text-primary-foreground">
+                <h1 className="text-2xl font-bold tracking-tight font-headline text-foreground">
                     {t('dashboard.welcome', { name: displayName })}
                 </h1>
                 <p className="text-muted-foreground">{t('dashboard.description')}</p>
