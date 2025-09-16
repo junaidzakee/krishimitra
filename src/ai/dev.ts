@@ -7,3 +7,4 @@ import '@/ai/flows/weather-advisor.ts';
 import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/chat.ts';
 import '@/ai/flows/support-agent.ts';
+import '@/ai/flows/crop-recommendation.ts';

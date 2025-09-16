@@ -423,5 +423,31 @@
     "open": "Open AI Assistant",
     "title": "AI Assistant",
     "placeholder": "Ask me anything..."
+  },
+  "cropRecommendation": {
+    "form": {
+      "title": "Crop Recommendation",
+      "description": "Enter your soil and location details to get AI-powered crop suggestions.",
+      "location": {
+        "label": "Location",
+        "placeholder": "e.g., Bengaluru"
+      },
+      "submit": "Recommend Crops"
+    },
+    "results": {
+      "title": "Crop Recommendations",
+      "description": "Top suggestions for your location: {{location}}.",
+      "marketValue": "Est. Market Value"
+    },
+    "placeholder": {
+      "title": "Awaiting Recommendation",
+      "description": "Your AI crop recommendations will appear here."
+    },
+    "toast": {
+      "failure": {
+        "title": "Recommendation Failed",
+        "description": "Could not get crop recommendations. Please try again later."
+      }
+    }
   }
 }

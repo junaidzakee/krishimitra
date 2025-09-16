@@ -3,13 +3,18 @@
   "code": "hi-IN",
   "sidebar": {
     "dashboard": "डैशबोर्ड",
-    "soilAnalysis": "मृदा विश्लेषण",
+    "analytics": "एनालिटिक्स",
     "diseaseDetection": "रोग की पहचान",
+    "cropRecommendation": "फसल सिफारिश",
+    "marketplace": "मार्केटप्लेस",
+    "farmHealth": "खेत का स्वास्थ्य",
+    "soilAnalysis": "मृदा विश्लेषण",
     "weather": "मौसम",
     "marketPrices": "बाजार मूल्य",
     "history": "इतिहास",
     "settings": "सेटिंग्स",
-    "support": "सहायता"
+    "support": "सहायता",
+    "help": "सहायता"
   },
   "header": {
     "signIn": "साइन इन करें",
@@ -24,9 +29,13 @@
     "logOut": "लॉग आउट करें"
   },
   "breadcrumbs": {
-    "dashboard": "डैशबोर्ड",
+    "dashboard": "फार्म डैशबोर्ड",
+    "analytics": "एनालिटिक्स",
     "soilanalysis": "मृदा विश्लेषण",
     "diseasedetection": "रोग की पहचान",
+    "croprecommendation": "फसल सिफारिश",
+    "marketplace": "मार्केटप्लेस",
+    "farmhealth": "खेत का स्वास्थ्य",
     "weather": "मौसम",
     "marketprices": "बाजार मूल्य",
     "history": "इतिहास",
@@ -37,44 +46,50 @@
     "signup": "साइन अप करें"
   },
   "dashboard": {
-    "welcome": "कृषि मित्र में आपका स्वागत है",
-    "description": "आपका स्मार्ट फसल सलाहकार मंच।",
+    "welcome": "वापस स्वागत है, {{name}}!",
+    "description": "आज आपके खेत में क्या हो रहा है, यहाँ देखें।",
+    "quickScan": "त्वरित AI स्कैन",
     "stats": {
-      "currentWeather": {
-        "title": "वर्तमान मौसम"
+      "cropsMonitored": {
+        "title": "निगरानी वाली फसलें",
+        "description": "पिछले महीने से +12%"
       },
-      "nitrogen": {
-        "title": "नाइट्रोजन स्तर",
-        "description": "अंतिम मृदा परीक्षण से"
+      "diseaseDetections": {
+        "title": "रोग का पता लगाना",
+        "description": "पिछले महीने से -25%"
       },
-      "wheatPrice": {
-        "title": "गेहूं का मूल्य",
-        "description": "पिछले महीने से +2.1%"
+      "farmHealth": {
+        "title": "फार्म स्वास्थ्य स्कोर",
+        "description": "पिछले महीने से +5%"
       },
-      "activeAlerts": {
-        "title": "सक्रिय अलर्ट",
-        "description": "संभावित रस्ट का पता लगाना"
+      "marketRevenue": {
+        "title": "बाजार राजस्व",
+        "description": "पिछले महीने से +12%"
       }
     },
-    "features": {
-      "title": "विशेषताएँ",
-      "goTo": "पर जाएँ",
+    "quickActions": {
+      "title": "कृषि मित्र त्वरित क्रियाएं",
+      "description": "आधुनिक खेती के लिए एआई-संचालित उपकरण",
+      "diseaseScanner": {
+        "title": "एआई रोग स्कैनर",
+        "description": "तत्काल एआई-संचालित रोग का पता लगाने के लिए फसल की छवियां अपलोड करें"
+      },
       "soilAnalysis": {
-        "title": "मृदा विश्लेषण",
-        "description": "मृदा मापदंडों के आधार पर उर्वरक और उपचार की सलाह प्राप्त करें।"
+        "title": "एआई मृदा विश्लेषण",
+        "description": "उर्वरकों और मृदा उपचारों के लिए सिफारिशें प्राप्त करें।"
       },
-      "diseaseDetection": {
-        "title": "रोग की पहचान",
-        "description": "एआई का उपयोग करके रोगों का पता लगाने के लिए पौधे की एक छवि अपलोड करें।"
-      },
-      "weather": {
-        "title": "मौसम पूर्वानुमान",
-        "description": "स्थानीय मौसम की जानकारी और अलर्ट देखें।"
+      "cropRecommendation": {
+        "title": "एआई फसल सिफारिशकर्ता",
+        "description": "अपनी मिट्टी और मौसम के आधार पर रोपण के लिए सर्वोत्तम फसलें खोजें।"
       },
       "marketPrices": {
-        "title": "बाजार मूल्य",
-        "description": "प्रमुख फसलों के लिए ऐतिहासिक बाजार मूल्यों की कल्पना करें।"
+        "title": "बाजार मूल्य ट्रैकर",
+        "description": "अपनी फसलों के लिए नवीनतम बाजार के रुझानों पर नजर रखें।"
       }
+    },
+    "activityFeed": {
+      "title": "फार्म गतिविधि फ़ीड",
+      "description": "आपके कृषि मित्र प्रणाली से नवीनतम अपडेट"
     }
   },
   "signIn": {
@@ -388,25 +403,16 @@
       }
     },
     "contact": {
-      "title": "हमसे संपर्क करें",
-      "description": "कोई उत्तर नहीं मिला? हमें एक संदेश भेजें।",
+      "title": "सहायता से चैट करें",
+      "description": "कोई जवाब नहीं मिला? हमारे एआई सहायक से पूछें।",
       "form": {
-        "name": {
-          "label": "नाम",
-          "placeholder": "आपका नाम"
-        },
-        "email": {
-          "label": "ईमेल",
-          "placeholder": "your@email.com"
-        },
         "message": {
-          "label": "संदेश",
           "placeholder": "हम आपकी कैसे मदद कर सकते हैं?"
         },
         "submit": "संदेश भेजें"
       },
       "toast": {
-        "title": "संदೇಶ भेजा गया",
+        "title": "संदेश भेजा गया",
         "description": "हमारी सहायता टीम जल्द ही आपसे संपर्क करेगी।"
       }
     }
@@ -417,5 +423,31 @@
     "open": "एआई सहायक खोलें",
     "title": "एआई सहायक",
     "placeholder": "मुझसे कुछ भी पूछें..."
+  },
+  "cropRecommendation": {
+    "form": {
+      "title": "फसल सिफारिश",
+      "description": "एआई-संचालित फसल सुझाव प्राप्त करने के लिए अपनी मिट्टी और स्थान का विवरण दर्ज करें।",
+      "location": {
+        "label": "स्थान",
+        "placeholder": "जैसे, बेंगलुरु"
+      },
+      "submit": "फसलों की सिफारिश करें"
+    },
+    "results": {
+      "title": "फसल सिफारिशें",
+      "description": "आपके स्थान के लिए शीर्ष सुझाव: {{location}}।",
+      "marketValue": "अनुमानित बाजार मूल्य"
+    },
+    "placeholder": {
+      "title": "सिफारिश की प्रतीक्षा है",
+      "description": "आपकी एआई फसल सिफारिशें यहां दिखाई देंगी।"
+    },
+    "toast": {
+      "failure": {
+        "title": "सिफारिश विफल",
+        "description": "फसल सिफारिशें प्राप्त नहीं हो सकीं। कृपया बाद में पुनः प्रयास करें।"
+      }
+    }
   }
 }

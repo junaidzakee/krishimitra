@@ -3,13 +3,18 @@
   "code": "kn-IN",
   "sidebar": {
     "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
-    "soilAnalysis": "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ",
+    "analytics": "ವಿಶ್ಲೇಷಣೆ",
     "diseaseDetection": "ರೋಗ ಪತ್ತೆ",
+    "cropRecommendation": "ಬೆಳೆ ಶಿಫಾರಸು",
+    "marketplace": "ಮಾರುಕಟ್ಟೆ",
+    "farmHealth": "ಕೃಷಿ ಆರೋಗ್ಯ",
+    "soilAnalysis": "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ",
     "weather": "ಹವಾಮಾನ",
     "marketPrices": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
     "history": "ಇತಿಹಾಸ",
     "settings": "ಸಂಯೋಜನೆಗಳು",
-    "support": "ಬೆಂಬಲ"
+    "support": "ಬೆಂಬಲ",
+    "help": "ಸಹಾಯ"
   },
   "header": {
     "signIn": "ಸೈನ್ ಇನ್",
@@ -24,9 +29,13 @@
     "logOut": "ಲಾಗ್ ಔಟ್"
   },
   "breadcrumbs": {
-    "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "dashboard": "ಫಾರ್ಮ್ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "analytics": "ವಿಶ್ಲೇಷಣೆ",
     "soilanalysis": "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ",
     "diseasedetection": "ರೋಗ ಪತ್ತೆ",
+    "croprecommendation": "ಬೆಳೆ ಶಿಫಾರಸು",
+    "marketplace": "ಮಾರುಕಟ್ಟೆ",
+    "farmhealth": "ಕೃಷಿ ಆರೋಗ್ಯ",
     "weather": "ಹವಾಮಾನ",
     "marketprices": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
     "history": "ಇತಿಹಾಸ",
@@ -37,44 +46,50 @@
     "signup": "ಸೈನ್ ಅಪ್"
   },
   "dashboard": {
-    "welcome": "ಕೃಷಿ ಮಿತ್ರಗೆ ಸುಸ್ವಾಗತ",
-    "description": "ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಬೆಳೆ ಸಲಹಾ ವೇದಿಕೆ.",
+    "welcome": "ಮರಳಿ ಸ್ವಾಗತ, {{name}}!",
+    "description": "ಇಂದು ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿ ಏನಾಗುತ್ತಿದೆ ಎಂಬುದು ಇಲ್ಲಿದೆ.",
+    "quickScan": "ತ್ವರಿತ AI ಸ್ಕ್ಯಾನ್",
     "stats": {
-      "currentWeather": {
-        "title": "ಪ್ರಸ್ತುತ ಹವಾಮಾನ"
+      "cropsMonitored": {
+        "title": "ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಿದ ಬೆಳೆಗಳು",
+        "description": "ಕಳೆದ ತಿಂಗಳಿಂದ +12%"
       },
-      "nitrogen": {
-        "title": "ಸಾರಜನಕ ಮಟ್ಟ",
-        "description": "ಕೊನೆಯ ಮಣ್ಣಿನ ಪರೀಕ್ಷೆಯಿಂದ"
+      "diseaseDetections": {
+        "title": "ರೋಗ ಪತ್ತೆಗಳು",
+        "description": "ಕಳೆದ ತಿಂಗಳಿಂದ -25%"
       },
-      "wheatPrice": {
-        "title": "ಗೋಧಿ ಬೆಲೆ",
-        "description": "ಕಳೆದ ತಿಂಗಳಿಂದ +2.1%"
+      "farmHealth": {
+        "title": "ಫಾರ್ಮ್ ಆರೋಗ್ಯ ಸ್ಕೋರ್",
+        "description": "ಕಳೆದ ತಿಂಗಳಿಂದ +5%"
       },
-      "activeAlerts": {
-        "title": "ಸಕ್ರಿಯ ಎಚ್ಚರಿಕೆಗಳು",
-        "description": "ಸಂಭಾವ್ಯ ತುಕ್ಕು ಪತ್ತೆ"
+      "marketRevenue": {
+        "title": "ಮಾರುಕಟ್ಟೆ ಆದಾಯ",
+        "description": "ಕಳೆದ ತಿಂಗಳಿಂದ +12%"
       }
     },
-    "features": {
-      "title": "ವೈಶಿಷ್ಟ್ಯಗಳು",
-      "goTo": "ಗೆ ಹೋಗಿ",
+    "quickActions": {
+      "title": "ಕೃಷಿ ಮಿತ್ರ ತ್ವರಿತ ಕ್ರಮಗಳು",
+      "description": "ಆಧುನಿಕ ಕೃಷಿಗಾಗಿ AI-ಚಾಲಿತ ಉಪಕರಣಗಳು",
+      "diseaseScanner": {
+        "title": "AI ರೋಗ ಸ್ಕ್ಯಾನರ್",
+        "description": "ತಕ್ಷಣದ AI-ಚಾಲಿತ ರೋಗ ಪತ್ತೆಗಾಗಿ ಬೆಳೆ ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ"
+      },
       "soilAnalysis": {
-        "title": "ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ",
-        "description": "ಮಣ್ಣಿನ ನಿಯತಾಂಕಗಳ ಆಧಾರದ ಮೇಲೆ ರಸಗೊಬ್ಬರ ಮತ್ತು ಚಿಕಿತ್ಸೆಯ ಸಲಹೆ ಪಡೆಯಿರಿ."
+        "title": "AI ಮಣ್ಣು ವಿಶ್ಲೇಷಣೆ",
+        "description": "ರಸಗೊಬ್ಬರಗಳು ಮತ್ತು ಮಣ್ಣಿನ ಚಿಕಿತ್ಸೆಗಳಿಗಾಗಿ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಿರಿ."
       },
-      "diseaseDetection": {
-        "title": "ರೋಗ ಪತ್ತೆ",
-        "description": "AI ಬಳಸಿ ರೋಗಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಸಸ್ಯದ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
-      },
-      "weather": {
-        "title": "ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ",
-        "description": "ಸ್ಥಳೀಯ ಹವಾಮಾನ ಮಾಹಿತಿ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ."
+      "cropRecommendation": {
+        "title": "AI ಬೆಳೆ ಶಿಫಾರಸುಗಾರ",
+        "description": "ನಿಮ್ಮ ಮಣ್ಣು ಮತ್ತು ಹವಾಮಾನವನ್ನು ಆಧರಿಸಿ ನೆಡಲು ಉತ್ತಮ ಬೆಳೆಗಳನ್ನು ಹುಡುಕಿ."
       },
       "marketPrices": {
-        "title": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
-        "description": "ಪ್ರಮುಖ ಬೆಳೆಗಳ ಐತಿಹಾಸಿಕ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳನ್ನು ದೃಶ್ಯೀಕರಿಸಿ."
+        "title": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಟ್ರ್ಯಾಕರ್",
+        "description": "ನಿಮ್ಮ ಬೆಳೆಗಳಿಗೆ ಇತ್ತೀಚಿನ ಮಾರುಕಟ್ಟೆ ಪ್ರವೃತ್ತಿಗಳ ಮೇಲೆ ಕಣ್ಣಿಡಿ."
       }
+    },
+    "activityFeed": {
+      "title": "ಫಾರ್ಮ್ ಚಟುವಟಿಕೆ ಫೀಡ್",
+      "description": "ನಿಮ್ಮ ಕೃಷಿ ಮಿತ್ರ ವ್ಯವಸ್ಥೆಯಿಂದ ಇತ್ತೀಚಿನ ನವೀಕರಣಗಳು"
     }
   },
   "signIn": {
@@ -388,19 +403,10 @@
       }
     },
     "contact": {
-      "title": "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ",
-      "description": "ಉತ್ತರ ಕಂಡುಬಂದಿಲ್ಲವೆ? ನಮಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ.",
+      "title": "ಬೆಂಬಲದೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ",
+      "description": "ಉತ್ತರ ಕಂಡುಬಂದಿಲ್ಲವೆ? ನಮ್ಮ AI ಸಹಾಯಕನನ್ನು ಕೇಳಿ.",
       "form": {
-        "name": {
-          "label": "ಹೆಸರು",
-          "placeholder": "ನಿಮ್ಮ ಹೆಸರು"
-        },
-        "email": {
-          "label": "ಇಮೇಲ್",
-          "placeholder": "your@email.com"
-        },
         "message": {
-          "label": "ಸಂದೇಶ",
           "placeholder": "ನಾವು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"
         },
         "submit": "ಸಂದೇಶ ಕಳುಹಿಸಿ"
@@ -417,5 +423,31 @@
     "open": "AI ಸಹಾಯಕವನ್ನು ತೆರೆಯಿರಿ",
     "title": "AI ಸಹಾಯಕ",
     "placeholder": "ನನ್ನನ್ನು ಏನು ಬೇಕಾದರೂ ಕೇಳಿ..."
+  },
+  "cropRecommendation": {
+    "form": {
+      "title": "ಬೆಳೆ ಶಿಫಾರಸು",
+      "description": "AI-ಚಾಲಿತ ಬೆಳೆ ಸಲಹೆಗಳನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ಮಣ್ಣು ಮತ್ತು ಸ್ಥಳದ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ.",
+      "location": {
+        "label": "ಸ್ಥಳ",
+        "placeholder": "ಉದಾ., ಬೆಂಗಳೂರು"
+      },
+      "submit": "ಬೆಳೆಗಳನ್ನು ಶಿಫಾರಸು ಮಾಡಿ"
+    },
+    "results": {
+      "title": "ಬೆಳೆ ಶಿಫಾರಸುಗಳು",
+      "description": "ನಿಮ್ಮ ಸ್ಥಳಕ್ಕಾಗಿ ಉನ್ನತ ಸಲಹೆಗಳು: {{location}}.",
+      "marketValue": "ಅಂದಾಜು ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ"
+    },
+    "placeholder": {
+      "title": "ಶಿಫಾರಸುಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ",
+      "description": "ನಿಮ್ಮ AI ಬೆಳೆ ಶಿಫಾರಸುಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ."
+    },
+    "toast": {
+      "failure": {
+        "title": "ಶಿಫಾರಸು ವಿಫಲವಾಗಿದೆ",
+        "description": "ಬೆಳೆ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+      }
+    }
   }
 }
