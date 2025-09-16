@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -35,7 +36,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, doc, updateDoc, increment } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, doc, setDoc, increment } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -88,9 +89,9 @@ export default function SoilAnalysisPage() {
   const awardPoints = async () => {
     if (user) {
       const userRef = doc(db, "users", user.uid);
-      await updateDoc(userRef, {
+       await setDoc(userRef, {
         krishiCoins: increment(10)
-      });
+      }, { merge: true });
       toast({
         title: t('rewards.soilAnalysis.title'),
         description: t('rewards.soilAnalysis.description', { count: 10 }),
@@ -357,7 +358,7 @@ export default function SoilAnalysisPage() {
             </Card>
             <Card>
                 <CardHeader>
-                    <CardTitle className="animate-pulse bg-muted rounded-md h-6 w-1/3"></CardTitle>
+                    <CardTitle className="animate-pulse bg-muted rounded-md h-6 w-1/3/3"></CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                     <p className="animate-pulse bg-muted rounded-md h-4 w-full"></p>
@@ -417,3 +418,5 @@ export default function SoilAnalysisPage() {
     </div>
   );
 }
+
+    

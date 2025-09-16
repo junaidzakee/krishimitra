@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
@@ -24,7 +25,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { doc, updateDoc, increment } from "firebase/firestore";
+import { doc, setDoc, increment } from "firebase/firestore";
 
 export default function DiseaseDetectionPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -80,9 +81,9 @@ export default function DiseaseDetectionPage() {
   const awardPoints = async () => {
     if (user) {
       const userRef = doc(db, "users", user.uid);
-      await updateDoc(userRef, {
+      await setDoc(userRef, {
         krishiCoins: increment(10)
-      });
+      }, { merge: true });
       toast({
         title: t('rewards.diseaseDetection.title'),
         description: t('rewards.diseaseDetection.description', { count: 10 }),
@@ -324,3 +325,5 @@ export default function DiseaseDetectionPage() {
     </div>
   );
 }
+
+    
