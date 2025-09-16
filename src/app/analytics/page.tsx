@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -25,6 +26,10 @@ const soilNutrientsConfig = {
   potassium: { label: "Potassium (ppm)", color: "hsl(var(--chart-3))" },
 } satisfies ChartConfig;
 
+const CustomLegend = (props: any) => {
+    const { t } = useLanguage();
+    return <p className="text-xs text-muted-foreground">{t('analytics.soilNutrients.legend')}</p>;
+}
 
 export default function AnalyticsPage() {
   const { t } = useLanguage();
@@ -86,7 +91,7 @@ export default function AnalyticsPage() {
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
                 <YAxis tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                <Legend content={<p className="text-xs text-muted-foreground">{t('analytics.soilNutrients.legend')}</p>} />
+                <Legend content={<CustomLegend />} />
                 <Line dataKey="nitrogen" type="monotone" stroke="var(--color-nitrogen)" strokeWidth={2} dot={false} />
                 <Line dataKey="phosphorus" type="monotone" stroke="var(--color-phosphorus)" strokeWidth={2} dot={false} />
                 <Line dataKey="potassium" type="monotone" stroke="var(--color-potassium)" strokeWidth={2} dot={false} />
