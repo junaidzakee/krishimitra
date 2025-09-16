@@ -142,7 +142,7 @@
     "toast": {
       "success": {
         "title": "Sign Up Successful",
-        "description": "Your account has been created."
+        "description": "Your account has been created. You get 100 bonus Krishi Coins!"
       },
       "failure": {
         "title": "Sign Up Failed"
@@ -455,8 +455,11 @@
     "searchPlaceholder": "Search for products...",
     "addToCart": "Add to Cart",
     "noProducts": "No products found matching your criteria.",
+    "krishiCoins": "Krishi Coins",
+    "redeem": "Redeem",
     "toast": {
-      "addedToCart": "{{name}} added to cart."
+      "addedToCart": "{{name}} added to cart.",
+      "addedToCartWithDiscount": "{{name}} added with a ₹{{discount}} discount!"
     }
   },
   "products": {
@@ -539,6 +542,16 @@
       "south": "South Field",
       "east": "East Field",
       "west": "West Field"
+    }
+  },
+   "rewards": {
+    "soilAnalysis": {
+      "title": "Reward!",
+      "description": "You earned {{count}} Krishi Coins for analyzing your soil."
+    },
+    "diseaseDetection": {
+      "title": "Reward!",
+      "description": "You earned {{count}} Krishi Coins for scanning a plant."
     }
   }
 }

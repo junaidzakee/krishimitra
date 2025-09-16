@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { Loader2, Coins } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function ProfilePage() {
-  const { user, loading } = useAuth();
+  const { user, userData, loading } = useAuth();
   const { toast } = useToast();
   const { t } = useLanguage();
 
@@ -39,15 +39,21 @@ export default function ProfilePage() {
       </div>
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-4">
-            <Avatar className="h-16 w-16">
-              <AvatarImage src="https://picsum.photos/seed/user/100/100" />
-              <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
-            </Avatar>
-            <div>
-              <CardTitle className="text-2xl">{user.displayName || user.email}</CardTitle>
-              <CardDescription>{t('profile.card.description')}</CardDescription>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Avatar className="h-16 w-16">
+                <AvatarImage src="https://picsum.photos/seed/user/100/100" />
+                <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle className="text-2xl">{user.displayName || user.email}</CardTitle>
+                <CardDescription>{t('profile.card.description')}</CardDescription>
+              </div>
             </div>
+             <div className="flex items-center gap-2 rounded-full border bg-background px-4 py-2 text-lg font-bold">
+                <Coins className="h-6 w-6 text-yellow-500" />
+                <span>{userData?.krishiCoins ?? 0}</span>
+              </div>
           </div>
         </CardHeader>
         <CardContent>

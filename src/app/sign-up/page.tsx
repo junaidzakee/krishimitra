@@ -26,7 +26,8 @@ import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 
@@ -71,7 +72,16 @@ export default function SignUpPage() {
   const onSubmit = async (data: SignUpFormValues) => {
     setIsLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const newUser = userCredential.user;
+
+      // Create a user document in Firestore
+      await setDoc(doc(db, "users", newUser.uid), {
+        email: newUser.email,
+        krishiCoins: 100, // Start with 100 bonus coins
+        createdAt: new Date(),
+      });
+
       toast({
         title: t('signUp.toast.success.title'),
         description: t('signUp.toast.success.description'),

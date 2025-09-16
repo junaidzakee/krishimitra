@@ -35,7 +35,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, doc, updateDoc, increment } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -85,6 +85,19 @@ export default function SoilAnalysisPage() {
     };
   }, []);
 
+  const awardPoints = async () => {
+    if (user) {
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        krishiCoins: increment(10)
+      });
+      toast({
+        title: t('rewards.soilAnalysis.title'),
+        description: t('rewards.soilAnalysis.description', { count: 10 }),
+      })
+    }
+  };
+
   const onSubmit = async (data: SoilAnalysisFormValues) => {
     setIsLoading(true);
     setAnalysisResult(null);
@@ -97,6 +110,7 @@ export default function SoilAnalysisPage() {
     try {
       const result = await analyzeSoilAndRecommend(data);
       setAnalysisResult(result);
+      await awardPoints();
     } catch (error) {
       console.error("Error analyzing soil:", error);
       toast({

@@ -22,6 +22,9 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage } from "@/hooks/use-language";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/hooks/use-auth";
+import { db } from "@/lib/firebase";
+import { doc, updateDoc, increment } from "firebase/firestore";
 
 export default function DiseaseDetectionPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -32,6 +35,7 @@ export default function DiseaseDetectionPage() {
   const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
   const { voiceOutputEnabled } = useVoice();
   const { t, language } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -73,6 +77,19 @@ export default function DiseaseDetectionPage() {
     accept: { "image/*": [] },
   });
 
+  const awardPoints = async () => {
+    if (user) {
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        krishiCoins: increment(10)
+      });
+      toast({
+        title: t('rewards.diseaseDetection.title'),
+        description: t('rewards.diseaseDetection.description', { count: 10 }),
+      })
+    }
+  };
+
   const handleSubmit = async () => {
     if (!file) {
       toast({
@@ -93,6 +110,7 @@ export default function DiseaseDetectionPage() {
         const photoDataUri = reader.result as string;
         const analysisResult = await detectDisease({ photoDataUri, language });
         setResult(analysisResult);
+        await awardPoints();
       } catch (error) {
         console.error("Error detecting disease:", error);
         toast({

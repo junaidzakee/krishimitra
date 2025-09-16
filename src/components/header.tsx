@@ -6,7 +6,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -25,6 +24,7 @@ import {
   User,
   Mic,
   Volume2,
+  Coins
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
@@ -49,7 +49,7 @@ function getBreadcrumb(pathname: string, t: (key: string) => string) {
 
 export function Header() {
   const pathname = usePathname();
-  const { user, loading, signOut } = useAuth();
+  const { user, userData, loading, signOut } = useAuth();
   const { 
     voiceInputEnabled, 
     setVoiceInputEnabled, 
@@ -63,7 +63,7 @@ export function Header() {
     if (isAuthPage) return null;
     
     if (loading) {
-        return <Skeleton className="h-8 w-32" />
+        return <Skeleton className="h-8 w-48" />
     }
 
     if (!user) {
@@ -80,6 +80,11 @@ export function Header() {
     }
 
     return (
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium">
+            <Coins className="h-4 w-4 text-yellow-500" />
+            <span>{userData?.krishiCoins ?? 0}</span>
+        </div>
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
@@ -147,6 +152,7 @@ export function Header() {
             </DropdownMenuItem>
             </DropdownMenuContent>
       </DropdownMenu>
+      </div>
     )
   }
 

@@ -142,7 +142,7 @@
     "toast": {
       "success": {
         "title": "साइन अप सफल",
-        "description": "आपका खाता बना दिया गया है।"
+        "description": "आपका खाता बना दिया गया है। आपको 100 बोनस कृषि सिक्के मिलते हैं!"
       },
       "failure": {
         "title": "साइन अप विफल"
@@ -455,8 +455,11 @@
     "searchPlaceholder": "उत्पादों के लिए खोजें...",
     "addToCart": "कार्ट में डालें",
     "noProducts": "आपके मानदंडों से मेल खाने वाले कोई उत्पाद नहीं मिले।",
+    "krishiCoins": "कृषि सिक्के",
+    "redeem": "रिडीम करें",
     "toast": {
-      "addedToCart": "{{name}} कार्ट में जोड़ा गया।"
+      "addedToCart": "{{name}} कार्ट में जोड़ा गया।",
+      "addedToCartWithDiscount": "{{name}} कार्ट में ₹{{discount}} छूट के साथ जोड़ा गया!"
     }
   },
   "products": {
@@ -539,6 +542,16 @@
       "south": "दक्षिणी खेत",
       "east": "पूर्वी खेत",
       "west": "पश्चिमी खेत"
+    }
+  },
+   "rewards": {
+    "soilAnalysis": {
+      "title": "इनाम!",
+      "description": "आपने अपनी मिट्टी का विश्लेषण करने के लिए {{count}} कृषि सिक्के अर्जित किए हैं।"
+    },
+    "diseaseDetection": {
+      "title": "इनाम!",
+      "description": "आपने एक पौधे को स्कैन करने के लिए {{count}} कृषि सिक्के अर्जित किए हैं।"
     }
   }
 }
