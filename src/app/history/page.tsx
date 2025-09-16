@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { db } from '@/lib/firebase';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, Timestamp } from 'firebase/firestore';
 import {
   Card,
   CardContent,
@@ -25,10 +25,7 @@ import { useLanguage } from '@/hooks/use-language';
 
 interface SoilAnalysisRecord {
   id: string;
-  createdAt: {
-    seconds: number;
-    nanoseconds: number;
-  };
+  createdAt: Timestamp;
   inputs: {
     cropType: string;
     nitrogenLevel: number;
@@ -123,7 +120,7 @@ export default function HistoryPage() {
             <CardHeader>
               <CardTitle>{t('history.card.title', { cropType: record.inputs.cropType })}</CardTitle>
               <CardDescription>
-                {t('history.card.savedOn', { date: format(new Date(record.createdAt.seconds * 1000), "PPP") })}
+                {record.createdAt ? t('history.card.savedOn', { date: format(record.createdAt.toDate(), "PPP") }) : 'Date not available'}
               </CardDescription>
             </CardHeader>
             <CardContent>

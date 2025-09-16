@@ -28,14 +28,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Pause, Play, Save, Volume2, Wand2 } from "lucide-react";
+import { FlaskConical, Loader2, Pause, Play, Save, Volume2, Wand2 } from "lucide-react";
 import { analyzeSoilAndRecommend, SoilAnalysisOutput } from "@/ai/flows/soil-analysis-recommendation";
 import { textToSpeech } from "@/ai/flows/text-to-speech";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useVoice } from "@/hooks/use-voice";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -61,7 +61,7 @@ export default function SoilAnalysisPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const { voiceOutputEnabled } = useVoice();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const form = useForm<SoilAnalysisFormValues>({
@@ -131,7 +131,7 @@ export default function SoilAnalysisPage() {
     try {
       await addDoc(collection(db, "soilAnalyses"), {
         userId: user.uid,
-        createdAt: new Date(),
+        createdAt: serverTimestamp(),
         inputs: form.getValues(),
         results: analysisResult,
       });
@@ -175,7 +175,7 @@ export default function SoilAnalysisPage() {
         ${t('soilAnalysis.speech.fertilizer')}: ${analysisResult.fertilizerRecommendation}.
         ${t('soilAnalysis.speech.treatment')}: ${analysisResult.treatmentRecommendation}.
       `;
-      const { audioDataUri } = await textToSpeech({ text: textToRead });
+      const { audioDataUri } = await textToSpeech({ text: textToRead, language });
       const audio = new Audio(audioDataUri);
       audioRef.current = audio;
       audio.play();
@@ -365,7 +365,7 @@ export default function SoilAnalysisPage() {
                             {isAudioLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : (isSpeaking ? <Pause className="h-4 w-4" /> : (isPaused ? <Play className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />))}
                             <span className="sr-only">{t('soilAnalysis.results.readAloud')}</span>
                         </Button>
-                         <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving}>
+                         <Button variant="outline" size="icon" onClick={handleSave} disabled={isSaving || !user}>
                             {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4"/>}
                             <span className="sr-only">{t('soilAnalysis.results.saveOffline')}</span>
                         </Button>
@@ -394,7 +394,7 @@ export default function SoilAnalysisPage() {
        )}
        {!isLoading && !analysisResult && (
             <div className="flex flex-col items-center justify-center h-full rounded-lg border-2 border-dashed border-border text-center p-8">
-                <div className="h-16 w-16 text-muted-foreground/50" />
+                <FlaskConical className="h-16 w-16 text-muted-foreground/50" />
                 <h3 className="mt-4 text-lg font-semibold">{t('soilAnalysis.placeholder.title')}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{t('soilAnalysis.placeholder.description')}</p>
             </div>

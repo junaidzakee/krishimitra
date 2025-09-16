@@ -23,7 +23,8 @@ import {
   History,
   AreaChart,
   ShoppingBasket,
-  HeartPulse
+  HeartPulse,
+  FlaskConical
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -35,6 +36,7 @@ export function MainNav() {
     { href: "/", label: t('sidebar.dashboard'), icon: LayoutGrid },
     { href: "/analytics", label: t('sidebar.analytics'), icon: AreaChart },
     { href: "/disease-detection", label: t('sidebar.diseaseDetection'), icon: Leaf },
+    { href: "/soil-analysis", label: t('sidebar.soilAnalysis'), icon: FlaskConical },
     { href: "/crop-recommendation", label: t('sidebar.cropRecommendation'), icon: TestTube2 },
     { href: "/marketplace", label: t('sidebar.marketplace'), icon: ShoppingBasket },
     { href: "/farm-health", label: t('sidebar.farmHealth'), icon: HeartPulse },
@@ -76,6 +78,14 @@ export function MainNav() {
         <SidebarSeparator />
         <SidebarMenu>
            <p className="text-xs text-muted-foreground px-2 pb-2">{t('sidebar.support')}</p>
+          <SidebarMenuItem>
+            <Link href="/history" passHref>
+              <SidebarMenuButton className="justify-start" tooltip={t('sidebar.history')} isActive={pathname.startsWith('/history')}>
+                <History className="h-5 w-5" />
+                <span>{t('sidebar.history')}</span>
+              </SidebarMenuButton>
+            </Link>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <Link href="/settings" passHref>
               <SidebarMenuButton className="justify-start" tooltip={t('sidebar.settings')} isActive={pathname.startsWith('/settings')}>
